@@ -10,7 +10,8 @@ license:
 - cc-by-nc-sa-4.0
 multilinguality:
 - monolingual
-pretty_name: buildings_dataset
+pretty_name: 
+-buildings_dataset
 size_categories:
 - 1K<n<10K
 source_datasets:
