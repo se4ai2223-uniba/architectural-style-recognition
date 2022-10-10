@@ -10,7 +10,7 @@ license:
 - cc-by-nc-sa-4.0
 multilinguality:
 - monolingual
-pretty_name: "Dataset of buildings with associated architectural styles, based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
+pretty_name: buildings_dataset
 size_categories:
 - 1K<n<10K
 source_datasets:
@@ -26,7 +26,7 @@ task_ids:
 - multi-class-image-classification
 ---
 
-# Dataset Card for "Building dataset based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
+# Dataset Card for Buildings Dataset
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)

@@ -1,5 +1,34 @@
-Model details
-------------
+---
+language:
+- en
+license: mit
+library_name: tensorflowtts
+tags:
+- CNN
+- image-classification
+- architectural-recognizion
+metrics:
+- accuracy
+---
+
+# Model Card for the "Architectural Style Recognition CNN"
+
+## Table of Contents
+- [Model details](#model-details)
+- [Parameters](#parameters)
+- [Resources](#resources)
+	- [Related Works](#related-works)
+- [License](#license)
+- [Contacts](#contacts)
+- [Intended use](#intended-use)
+- [Factors](#factors)
+- [Metrics](#metrics)
+- [Training Data](#training-data)
+	- [Motivation](#motivazion)
+	- [Preprocessing](#preprocessing)
+- [Caveats and recommendations](#caveats-and-recommendations)
+
+###Model details
 
 - Authors: Andrea Basile, Roberto Lorusso, Antonio Iacovazzi, Emanuele Pomponio
 
@@ -35,7 +64,6 @@ The model was trained with the following setting for the parameters:
 
 
 ### Resources
-
 
 The dataset is publicly available from kaggle at:
 <a>https://www.kaggle.com/datasets/wwymak/architecture-dataset</a>
