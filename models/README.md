@@ -1,8 +1,10 @@
 ---
 language:
 - en
-license: mit
-library_name: mobilenetv2
+license: 
+- mit
+library_name: 
+- mobilenetv2
 tags:
 - CNN
 - image-classification
