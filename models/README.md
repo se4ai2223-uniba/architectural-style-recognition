@@ -28,7 +28,8 @@ metrics:
 	- [Preprocessing](#preprocessing)
 - [Caveats and recommendations](#caveats-and-recommendations)
 
-###Model details
+
+##Model details
 
 - Authors: Andrea Basile, Roberto Lorusso, Antonio Iacovazzi, Emanuele Pomponio
 
