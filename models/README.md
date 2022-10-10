@@ -2,7 +2,7 @@
 language:
 - en
 license: mit
-library_name: tensorflowtts
+library_name: mobilenetv2
 tags:
 - CNN
 - image-classification
@@ -24,12 +24,12 @@ metrics:
 - [Factors](#factors)
 - [Metrics](#metrics)
 - [Training Data](#training-data)
-	- [Motivation](#motivazion)
+	- [Motivation](#motivation)
 	- [Preprocessing](#preprocessing)
 - [Caveats and recommendations](#caveats-and-recommendations)
 
 
-##Model details
+### Model details
 
 - Authors: Andrea Basile, Roberto Lorusso, Antonio Iacovazzi, Emanuele Pomponio
 
