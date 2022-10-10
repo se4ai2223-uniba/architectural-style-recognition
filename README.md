@@ -182,39 +182,8 @@ Since architectural styles can enclose many other styles, the predicitons can be
 As mentioned before night images can suffer of low accuracy in the process of prediction, we suggest to run predictions on images captured at day light time. 
 
 
-Dataset card
-============
-
----
-annotations_creators:
-- expert-generated
-language:
-- en
-language_creators:
-- expert-generated
-- found
-license:
-- cc-by-nc-sa-4.0
-multilinguality:
-- monolingual
-pretty_name: "Dataset of buildings with associated architectural styles, based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
-size_categories:
-- 1K<n<10K
-source_datasets:
-- original
-tags:
-- image-classification
-- computer-vision
-- architectural-styles
-- buildings
-task_categories:
-- image-classification
-task_ids:
-- multi-class-image-classification
----
-
 # Dataset Card for "Dataset of buildings with associated architectural styles, based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
-
+============
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Dataset Description](#dataset-description)
