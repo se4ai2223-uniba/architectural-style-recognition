@@ -54,13 +54,9 @@ Project Organization
 Model card
 ==========
 
-Below we describe the model and its features, starting from.... 
 
 Model details
 ------------
-
-
-
 
 - Authors: Andrea Basile, Roberto Lorusso, Antonio Iacovazzi, Emanuele Pomponio
 
@@ -188,6 +184,7 @@ As mentioned before night images can suffer of low accuracy in the process of pr
 
 Dataset card
 ============
+
 ---
 annotations_creators:
 - expert-generated
@@ -200,9 +197,7 @@ license:
 - cc-by-nc-sa-4.0
 multilinguality:
 - monolingual
-pretty_name: "Dataset of buildings with associated architectural styles, based on\
-  \ Zhe Xu et al. \u201CArchitectural Style Classification Using Multinomial Latent\
-  \ Logistic Regression\u201D"
+pretty_name: "Dataset of buildings with associated architectural styles, based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
 size_categories:
 - 1K<n<10K
 source_datasets:
@@ -218,7 +213,7 @@ task_ids:
 - multi-class-image-classification
 ---
 
-# Dataset Card for Building dataset based on Zhe Xu et al. \u201CArchitectural Style Classification\   \ Using Multinomial Latent Logistic Regression\u201D
+# Dataset Card for "Dataset of buildings with associated architectural styles, based on Zhe Xu et al. 'Architectural Style Classification Using Multinomial Latent Logistic Regression'"
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
