@@ -11,7 +11,7 @@ license:
 multilinguality:
 - monolingual
 pretty_name: 
--buildings_dataset
+- buildings_dataset
 size_categories:
 - 1K<n<10K
 source_datasets:
