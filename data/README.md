@@ -70,6 +70,8 @@ This number has been reduced to 2343 images and 10 classes in order to reduce ti
 The 10 classes considered are:
 [![archi-style.png](https://i.postimg.cc/3xG3543f/archi-style.png)](https://postimg.cc/xX9wLdJL)
 
+The ten classes are distributed as follow:
+[![msg-876143422-143037.jpg](https://i.postimg.cc/fR9nVJg4/msg-876143422-143037.jpg)](https://postimg.cc/Xr4Dh7bx)
 ### Supported Tasks and Leaderboards
 
 The model has been using for the task of classification of architectural styles, reaching an accuracy of around 84% on the test set.
