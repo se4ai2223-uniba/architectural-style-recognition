@@ -64,16 +64,7 @@ The original dataset contains around 5000 images of buildings annotated accordin
 This number has been reduced to 2343 images and 10 classes in order to reduce time complexity in the training phase.
 
 The 10 classes considered are:
-1-Baroque
-2-Byzantine
-3-Art Deco
-4-Art Nuveau
-5-Egyptian
-6-Ghotic
-7-Greek
-8-Art Nuveau
-9-Romanesque
-10-Russian
+[![archi-style.png](https://i.postimg.cc/3xG3543f/archi-style.png)](https://postimg.cc/xX9wLdJL)
 
 ### Supported Tasks and Leaderboards
 
