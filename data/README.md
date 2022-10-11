@@ -44,6 +44,10 @@ task_ids:
   - [Source Data](#source-data)
   - [Annotations](#annotations)
   - [Personal and Sensitive Information](#personal-and-sensitive-information)
+- [Considerations for Using the Data](#considerations-for-using-the-data)
+  - [Social Impact of Dataset](#social-impact-of-dataset)
+  - [Discussion of Biases](#discussion-of-biases)
+  - [Other Known Limitations](#other-known-limitations)
 - [Additional Information](#additional-information)
   - [Dataset Curators](#dataset-curators)
   - [Licensing Information](#licensing-information)
@@ -136,6 +140,19 @@ The annotators are the authors of the referred paper, namely: Zhe Xu, Dacheng Ta
 
 The dataset, owing to its content, does not contain any kind of personal or sensitive information.
 
+## Considerations for Using the Data
+
+### Social Impact of Dataset
+
+The dataset has been developed to aid in the classification of architectural styles. While it does not purport to have be particularly impactful from a social standpoint, might still be considered useful to promote interest and stimulate curiosity in the study of different cultures.
+
+### Discussion of Biases
+
+Both the original dataset and the filtered one were imbalanced, meaning that some classes were more represented than others. Data augmentation has been used during the preprocessing phase to compensate for this problem.
+
+### Other Known Limitations
+
+As previously mention, the need for a faster model has been addressed with a reduction of the number of images and classes in the original model, respectively from around 5000 to 2343, and from 25 to 10.
 ## Additional Information
 
 ### Dataset Curators
