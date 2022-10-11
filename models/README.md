@@ -39,17 +39,15 @@ metrics:
 
 - Model Version: 2.2.3
 
-- Model Type: CNN based on Mobile-NetV2 architecture. Below it is reported the whole architecture of Mobile-NetV2:
-
-<img src="arch.png" alt="Alt text" title="Optional title" style="width:50%">
+- Model Type: CNN based on Mobile-NetV2 architecture.
 
 The model we used in our project is composed by 4 Layers:
 
 - Input layer: used for establish the shape of input, in this case an image 224 x 224 x 3
 
-- MobileNetV2: MobileNet is a pretrained CNN, suited for devices with low computational resources. We retrained all the parameters of this network in order to get better accuracy. Below it is reported a representation of MobileNetV2:
+- MobileNetV2: MobileNet is a pretrained CNN, suited for devices with low computational resources. We retrained all the parameters of this network in order to get better accuracy. Below it is reported the architecture of MobileNetV2:
 
-<img src="mbnetv2.png" alt="Alt text" title="Optional title" style="width:70%">
+<img src="arch.png" alt="Alt text" title="Optional title" style="width:50%; padding-left: 4%">
 
 - Dropout layer: randomly sets input units to 0 with a frequency of rate at each step during training time, which helps prevent overfitting.
 
