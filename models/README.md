@@ -111,7 +111,7 @@ Further details can be given at the following contacts:
 
 # Intended use
 
-The principal stakeholders are generic users with the intent of recognizing an architectural style. The model has a user-interface developed with a Telegram chat bot. 
+The principal stakeholders are generic users with the intent of recognizing an architectural style. The model will be made available through a user-interface developed with a Telegram chat bot. 
 Another context of usage can be the didactic one, as every organization can access to the chat bot. 
 
 # Factors
