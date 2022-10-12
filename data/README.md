@@ -80,7 +80,7 @@ The model has been using for the task of classification of architectural styles,
 
 ### Languages
 
-As the dataset is comprised of annotated images (in contrast to annotated documents), the language we refer to in only the one used in the annotations, which is exclusively English.
+As the dataset is comprised of annotated images (in contrast to annotated documents), the language we refer to in only the one used is the annotations, which is exclusively English.
 
 ## Dataset Structure
 
