@@ -71,7 +71,7 @@ The 10 classes considered are:
 [![archi-style.png](https://i.postimg.cc/3xG3543f/archi-style.png)](https://postimg.cc/xX9wLdJL)
 
 The ten classes are distributed as follow:
-[![msg-876143422-143037.jpg](https://i.postimg.cc/fR9nVJg4/msg-876143422-143037.jpg)](https://postimg.cc/Xr4Dh7bx)
+[![msg-876143422-143037.jpg](https://i.postimg.cc/sXgNnZTN/msg-876143422-143037.jpg)](https://postimg.cc/Ffwpz15y)
 ### Supported Tasks and Leaderboards
 
 The model has been using for the task of classification of architectural styles, reaching an accuracy of around 84% on the test set.
@@ -85,7 +85,7 @@ As the dataset is comprised of annotated images (in contrast to annotated docume
 
 ### Data Instances
 
-Each instance is constitued by a 224x224x3 image.
+Each instance is constitued by images of different sizes.
 
 ### Data Fields
 
@@ -93,7 +93,8 @@ As the dataset is comprised of images, there are no data fields.
 
 ### Data Splits
 
-The training, validation and test proportion of the dataset are respectively 70%, 20% and 10%.
+The training and validation proportion of the dataset are respectively 70% and 30%.
+The test set was build taking 30 images from the dataset and placing them in a proper folder, this was done in order to have a balanced test set and avoid biases in testing.
 
 ## Dataset Creation
 
