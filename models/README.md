@@ -174,7 +174,7 @@ Data augmentation is performed by appliying the following transformations on the
 The overall accuracy is of 85% on 300 test images.
 Other metrics can be observed directly from the image below. 
 
-<img src="metrics.png" alt="Alt text" title="Optional title" style="width:70%">
+<img src="metrics.png" alt="Alt text" title="Optional title" style="width:50%">
 
 
 
