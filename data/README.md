@@ -71,6 +71,7 @@ The 10 classes considered are:
 [![archi-style.png](https://i.postimg.cc/3xG3543f/archi-style.png)](https://postimg.cc/xX9wLdJL)
 
 The ten classes are distributed as follow:
+
 [![msg-876143422-143037.jpg](https://i.postimg.cc/sXgNnZTN/msg-876143422-143037.jpg)](https://postimg.cc/Ffwpz15y)
 ### Supported Tasks and Leaderboards
 
@@ -94,6 +95,7 @@ As the dataset is comprised of images, there are no data fields.
 ### Data Splits
 
 The training and validation proportion of the dataset are respectively 70% and 30%.
+
 The test set was build taking 30 images from the dataset and placing them in a proper folder, this was done in order to have a balanced test set and avoid biases in testing.
 
 ## Dataset Creation
