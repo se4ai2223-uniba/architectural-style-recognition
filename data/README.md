@@ -70,23 +70,23 @@ This number has been reduced to 2343 images and 10 classes in order to reduce ti
 The 10 classes considered are:
 [![archi-style.png](https://i.postimg.cc/3xG3543f/archi-style.png)](https://postimg.cc/xX9wLdJL)
 
-The ten classes are distributed as follow:
+The histogram below illustrates the distrubution of the data and the differences between the original classes and the ones selected for this project:
 
 [![msg-876143422-143037.jpg](https://i.postimg.cc/sXgNnZTN/msg-876143422-143037.jpg)](https://postimg.cc/Ffwpz15y)
 ### Supported Tasks and Leaderboards
 
-The model has been using for the task of classification of architectural styles, reaching an accuracy of around 84% on the test set.
+The model has been using for the task of classification of architectural styles, reaching an accuracy of around 85% on the test set.
 
 
 ### Languages
 
-As the dataset is comprised of annotated images (in contrast to annotated documents), the language we refer to in only the one used is the annotations, which is exclusively English.
+As the dataset is comprised of annotated images (in contrast to annotated documents), the language we refer to is only the one used is the annotations, which is exclusively English.
 
 ## Dataset Structure
 
 ### Data Instances
 
-Each instance is constitued by images of different sizes.
+Each instance represent an image originally extracted by querying Wikimedia. As this source does not enforce a determined size for the images, this diversity in size is also preserved in the instances of this project. These images will then later be processed to be of the same size, namely 224x224 pixels.
 
 ### Data Fields
 
@@ -94,9 +94,13 @@ As the dataset is comprised of images, there are no data fields.
 
 ### Data Splits
 
-The training and validation proportion of the dataset are respectively 70% and 30%.
+Starting the original 2343 images, a preliminary split has been made by picking 30 images for each of the 10 classes to form the test set. The selection of the images has been done manually to to have a more balanced test set and ensure diversification (e.g. avoiding multiple images of the same building to be chosen for the test set and subtracted from the train set).
 
-The test set was build taking 30 images from the dataset and placing them in a proper folder, this was done in order to have a balanced test set and avoid biases in testing.
+The histogram below illustrates this initial split: 
+
+Thereafter, a further split has been made between training and validation set, with respective proportions of 70% and 30%.
+
+The training and validation proportion of the dataset are respectively 70% and 30%.
 
 ## Dataset Creation
 
