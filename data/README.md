@@ -74,6 +74,8 @@ The histogram below illustrates the distrubution of the data and the differences
 
 [![Figure-2022-10-12-160741.png](https://i.postimg.cc/mgLg7Lsd/Figure-2022-10-12-160741.png)](https://postimg.cc/4m0GgTnt)
 
+The choice of the final 10 classes has been made based on the number of images, diversification between styles and on the familiarity of the authors with each style. 
+
 
 ### Supported Tasks and Leaderboards
 
