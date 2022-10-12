@@ -63,7 +63,7 @@ task_ids:
 
 The dataset is a subset of the one used in the paper "Architectural Style Classification Using Multinomial Latent Logistic Regression", Zhe Xu et al.
 
-The original dataset contains around 5000 images of buildings annotated according to 25 different classes (i.e. architectural styles). 
+The original dataset contains 4794 images of buildings annotated according to 25 different classes (i.e. architectural styles). 
 
 This number has been reduced to 2343 images and 10 classes in order to reduce time complexity in the training phase.
 
