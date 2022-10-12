@@ -72,7 +72,9 @@ The 10 classes considered are:
 
 The histogram below illustrates the distrubution of the data and the differences between the original classes and the ones selected for this project:
 
-[![msg-876143422-143037.jpg](https://i.postimg.cc/sXgNnZTN/msg-876143422-143037.jpg)](https://postimg.cc/Ffwpz15y)
+[![Figure-2022-10-12-160741.png](https://i.postimg.cc/mgLg7Lsd/Figure-2022-10-12-160741.png)](https://postimg.cc/4m0GgTnt)
+
+
 ### Supported Tasks and Leaderboards
 
 The model has been using for the task of classification of architectural styles, reaching an accuracy of around 85% on the test set.
@@ -86,7 +88,7 @@ As the dataset is comprised of annotated images (in contrast to annotated docume
 
 ### Data Instances
 
-Each instance represent an image originally extracted by querying Wikimedia. As this source does not enforce a determined size for the images, this diversity in size is also preserved in the instances of this project. These images will then later be processed to be of the same size, namely 224x224 pixels.
+Each instance represent an RGB image originally extracted by querying Wikimedia. As this source does not enforce a determined size for the images, this diversity in size is also preserved in the instances of this project. These images will then later be processed to be of the same size, namely 224x224 pixels.
 
 ### Data Fields
 
@@ -94,9 +96,11 @@ As the dataset is comprised of images, there are no data fields.
 
 ### Data Splits
 
-Starting the original 2343 images, a preliminary split has been made by picking 30 images for each of the 10 classes to form the test set. The selection of the images has been done manually to to have a more balanced test set and ensure diversification (e.g. avoiding multiple images of the same building to be chosen for the test set and subtracted from the train set).
+Starting from the original 2343 images, a preliminary split has been made by picking 30 images for each of the 10 classes to form the test set. The selection of the images has been done manually to to have a more balanced test set and ensure diversification (e.g. avoiding multiple images of the same building to be chosen for the test set and subtracted from the train set).
 
 The histogram below illustrates this initial split: 
+
+[![Figure-2022-10-12-133412.png](https://i.postimg.cc/m2NQbgjV/Figure-2022-10-12-133412.png)](https://postimg.cc/jL2WcKGJ)
 
 Thereafter, a further split has been made between training and validation set, with respective proportions of 70% and 30%.
 
