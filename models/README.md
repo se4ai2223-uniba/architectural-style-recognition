@@ -128,14 +128,17 @@ All the experiments were carried out on Google Colab platform with the following
 # Metrics
 The metrics used in this project are:
 - Confusion Matrix
-- Accuracy
+- Accuracy: around 85%
 - Recall: how many styles are correctly classified over false negatives and true positive.
 - Precision: how many styles are correctly classified over all positive predicted samples.
 
 
 # Training data 
 
-The training data consists of 80% of our dataset, the remaining 20% is divided between validation data and test data.
+- Training Data (Orignal Dataset - 30 images for each class used for Test Set).
+	- 70% is used as Training Set.
+	- 30% is used as Validadtion Set.
+
 Below we report links for dataset and dataset card:
 - <a href='https://www.kaggle.com/datasets/wwymak/architecture-dataset'>dataset link</a>
 - <a href='https://github.com/se4ai2223-uniba/architectural-style-recognition/blob/main/data/README.md'>dataset card link</a>
