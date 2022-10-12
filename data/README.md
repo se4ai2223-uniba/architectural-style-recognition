@@ -115,8 +115,6 @@ According to the source paper, the dataset has been annotated by querying Wikime
 
 Additional filtering was then applied to the dataset by the creators of our model, reducing the number of images to about a half and the number of classes to 10.
 
-The two main types of normalization used are re-scaling normalization, which normalized each pixel value of an image to a number between 0 and 1, and mean STD normalization, used to normalize data to a uniform mean of 0 and a standard deviation of 1. These two normalizations have the overall purpose of speeding up the learning process of the neural network. 
-
 
 #### Who are the source language producers?
 
