@@ -129,8 +129,8 @@ All the experiments were carried out on Google Colab platform with the following
 The metrics used in this project are:
 - Confusion Matrix
 - Accuracy: around 85%
-- Recall: how many styles are correctly classified over false negatives and true positive.
-- Precision: how many styles are correctly classified over all positive predicted samples.
+- Recall: how many styles are correctly classified over false negatives and true positive (TO-DO)
+- Precision: how many styles are correctly classified over all positive predicted samples (TO-DO)
 
 
 # Training data 
