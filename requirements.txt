@@ -18,3 +18,4 @@ matplotlib
 pandas==1.5.0
 split-folders==0.5.1
 mlflow==1.29.0
+dvc
