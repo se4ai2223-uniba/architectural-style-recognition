@@ -4,6 +4,7 @@ stages:
     deps:
     - data/processed/arcDatasetSplitted/test
     - data/processed/arcDatasetSplitted/train
+    - src/data/make_dataset.py
     outs:
     - data/processed/train
     - data/processed/val
