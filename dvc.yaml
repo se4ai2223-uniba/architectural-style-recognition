@@ -1,0 +1,9 @@
+stages:
+  prepare-dataset:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - data/processed/arcDatasetSplitted/test
+    - data/processed/arcDatasetSplitted/train
+    outs:
+    - data/processed/train
+    - data/processed/val

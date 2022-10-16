@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  prepare-dataset:
+    cmd: python src/data/make_dataset.py
+    deps:
+    - path: data/processed/arcDatasetSplitted/test
+      md5: 5e6ca0a8704395a9efa654fff2ff4b66.dir
+      size: 57950360
+      nfiles: 300
+    - path: data/processed/arcDatasetSplitted/train
+      md5: d4e3735c684723c8a64b9dbd7c2f0ad7.dir
+      size: 322197035
+      nfiles: 2044
+    outs:
+    - path: data/processed/train
+      md5: fe5940ab55ab71c4b759ecdf81f36084.dir
+      size: 203168194
+      nfiles: 1426
+    - path: data/processed/val
+      md5: 0bd43cc9acbcf9a1551dc336abd7c50d.dir
+      size: 93257030
+      nfiles: 609
