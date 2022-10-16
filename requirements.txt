@@ -13,3 +13,4 @@ cv2
 numpy
 matplotlib
 pandas
+split-folders
