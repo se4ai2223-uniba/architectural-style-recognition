@@ -44,3 +44,23 @@ stages:
     - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65
       size: 1100
+  predict:
+    cmd: python src\models\predict_model.py
+    deps:
+    - path: data\processed\test
+      md5: 1188e524d5db5071e3c9346e646ac112.dir
+      size: 1509884
+      nfiles: 9
+    - path: models\saved-model\model.h5
+      md5: 57784d2c2d10bb53754dc6023c269ddf
+      size: 17760384
+    - path: models\saved-model\model.json
+      md5: 14669030a34c58b4d811b99c0558fd65
+      size: 1100
+    - path: src\models\predict_model.py
+      md5: fdf05cccc4b559ef733977808d7579ef
+      size: 1468
+    outs:
+    - path: src\models\results.txt
+      md5: f7b1528a90da979b0a05f876622ba5e4
+      size: 1349

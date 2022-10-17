@@ -17,3 +17,12 @@ stages:
     outs:
     - models/saved-model/model.h5
     - models/saved-model/model.json
+  predict:
+    cmd: python src\models\predict_model.py
+    deps:
+    - data\processed\test
+    - models\saved-model\model.h5
+    - models\saved-model\model.json
+    - src\models\predict_model.py
+    outs:
+    - src\models\results.txt
