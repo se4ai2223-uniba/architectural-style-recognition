@@ -91,7 +91,7 @@ def main():
 
 
 
-    dataset_path = r'data/processed/arcDatasetSplitted/train/'
+    dataset_path = r'data/processed/arcDatasetSplitted/training/'
     dataset_path_test = r'data/processed/arcDatasetSplitted/test/'
 
     dataset_path_train = r'data/processed/train'
