@@ -135,13 +135,25 @@ The metrics used in this project are:
 
 # Training data 
 
-- Training Data (Orignal Dataset - 30 images for each class used for Test Set).
-	- 70% is used as Training Set.
-	- 30% is used as Validadtion Set.
+The original dataset contains 4794 images of buildings annotated according to 25 different classes (i.e. architectural styles). 
 
-Below we report links for dataset and dataset card:
-- <a href='https://www.kaggle.com/datasets/wwymak/architecture-dataset'>dataset link</a>
-- <a href='https://github.com/se4ai2223-uniba/architectural-style-recognition/blob/main/data/README.md'>dataset card link</a>
+This number has been reduced to 2343 images and 10 classes in order to reduce time complexity in the training phase.
+
+The histogram below illustrates the distrubution of the data and the differences between the original classes and the ones selected for this project:
+
+[![Figure-2022-10-12-160741.png](https://i.postimg.cc/mgLg7Lsd/Figure-2022-10-12-160741.png)](https://postimg.cc/4m0GgTnt)
+
+The choice of the final 10 classes has been made based on the number of images, diversification between styles and on the familiarity of the authors with each style. 
+
+Starting from the original 2343 images, a preliminary split has been made by picking 30 images for each of the 10 classes to form the test set. The selection of the images has been done manually to to have a more balanced test set and ensure diversification (e.g. avoiding multiple images of the same building to be chosen for the test set and subtracted from the train set).
+
+The histogram below illustrates this initial split: 
+
+[![Figure-2022-10-12-133412.png](https://i.postimg.cc/m2NQbgjV/Figure-2022-10-12-133412.png)](https://postimg.cc/jL2WcKGJ)
+
+Thereafter, a further split has been made between training and validation set, with respective proportions of 70% and 30%.
+
+The training and validation proportion of the dataset are respectively 70% and 30%.
 
 ## Motivation 
 
