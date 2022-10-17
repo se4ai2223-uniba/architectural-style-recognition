@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
@@ -8,6 +7,7 @@ import shutil
 import pandas as pd
 import splitfolders
 import cv2 
+import numpy as np
 
 
 
