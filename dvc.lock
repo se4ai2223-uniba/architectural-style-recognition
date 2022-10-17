@@ -35,11 +35,11 @@ stages:
       size: 94141474
       nfiles: 621
     - path: src/models/train_model.py
-      md5: 0a17144d10e8e62b67763ca7351343d2
-      size: 5790
+      md5: cbb98963d03c1cf9bf9c75bf942911f2
+      size: 5165
     outs:
     - path: models/saved-model/model.h5
-      md5: 57784d2c2d10bb53754dc6023c269ddf
+      md5: 6023069f2172874cfb7d0efb7cffbd5f
       size: 17760384
     - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65

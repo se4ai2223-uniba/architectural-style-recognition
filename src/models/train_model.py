@@ -16,6 +16,7 @@ import cv2
 from tensorflow.keras.models import model_from_json
 import pandas as pd
 from keras.callbacks import EarlyStopping
+import mlflow
 
 
 
@@ -131,10 +132,10 @@ def trainModel(epochs):
                             preprocessingVal(images),
                             labels))
 
-    ds_test = ds_test.unbatch().batch(BATCH_SIZE)
-    ds_test = ds_test.map(lambda images, labels:(
-                            preprocessingVal(images),
-                            labels))
+    # ds_test = ds_test.unbatch().batch(BATCH_SIZE)
+    # ds_test = ds_test.map(lambda images, labels:(
+    #                         preprocessingVal(images),
+    #                         labels))
 
     
 
@@ -177,7 +178,9 @@ def saveModel(model,path):
 
 
 
-
+mlflow.set_experiment("Predict house prices")
+mlflow.start_run()
 model,hist = trainModel(1)
 save_path = "models/saved-model"
 saveModel(model,save_path)
+mlflow.end_run()
