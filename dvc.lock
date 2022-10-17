@@ -4,63 +4,67 @@ stages:
     cmd: python src/data/make_dataset.py
     deps:
     - path: data/processed/arcDatasetSplitted/test
-      md5: 5e6ca0a8704395a9efa654fff2ff4b66.dir
-      size: 57950360
-      nfiles: 300
+      md5: c3efe03be77dfdbd6465a52e54040f45.dir
+      size: 111640971
+      nfiles: 799
     - path: data/processed/arcDatasetSplitted/training
       md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
       size: 324387029
       nfiles: 2082
     - path: src/data/make_dataset.py
       md5: ce00ca258a54030bb6925d65115d716c
-      size: 4674
+      size: 4547
     outs:
+    - path: data/processed/test
+      md5: 224dfbbdede06ab5d0e83135509f59f7.dir
+      size: 1332295
+      nfiles: 9
     - path: data/processed/train
-      md5: 4493ccc5163417a073c6a8c4a1ad804b.dir
-      size: 529316365
-      nfiles: 2940
+      md5: a0fe57e53fb8bd633a1a71b68a3f70ed.dir
+      size: 533021529
+      nfiles: 2941
     - path: data/processed/val
-      md5: 7b97447a78f02334fe3a61a0f9a1a720.dir
-      size: 94141474
+      md5: bd7a73ffc1ecf519db0e54c671f3f1ed.dir
+      size: 94212963
       nfiles: 621
   train:
     cmd: python src/models/train_model.py
     deps:
     - path: data/processed/train
-      md5: 4493ccc5163417a073c6a8c4a1ad804b.dir
-      size: 529316365
-      nfiles: 2940
+      md5: 5b1650654fc6de1a2bfb67ac7cfe516a.dir
+      size: 548028507
+      nfiles: 3181
     - path: data/processed/val
-      md5: 7b97447a78f02334fe3a61a0f9a1a720.dir
-      size: 94141474
-      nfiles: 621
+      md5: 0571ed3dd73a0e6f0fa9f87171905ed5.dir
+      size: 98336838
+      nfiles: 686
     - path: src/models/train_model.py
       md5: cbb98963d03c1cf9bf9c75bf942911f2
-      size: 5165
+      size: 4979
     outs:
     - path: models/saved-model/model.h5
-      md5: 6023069f2172874cfb7d0efb7cffbd5f
+      md5: 4bea9447648b86b931c33006dd6ec7c2
       size: 17760384
     - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65
       size: 1100
   predict:
-    cmd: python src\models\predict_model.py
+    cmd: python src/models/predict_model.py
     deps:
-    - path: data\processed\test
-      md5: 1188e524d5db5071e3c9346e646ac112.dir
-      size: 1509884
-      nfiles: 9
-    - path: models\saved-model\model.h5
-      md5: 57784d2c2d10bb53754dc6023c269ddf
+    - path: data/processed/arcDatasetSplitted/test
+      md5: b02c9a02623e88bc355abc466b38dae7.dir
+      size: 111705191
+      nfiles: 800
+    - path: models/saved-model/model.h5
+      md5: 4bea9447648b86b931c33006dd6ec7c2
       size: 17760384
-    - path: models\saved-model\model.json
+    - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65
       size: 1100
-    - path: src\models\predict_model.py
-      md5: fdf05cccc4b559ef733977808d7579ef
-      size: 1468
+    - path: src/models/predict_model.py
+      md5: d4e76d872adb5363f9775132b9439152
+      size: 1419
     outs:
-    - path: src\models\results.txt
-      md5: f7b1528a90da979b0a05f876622ba5e4
-      size: 1349
+    - path: src/models/results.txt
+      md5: ca1a69c0977a192d0d0caefbcfba5d5a
+      size: 2866

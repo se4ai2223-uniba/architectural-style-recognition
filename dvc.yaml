@@ -8,6 +8,7 @@ stages:
     outs:
     - data/processed/train
     - data/processed/val
+    - data/processed/test
   train:
     cmd: python src/models/train_model.py
     deps:
@@ -18,11 +19,11 @@ stages:
     - models/saved-model/model.h5
     - models/saved-model/model.json
   predict:
-    cmd: python src\models\predict_model.py
+    cmd: python src/models/predict_model.py
     deps:
-    - data\processed\test
-    - models\saved-model\model.h5
-    - models\saved-model\model.json
-    - src\models\predict_model.py
+    - data/processed/arcDatasetSplitted/test
+    - models/saved-model/model.h5
+    - models/saved-model/model.json
+    - src/models/predict_model.py
     outs:
-    - src\models\results.txt
+    - src/models/results.txt

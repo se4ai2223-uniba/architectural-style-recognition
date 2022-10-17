@@ -29,7 +29,7 @@ def loadModel(path):
     print("Loaded model from disk")
     return model_loaded
 
-model = loadModel("models\saved-model")
+model = loadModel("models/saved-model")
 test_set = buildTestset()
 model.compile(
     optimizer=tf.keras.optimizers.SGD(learning_rate=0.005, momentum=0.9), 
