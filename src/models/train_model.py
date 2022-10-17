@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+from json import load
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.math import confusion_matrix
@@ -43,6 +44,8 @@ def buildModel(class_names):
       optimizer=tf.keras.optimizers.SGD(learning_rate=0.005, momentum=0.9), 
       loss=tf.keras.losses.CategoricalCrossentropy(from_logits=False, label_smoothing=0.1),
       metrics=['accuracy'])
+
+      
     return model
 
 
@@ -77,6 +80,9 @@ def trainModel(epochs):
         batch_size=1)
 
     class_names = tuple(ds_train.class_names)
+    
+
+    print(class_names)
 
     #Creazione del dataset per la validation
     ds_validation = tf.keras.preprocessing.image_dataset_from_directory(
@@ -98,11 +104,9 @@ def trainModel(epochs):
         batch_size=1)
 
 
-
-
-
-
     BATCH_SIZE = 32
+
+
 
     normalization_layer = tf.keras.layers.Rescaling(1. / 255)
     normalization2_layer = tf.keras.layers.Normalization(mean=0, variance=1)
@@ -124,11 +128,13 @@ def trainModel(epochs):
           tf.keras.layers.RandomFlip(mode="horizontal"))
 
 
+    train_size = ds_train.cardinality().numpy()
     ds_train = ds_train.unbatch().batch(BATCH_SIZE)
     ds_train = ds_train.repeat()
     ds_train = ds_train.map(lambda images, labels:
                             (preprocessing_model(images), labels))
 
+    valid_size = ds_validation.cardinality().numpy()
     ds_validation = ds_validation.unbatch().batch(BATCH_SIZE)
     ds_validation = ds_validation.map(lambda images, labels:
                         (
@@ -136,25 +142,18 @@ def trainModel(epochs):
                             labels))
 
     ds_test = ds_test.unbatch().batch(BATCH_SIZE)
-    ds_test = ds_test.map(lambda images, labels:
-                        (
+    ds_test = ds_test.map(lambda images, labels:(
                             preprocessingVal(images),
                             labels))
 
     
 
-    valid_size = ds_validation.cardinality().numpy()
-    train_size = ds_train.cardinality().numpy()
+    
+ 
 
     steps_per_epoch = train_size // BATCH_SIZE 
     validation_steps = valid_size // BATCH_SIZE 
 
-    print("DIVVVV" + str( train_size // BATCH_SIZE ))
-    print("DIVVVV" + str( valid_size // BATCH_SIZE ))
-
-    print("STEPSSSSS: " + str(steps_per_epoch))
-    print("train size: " + str(train_size))
-    print("valid size: " + str(valid_size))
     
 
 
@@ -203,6 +202,6 @@ def saveModel(model,path):
 
 
 
-model,hist = trainModel(5)
-save_path = "models/saved-model"
-saveModel(model,save_path)
+#model,hist = trainModel(1)
+#save_path = "models/saved-model"
+#saveModel(model,save_path)
