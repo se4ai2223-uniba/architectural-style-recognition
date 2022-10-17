@@ -129,13 +129,11 @@ def trainModel(epochs):
     ds_train = ds_train.map(lambda images, labels:
                             (preprocessing_model(images), labels))
 
-
     ds_validation = ds_validation.unbatch().batch(BATCH_SIZE)
     ds_validation = ds_validation.map(lambda images, labels:
                         (
                             preprocessingVal(images),
                             labels))
-
 
     ds_test = ds_test.unbatch().batch(BATCH_SIZE)
     ds_test = ds_test.map(lambda images, labels:
