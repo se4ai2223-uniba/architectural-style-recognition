@@ -94,16 +94,6 @@ def trainModel(epochs):
         batch_size=1,
         seed=123)
 
-    ds_test = tf.keras.preprocessing.image_dataset_from_directory(
-        dataset_path_test,
-        labels='inferred',
-        label_mode = 'categorical',
-        image_size = (img_height, img_width),
-        shuffle=True,
-        seed=123,
-        batch_size=1)
-
-
     BATCH_SIZE = 32
 
 
@@ -172,20 +162,6 @@ def trainModel(epochs):
     
     return model,hist
 
-
-
-
-def loadModel(path): 
-
-    model_loaded = tf.keras.Sequential()
-    # load json and create model
-    json_file = open(os.path.join(path,'model.json'), 'r')
-    model_json = json_file.read()
-    json_file.close()
-    model_loaded = model_from_json(model_json, custom_objects={'KerasLayer': hub.KerasLayer})
-    # load weights into new model
-    model_loaded.load_weights(os.path.join(path,"model.h5"))
-    print("Loaded model from disk")
 
 
 def saveModel(model,path):
