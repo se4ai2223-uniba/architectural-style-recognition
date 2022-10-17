@@ -202,6 +202,6 @@ def saveModel(model,path):
 
 
 
-#model,hist = trainModel(1)
-#save_path = "models/saved-model"
-#saveModel(model,save_path)
+model,hist = trainModel(1)
+save_path = "models/saved-model"
+saveModel(model,save_path)
