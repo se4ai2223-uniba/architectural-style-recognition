@@ -8,9 +8,9 @@ stages:
       size: 49415676
       nfiles: 300
     - path: data/processed/arcDatasetSplitted/train
-      md5: d4e3735c684723c8a64b9dbd7c2f0ad7.dir
-      size: 322197035
-      nfiles: 2044
+      md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
+      size: 324387029
+      nfiles: 2082
     - path: src/data/make_dataset.py
       md5: 07cf5119b8d06e8763b77d1e866742cd
       size: 4538
