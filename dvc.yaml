@@ -3,10 +3,17 @@ stages:
     cmd: python src/data/make_dataset.py
     deps:
     - data/processed/arcDatasetSplitted/test
-    - data/processed/arcDatasetSplitted/train
+    - data/processed/arcDatasetSplitted/training
     - src/data/make_dataset.py
     outs:
     - data/processed/train
     - data/processed/val
   train:
-    cmd: ' '
+    cmd: python src/models/train_model.py
+    deps:
+    - data/processed/train
+    - data/processed/val
+    - src/models/train_model.py
+    outs:
+    - models/saved-model/model.h5
+    - models/saved-model/model.json
