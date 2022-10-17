@@ -4,9 +4,9 @@ stages:
     cmd: python src/data/make_dataset.py
     deps:
     - path: data/processed/arcDatasetSplitted/test
-      md5: c3efe03be77dfdbd6465a52e54040f45.dir
-      size: 111640971
-      nfiles: 799
+      md5: b02c9a02623e88bc355abc466b38dae7.dir
+      size: 111705191
+      nfiles: 800
     - path: data/processed/arcDatasetSplitted/training
       md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
       size: 324387029
@@ -16,17 +16,17 @@ stages:
       size: 4547
     outs:
     - path: data/processed/test
-      md5: 224dfbbdede06ab5d0e83135509f59f7.dir
-      size: 1332295
-      nfiles: 9
+      md5: 611f96a9f382e55097f26a765aa2e6c5.dir
+      size: 2664590
+      nfiles: 18
     - path: data/processed/train
-      md5: a0fe57e53fb8bd633a1a71b68a3f70ed.dir
-      size: 533021529
-      nfiles: 2941
+      md5: 5b1650654fc6de1a2bfb67ac7cfe516a.dir
+      size: 548028507
+      nfiles: 3181
     - path: data/processed/val
-      md5: bd7a73ffc1ecf519db0e54c671f3f1ed.dir
-      size: 94212963
-      nfiles: 621
+      md5: 0571ed3dd73a0e6f0fa9f87171905ed5.dir
+      size: 98336838
+      nfiles: 686
   train:
     cmd: python src/models/train_model.py
     deps:
