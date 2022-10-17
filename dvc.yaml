@@ -8,3 +8,5 @@ stages:
     outs:
     - data/processed/train
     - data/processed/val
+  train:
+    cmd: ' '

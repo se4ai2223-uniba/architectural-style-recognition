@@ -16,8 +16,7 @@ from tensorflow.keras.models import model_from_json
 import pandas as pd
 from keras.callbacks import EarlyStopping
 
-img_height = 224
-img_width = 224
+
 
 
 def buildModel(class_names):
@@ -53,13 +52,18 @@ def buildModel(class_names):
 
 def trainModel(epochs):
 
+    
+    img_height = 224
+    img_width = 224
+
     if epochs == None :
         epochs = 10
 
+    
     dataset_path_test = r'data/processed/arcDatasetSplitted/test/'
 
-    dataset_path_train = r'data/processed/train'
-    dataset_path_val = r'data/processed/val'
+    dataset_path_train = r'data/processed/train/'
+    dataset_path_val = r'data/processed/val/'
 
 
 #Creazione del dataset per il training
@@ -147,6 +151,14 @@ def trainModel(epochs):
     steps_per_epoch = train_size // BATCH_SIZE 
     validation_steps = valid_size // BATCH_SIZE 
 
+    print("DIVVVV" + str( train_size // BATCH_SIZE ))
+    print("DIVVVV" + str( valid_size // BATCH_SIZE ))
+
+    print("STEPSSSSS: " + str(steps_per_epoch))
+    print("train size: " + str(train_size))
+    print("valid size: " + str(valid_size))
+    
+
 
 
     model = buildModel(class_names)
@@ -192,7 +204,7 @@ def saveModel(model,path):
 
 
 
-if __name__ == '__main__':
-    model,hist = trainModel(1)
-    save_path = "models/saved-model"
-    saveModel(model,save_path)
+
+model,hist = trainModel(5)
+save_path = "models/saved-model"
+saveModel(model,save_path)

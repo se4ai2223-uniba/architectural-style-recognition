@@ -23,3 +23,5 @@ stages:
       md5: 0bd43cc9acbcf9a1551dc336abd7c50d.dir
       size: 93257030
       nfiles: 609
+  train:
+    cmd: ' '
