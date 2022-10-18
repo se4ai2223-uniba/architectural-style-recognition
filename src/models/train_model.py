@@ -152,7 +152,7 @@ def saveModel(model, path):
     print("Ho salvato il modello!")
 
 
-mlflow.set_experiment("Predict house prices")
+mlflow.set_experiment("Evaluate model")
 mlflow.start_run()
 model, hist = trainModel(1)
 save_path = "models/saved-model"

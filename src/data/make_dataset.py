@@ -92,17 +92,16 @@ def main():
 
 
     dataset_path = r'data/processed/arcDatasetSplitted/training/'
-    dataset_path_test = r'data/processed/arcDatasetSplitted/test/'
+    dataset_path_test = r'data/processed/test/'
 
     dataset_path_train = r'data/processed/train'
     dataset_path_val = r'data/processed/val'
 
 
     splitfolders.ratio(dataset_path, output="data/processed",
-    seed=1337, ratio=(.7, .3, .0), group_prefix=None, move=False) # default values
+    seed=1337, ratio=(.7, .3), group_prefix=None, move=False) # default values
 
     augment_data(dataset_path_train)
-    #augment_data(dataset_path_test)
 
     ## Noise removal through the use of blurring
     ## and generalization of features inside the images. 

@@ -2,13 +2,12 @@ stages:
   prepare-dataset:
     cmd: python src/data/make_dataset.py
     deps:
-    - data/processed/arcDatasetSplitted/test
     - data/processed/arcDatasetSplitted/training
+    - data/processed/test
     - src/data/make_dataset.py
     outs:
     - data/processed/train
     - data/processed/val
-    - data/processed/test
   train:
     cmd: python src/models/train_model.py
     deps:
@@ -21,7 +20,7 @@ stages:
   predict:
     cmd: python src/models/predict_model.py
     deps:
-    - data/processed/arcDatasetSplitted/test
+    - data/processed/test
     - models/saved-model/model.h5
     - models/saved-model/model.json
     - src/models/predict_model.py

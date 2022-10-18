@@ -45,5 +45,3 @@ print(predictions_test)
 f = open("src/models/results.txt", "w")
 f.write(str(evaluations)+"\n"+str(predictions_test))
 f.close()
-
-
