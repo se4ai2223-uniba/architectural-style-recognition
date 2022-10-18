@@ -18,3 +18,5 @@ src.egg-info
 .ionide
 
 *.icloud
+
+mlruns/
