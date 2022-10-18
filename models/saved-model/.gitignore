@@ -1,2 +1,4 @@
 /model*.json
 /model*.h5
+/variables
+/assets
