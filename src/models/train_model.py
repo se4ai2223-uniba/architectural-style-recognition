@@ -154,9 +154,22 @@ def saveModel(model, path):
 
 mlflow.set_experiment("Evaluate model")
 mlflow.start_run()
+
 model, hist = trainModel(1)
 save_path = "models/saved-model"
 saveModel(model, save_path)
+
+
+
+
+train_loss = hist["loss"][-1]
+val_loss = hist["val_loss"][-1]
+
+train_accuracy = hist["accuracy"][-1]
+val_accuracy = hist["val_accuracy"][-1]
+
+mlflow.log_metrics({"train_accuracy": train_accuracy,"val_accuracy":val_accuracy,"train_loss":train_loss, "val_loss": val_loss})
+
 mlflow.end_run()
 
 
