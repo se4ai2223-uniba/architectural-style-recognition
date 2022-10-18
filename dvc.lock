@@ -4,16 +4,16 @@ stages:
     cmd: python src/data/make_dataset.py
     deps:
     - path: data/processed/arcDatasetSplitted/training
-      md5: f0e644a993abd70db79e2671fb95a3b0.dir
-      size: 322203183
-      nfiles: 2045
+      md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
+      size: 324387029
+      nfiles: 2082
     - path: data/processed/test
-      md5: 7b211f51231716e93ec3f69dd4846529.dir
-      size: 49415676
-      nfiles: 300
+      md5: 05e75e820035da5a2c1aedc15451a1fc.dir
+      size: 111591656
+      nfiles: 798
     - path: src/data/make_dataset.py
       md5: 8947c347c5b664b538f50d35ee64b087
-      size: 4487
+      size: 4613
     outs:
     - path: data/processed/train
       md5: 63bd28212aeeb2145a9df27c0b8c0c7e.dir
@@ -35,11 +35,11 @@ stages:
       size: 94391973
       nfiles: 618
     - path: src/models/train_model.py
-      md5: caf82a681bab04dfc745b8d65cad7c4f
-      size: 4587
+      md5: f4025130f02d7360f7a3aee8e66c7ff0
+      size: 6086
     outs:
     - path: models/saved-model/model.h5
-      md5: 9760bbb49732f4ba46c451be95facd9e
+      md5: d9c9ab63080641f5fabef963adc00449
       size: 17760384
     - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65
@@ -48,19 +48,19 @@ stages:
     cmd: python src/models/predict_model.py
     deps:
     - path: data/processed/test
-      md5: 7b211f51231716e93ec3f69dd4846529.dir
-      size: 49415676
-      nfiles: 300
+      md5: 05e75e820035da5a2c1aedc15451a1fc.dir
+      size: 111591656
+      nfiles: 798
     - path: models/saved-model/model.h5
-      md5: 9760bbb49732f4ba46c451be95facd9e
+      md5: d9c9ab63080641f5fabef963adc00449
       size: 17760384
     - path: models/saved-model/model.json
       md5: 14669030a34c58b4d811b99c0558fd65
       size: 1100
     - path: src/models/predict_model.py
-      md5: d11462f040a8f7ec465c1603e59880c8
-      size: 1416
+      md5: 4040ca46467d3ee19d859be4ef130f8a
+      size: 2070
     outs:
     - path: src/models/results.txt
-      md5: 26fd6b20868542203c88d866994bb8d8
-      size: 485
+      md5: 648fcefb4970c2860b9e0f26b22093b7
+      size: 616

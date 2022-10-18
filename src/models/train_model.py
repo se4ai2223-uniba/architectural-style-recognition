@@ -16,7 +16,7 @@ from keras.callbacks import EarlyStopping
 import mlflow
 
 
-def buildModel(class_names):
+def buildModel(class_names, lr, momentum, label_smoothing, dr, l2):
 
     IMAGE_SIZE = (224, 224)
     mobilenet_v2 = (
@@ -28,10 +28,10 @@ def buildModel(class_names):
             # loaded by the TFLiteConverter
             tf.keras.layers.InputLayer(input_shape=IMAGE_SIZE + (3,)),
             hub.KerasLayer(mobilenet_v2, trainable=True),
-            tf.keras.layers.Dropout(rate=0.4),
+            tf.keras.layers.Dropout(rate=dr),
             tf.keras.layers.Dense(
                 len(class_names),
-                kernel_regularizer=tf.keras.regularizers.l2(0.005),
+                kernel_regularizer=tf.keras.regularizers.l2(l2),
                 activation="softmax",
             ),
         ]
@@ -41,9 +41,9 @@ def buildModel(class_names):
     model.summary()
 
     model.compile(
-        optimizer=tf.keras.optimizers.SGD(learning_rate=0.005, momentum=0.9),
+        optimizer=tf.keras.optimizers.SGD(learning_rate=lr, momentum=momentum),
         loss=tf.keras.losses.CategoricalCrossentropy(
-            from_logits=False, label_smoothing=0.1
+            from_logits=False, label_smoothing=label_smoothing
         ),
         metrics=["accuracy"],
     )
@@ -52,6 +52,33 @@ def buildModel(class_names):
 
 
 def trainModel(epochs):
+    mlflow.set_tracking_uri("https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow")
+    os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
+    mlflow.set_experiment("Training stage")
+    mlflow.start_run()
+
+    lr = 0.005
+    momentum = 0.9
+    label_smoothing = 0.1
+    dr = 0.4
+    l2 = 0.005
+    batch_size = 32
+    epochs = 1
+
+    mlflow.log_params(
+        {
+            "learning-rate": lr,
+            "momentum": momentum,
+            "lable_smoothing": label_smoothing,
+            "dropout-rate": dr,
+            "regularized-l2": l2,
+            "batch-size": batch_size,
+            "epochs": epochs,
+            "algorithm": "Stochastic Gradient Descent",
+            "loss": "Categorical-Cross-Entropy",
+        }
+    )
 
     img_height = 224
     img_width = 224
@@ -88,7 +115,7 @@ def trainModel(epochs):
         seed=123,
     )
 
-    BATCH_SIZE = 32
+    BATCH_SIZE = batch_size
 
     normalization_layer = tf.keras.layers.Rescaling(1.0 / 255)
     normalization2_layer = tf.keras.layers.Normalization(mean=0, variance=1)
@@ -127,7 +154,7 @@ def trainModel(epochs):
     steps_per_epoch = train_size // BATCH_SIZE
     validation_steps = valid_size // BATCH_SIZE
 
-    model = buildModel(class_names)
+    model = buildModel(class_names, lr, momentum, label_smoothing, dr, l2)
 
     es = EarlyStopping(monitor="val_loss", mode="min", verbose=1)
     hist = model.fit(
@@ -152,14 +179,9 @@ def saveModel(model, path):
     print("Ho salvato il modello!")
 
 
-mlflow.set_experiment("Evaluate model")
-mlflow.start_run()
-
 model, hist = trainModel(1)
 save_path = "models/saved-model"
 saveModel(model, save_path)
-
-
 
 
 train_loss = hist["loss"][-1]
@@ -168,8 +190,15 @@ val_loss = hist["val_loss"][-1]
 train_accuracy = hist["accuracy"][-1]
 val_accuracy = hist["val_accuracy"][-1]
 
-mlflow.log_metrics({"train_accuracy": train_accuracy,"val_accuracy":val_accuracy,"train_loss":train_loss, "val_loss": val_loss})
+mlflow.log_metrics(
+    {
+        "train_accuracy": train_accuracy,
+        "val_accuracy": val_accuracy,
+        "train_loss": train_loss,
+        "val_loss": val_loss,
+    }
+)
+
+mlflow.sklearn.log_model(model, "model", registered_model_name="MobileNetV2Archinet")
 
 mlflow.end_run()
-
-

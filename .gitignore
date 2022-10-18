@@ -20,3 +20,5 @@ src.egg-info
 *.icloud
 
 mlruns/
+
+.env
