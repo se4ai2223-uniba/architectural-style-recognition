@@ -17,3 +17,5 @@ src.egg-info
 .history
 .ionide
 
+.env 
+models/saved-model
