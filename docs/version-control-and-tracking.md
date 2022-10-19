@@ -38,7 +38,6 @@ In this project DVC is used for data versioning and for the implementation of th
 ## Intermediate steps
 
 ### Setting up DagsHub
-TODO
 
 
 ### Code Restructuring
