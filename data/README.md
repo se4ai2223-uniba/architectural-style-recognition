@@ -116,7 +116,6 @@ The dataset was created by the original authors of the cited paper to compensate
 
 A subset of this dataset has been selected for the model in this project, in order to speed up training times.
 
-
 ### Source Data
 
 #### Initial Data Collection and Normalization

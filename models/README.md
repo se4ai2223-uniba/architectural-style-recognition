@@ -137,7 +137,7 @@ The metrics used in this project are:
 
 - Training Data (Orignal Dataset - 30 images for each class used for Test Set).
 	- 70% is used as Training Set.
-	- 30% is used as Validadtion Set.
+	- 30% is used as Validation Set.
 
 Below we report links for dataset and dataset card:
 - <a href='https://www.kaggle.com/datasets/wwymak/architecture-dataset'>dataset link</a>
@@ -149,7 +149,14 @@ The main motivation behind the choice of the dataset is that it is the largest p
 
 ## Preprocessing
 
-Since the dataset was highly unbalanced, we decided to perform both data balancing and data augmentation. The goals of these decisions are: 
+In this section we describe the process of preprocessing, starting from the selection of the classes and ending with the pre processing steps. 
+
+### Selection of classes
+
+We decided to retain a limited number of classes for the sake of temporal efficiency during the training phase. The classes chosen for our experiment are described in the <a href='https://github.com/se4ai2223-uniba/architectural-style-recognition/blob/main/data/README.md'>dataset card link</a>.
+
+### Data augmentation
+Since the dataset was highly unbalanced, we decided to perform both data balancing, by using oversampling, and data augmentation. The goals of these decisions are: 
 
 - Equally represented classes with 450 images each,
 - Mapping features of the classes regardless of the eventual presence of noise in the images. 
@@ -168,6 +175,8 @@ Data augmentation is performed by appliying the following transformations on the
 - Random-scaling
 
 - Random-zoom
+
+
 
 # Quantitative Analysis
 
