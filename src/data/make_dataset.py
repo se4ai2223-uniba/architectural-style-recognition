@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from cmath import e
+from distutils.command.config import config
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
@@ -11,6 +12,7 @@ import cv2
 import numpy as np
 import glob
 import random
+from dotenv import dotenv_values
 
 
 dataset_path = r"data/processed/arcDatasetSelected/"
@@ -267,6 +269,9 @@ if __name__ == "__main__":
 
     # find .env automagically by walking up directories until it's found, then
     # load up the .env entries as environment variables
-    load_dotenv(find_dotenv())
+    # load_dotenv(find_dotenv())
+    conf = dotenv_values(find_dotenv())
+    os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]
 
     main()

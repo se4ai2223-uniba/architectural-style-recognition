@@ -4,13 +4,16 @@ import os
 from tensorflow.keras.models import model_from_json
 import tensorflow_hub as hub
 import mlflow
+from dotenv import find_dotenv, load_dotenv
+from dotenv import dotenv_values
 
 dataset_path_test = "data/processed/test"
 mlflow.set_tracking_uri(
     "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
 )
-# os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
+conf = dotenv_values(find_dotenv())
+os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]
+os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]
 mlflow.set_experiment("Evaluation stage")
 mlflow.start_run()
 

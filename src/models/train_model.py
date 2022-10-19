@@ -14,6 +14,8 @@ import cv2
 import pandas as pd
 from keras.callbacks import EarlyStopping
 import mlflow
+from dotenv import dotenv_values
+from dotenv import find_dotenv, load_dotenv
 
 
 def buildModel(class_names, lr, momentum, label_smoothing, dr, l2):
@@ -55,8 +57,9 @@ def trainModel(epochs):
     mlflow.set_tracking_uri(
         "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
     )
-    # os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
-    # os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
+    conf = dotenv_values(find_dotenv())
+    os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]
+    os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]
     mlflow.set_experiment("Training stage")
     mlflow.start_run()
 
@@ -191,6 +194,8 @@ val_loss = hist["val_loss"][-1]
 
 train_accuracy = hist["accuracy"][-1]
 val_accuracy = hist["val_accuracy"][-1]
+
+print(train_loss, val_loss, train_accuracy, val_accuracy)
 
 mlflow.log_metrics(
     {
