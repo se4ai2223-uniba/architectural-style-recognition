@@ -25,4 +25,4 @@ stages:
     - models/saved-model/model.json
     - src/models/predict_model.py
     outs:
-    - src/models/results.txt
+    - src/models/predictions.txt

@@ -129,7 +129,7 @@ In order to add the stage to dvc.yaml file we execute the following command:
     -d models/saved-model/model.h5 \
     -d models/saved-model/model.json \
     -d src/models/predict_model.py \
-    -o src/models/results.txt \
+    -o src/models/predictions.txt \
     python src/models/predict_model.py 
 
 <br>
