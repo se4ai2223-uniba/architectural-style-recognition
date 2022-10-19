@@ -1,5 +1,4 @@
-/arcDatasetSplitted/training
-/arcDatasetSplitted/test
+/arcDatasetSelected
 /train
 /val
 /test

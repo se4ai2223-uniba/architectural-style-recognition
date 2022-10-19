@@ -3,40 +3,40 @@ stages:
   prepare-dataset:
     cmd: python src/data/make_dataset.py
     deps:
-    - path: data/processed/arcDatasetSplitted/training
-      md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
-      size: 324387029
-      nfiles: 2082
-    - path: data/processed/test
-      md5: 05e75e820035da5a2c1aedc15451a1fc.dir
-      size: 111591656
-      nfiles: 798
+    - path: data/raw/arcDataset
+      md5: df7e896d196c3a1f0963cb0dc0df5332.dir
+      size: 852840944
+      nfiles: 6047
     - path: src/data/make_dataset.py
-      md5: 8947c347c5b664b538f50d35ee64b087
-      size: 4613
+      md5: e7b16fd445fbcdf10523971e79b27cc2
+      size: 9145
     outs:
+    - path: data/processed/test
+      md5: 1d9274f97c30ca2f90fe38ceb4f26f1f.dir
+      size: 55957959
+      nfiles: 330
     - path: data/processed/train
-      md5: 63bd28212aeeb2145a9df27c0b8c0c7e.dir
-      size: 534293438
-      nfiles: 2940
+      md5: a00fff54108434774b38adcfc69431af.dir
+      size: 662932826
+      nfiles: 3773
     - path: data/processed/val
-      md5: 6cc4a6e1b31245a3b2c11d116a0b7da3.dir
-      size: 94391973
-      nfiles: 618
+      md5: 3e658c7be9d34e5c16544275e9313508.dir
+      size: 113056731
+      nfiles: 841
   train:
     cmd: python src/models/train_model.py
     deps:
     - path: data/processed/train
-      md5: 63bd28212aeeb2145a9df27c0b8c0c7e.dir
-      size: 534293438
-      nfiles: 2940
+      md5: a00fff54108434774b38adcfc69431af.dir
+      size: 662932826
+      nfiles: 3773
     - path: data/processed/val
-      md5: 6cc4a6e1b31245a3b2c11d116a0b7da3.dir
-      size: 94391973
-      nfiles: 618
+      md5: 3e658c7be9d34e5c16544275e9313508.dir
+      size: 113056731
+      nfiles: 841
     - path: src/models/train_model.py
       md5: f4025130f02d7360f7a3aee8e66c7ff0
-      size: 6086
+      size: 5882
     outs:
     - path: models/saved-model/model.h5
       md5: d9c9ab63080641f5fabef963adc00449
@@ -48,9 +48,9 @@ stages:
     cmd: python src/models/predict_model.py
     deps:
     - path: data/processed/test
-      md5: 05e75e820035da5a2c1aedc15451a1fc.dir
-      size: 111591656
-      nfiles: 798
+      md5: 1d9274f97c30ca2f90fe38ceb4f26f1f.dir
+      size: 55957959
+      nfiles: 330
     - path: models/saved-model/model.h5
       md5: d9c9ab63080641f5fabef963adc00449
       size: 17760384
@@ -59,7 +59,7 @@ stages:
       size: 1100
     - path: src/models/predict_model.py
       md5: 4040ca46467d3ee19d859be4ef130f8a
-      size: 2070
+      size: 2002
     outs:
     - path: src/models/results.txt
       md5: 648fcefb4970c2860b9e0f26b22093b7

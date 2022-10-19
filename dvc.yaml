@@ -2,10 +2,10 @@ stages:
   prepare-dataset:
     cmd: python src/data/make_dataset.py
     deps:
-    - data/processed/arcDatasetSplitted/training
-    - data/processed/test
+    - data/raw/arcDataset
     - src/data/make_dataset.py
     outs:
+    - data/processed/test
     - data/processed/train
     - data/processed/val
   train:

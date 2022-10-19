@@ -3,7 +3,7 @@ src.egg-info
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -22,3 +22,4 @@ src.egg-info
 mlruns/
 
 .env
+
