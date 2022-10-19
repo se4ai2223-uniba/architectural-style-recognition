@@ -3,23 +3,64 @@ stages:
   prepare-dataset:
     cmd: python src/data/make_dataset.py
     deps:
-    - path: data/processed/arcDatasetSplitted/test
-      md5: 7b211f51231716e93ec3f69dd4846529.dir
-      size: 49415676
-      nfiles: 300
-    - path: data/processed/arcDatasetSplitted/train
-      md5: 4c68f2f4f9b888fd6bce30ccde071458.dir
-      size: 324387029
-      nfiles: 2082
+    - path: data/raw/arcDataset
+      md5: df7e896d196c3a1f0963cb0dc0df5332.dir
+      size: 852840944
+      nfiles: 6047
     - path: src/data/make_dataset.py
-      md5: 07cf5119b8d06e8763b77d1e866742cd
-      size: 4538
+      md5: 44a70318fff3fbb46b8f441d0f382085
+      size: 9821
     outs:
+    - path: data/processed/test
+      md5: 3ff94667c729b1fa18c84e795c8d7bcf.dir
+      size: 4850874
+      nfiles: 40
     - path: data/processed/train
-      md5: fe5940ab55ab71c4b759ecdf81f36084.dir
-      size: 203168194
-      nfiles: 1426
+      md5: a149cfa0477a83785a5dab51030687c7.dir
+      size: 11528372
+      nfiles: 100
     - path: data/processed/val
-      md5: 0bd43cc9acbcf9a1551dc336abd7c50d.dir
-      size: 93257030
-      nfiles: 609
+      md5: f1006031b7b4758f1c658ba7e71e4cdd.dir
+      size: 4397041
+      nfiles: 37
+  train:
+    cmd: python src/models/train_model.py
+    deps:
+    - path: data/processed/train
+      md5: a149cfa0477a83785a5dab51030687c7.dir
+      size: 11528372
+      nfiles: 100
+    - path: data/processed/val
+      md5: f1006031b7b4758f1c658ba7e71e4cdd.dir
+      size: 4397041
+      nfiles: 37
+    - path: src/models/train_model.py
+      md5: 1e64dcb3e46ff148ba0c72824bb963d2
+      size: 6078
+    outs:
+    - path: models/saved-model/model.h5
+      md5: 2d542162ea9915a3e1be9501114116c0
+      size: 17702912
+    - path: models/saved-model/model.json
+      md5: e9d724b03e4b8af566d1735eb7ed924a
+      size: 1099
+  predict:
+    cmd: python src/models/predict_model.py
+    deps:
+    - path: data/processed/test
+      md5: 3ff94667c729b1fa18c84e795c8d7bcf.dir
+      size: 4850874
+      nfiles: 40
+    - path: models/saved-model/model.h5
+      md5: 2d542162ea9915a3e1be9501114116c0
+      size: 17702912
+    - path: models/saved-model/model.json
+      md5: e9d724b03e4b8af566d1735eb7ed924a
+      size: 1099
+    - path: src/models/predict_model.py
+      md5: f553582019e197dc1d6460a6dd9b47d4
+      size: 2127
+    outs:
+    - path: src/models/results.txt
+      md5: c60b623e36aa7dcd4d3838bc325d7ede
+      size: 1040
