@@ -32,28 +32,30 @@ Using a pipeline we can establish an unique sequence of actions in order to repr
 Using experiment tracking we can store the results of any experiment, usually we want to store the hypeparameters and the metrics of a certain run.
 
 ### Technologies: DVC, MLFlow, DagsHub
-In this project DVC is used for data versioning and for the implementation of the pipeline, then MLFlow is used for experiment tracking.DagsHub has been adopted as storage for DVC and as hub for MlFlow having an unique place for our reproducibility tasks.
+In this project DVC is used for data versioning and for the implementation of the pipeline, then MLFlow is used for experiment tracking.
+DagsHub has been adopted as storage for DVC and as hub for MLFlow having an unique place for our reproducibility tasks.
 
 
-## Intermediate steps
-
-### Setting up DagsHub
 
 
-### Code Restructuring
+## Code Restructuring
 
 In order to conform to the standard structure of a machine learning pipeline, we moved the original code from the original ipynb notebook to three different python files, corresponding to the three main steps of the pipeline.
 
 
 [![pipeline-files.png](https://i.postimg.cc/pLPB6YkN/pipeline-files.png)](https://postimg.cc/zVPWLh9p)
 
-
-
-
+Below we describe the general pipeline and its stages for our model.
 
 ## DVC
 
-The dvc.yaml is divided into three stages, corresponding to the phases of our machine learning pipeline: data preparation, training and prediction. 
+The dvc.yaml is divided into three stages, corresponding to the phases of our machine learning pipeline:
+<ul>
+    <li> Data preparation stage </li>
+    <li> Training stage</li>
+    <li> Evaluation stage</li>
+</ul>
+
 To each stage is associated:
 <ul>
     <li> a python file, containing the code to be executed in that phase </li>
@@ -61,11 +63,81 @@ To each stage is associated:
     <li> the output files generated at the end of the stage </li>
 </ul>
 
+
+### Prepare-dataset 
+
+In this stage we prepare the data for further training and evaluation phases.
+Below we illustrate the execution steps for this stage: 
+
+<ul>
+    <li> Select a set of classes from the original dataset
+    <li> Extract train, validation and test set from the previuos selected calsses (further details can be found at <a ref=https://github.com/se4ai2223-uniba/architectural-style-recognition/blob/main/data/README.md> data card link </a>)</li>
+</ul>
+
+In order to add the stage to dvc.yaml file we execute the following command: 
+
+    dvc run -n prepare-dataset \
+    -d data/raw/arcDataset \
+    -d src/data/make_dataset.py \
+    -o data/processed/train \
+    -o data/processed/val \
+    -o data/processed/test \
+    python src/data/make_dataset.py
+
+
+### Training
+
+In this stage we train the model, saving it inside the two files: 
+<ul>
+  <li> model.json: contains the model structure,
+  <li> model.h5: contains the learned weights.
+</ul>
+
+
+Below we illustrate the execution steps for this stage: 
+
+<ul>
+    <li> Model building 
+    <li> Preprocessing of images (further details can be found at <a ref=https://github.com/se4ai2223-uniba/architectural-style-recognition/blob/main/models/README.md#preprocessing> preprocessing </a>)
+    <li> Model training
+    <li> Saving of the model's parameters
+</ul>
+
+In order to add the stage to dvc.yaml file we execute the following command: 
+
+    dvc run -n train \
+    -d src/models/train_model.py \
+    -d data/processed/train \
+    -d data/processed/val \
+    -o models/saved-model/model.json \
+    -o models/saved-model/model.h5 \
+    python src/models/train_model.py 
+
+### Predict
+
+In this stage we evaluate the model, making predictions on the test set, giving as output: 
+
+<ul>
+  <li> src/models/results.txt: contains the evaluation results for the accuracy. 
+</ul>
+
+
+In order to add the stage to dvc.yaml file we execute the following command: 
+
+    dvc run -n predict \
+    -d data/processed/test \
+    -d models/saved-model/model.h5 \
+    -d models/saved-model/model.json \
+    -d src/models/predict_model.py \
+    -o src/models/results.txt \
+    python src/models/predict_model.py 
+
+<br>
 A graph representing the summary of our dvc pipeline is reported below:
 
+<br>
+
 [![eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg](https://i.postimg.cc/rmn8BLB6/eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg)](https://postimg.cc/47ckcj4w)
-
-
 
 
 
