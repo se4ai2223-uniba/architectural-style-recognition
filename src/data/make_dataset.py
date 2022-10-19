@@ -19,9 +19,9 @@ dataset_path_test = r"data/processed/test/"
 dataset_path_train = r"data/processed/train"
 dataset_path_val = r"data/processed/val"
 
-
+# Selected classes for the original experiment [0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0]
 def selectClasses(
-    idx=[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1],
+    idx=[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0],
     src_path="data/raw/arcDataset",
     dst_path="data/processed/arcDatasetSelected",
 ):
@@ -232,7 +232,12 @@ def main():
     logger = logging.getLogger(__name__)
     logger.info("making final data set from raw data")
 
-    selectClasses()
+    ## Here we select only two classes for test purposes, making the training time very short
+    ## if you want to retain the 10 classes selected in the original experiment, just call selectedClasses without any param
+    idx = np.zeros(25)
+    idx[0] = 1
+    idx[1] = 1
+    selectClasses(idx=idx)
     buildTestSet()
 
     splitfolders.ratio(

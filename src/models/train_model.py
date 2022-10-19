@@ -52,9 +52,11 @@ def buildModel(class_names, lr, momentum, label_smoothing, dr, l2):
 
 
 def trainModel(epochs):
-    mlflow.set_tracking_uri("https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow")
-    os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
-    os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
+    mlflow.set_tracking_uri(
+        "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
+    )
+    # os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
+    # os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
     mlflow.set_experiment("Training stage")
     mlflow.start_run()
 

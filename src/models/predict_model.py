@@ -6,9 +6,11 @@ import tensorflow_hub as hub
 import mlflow
 
 dataset_path_test = "data/processed/test"
-mlflow.set_tracking_uri("https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow")
-os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
-os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
+mlflow.set_tracking_uri(
+    "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
+)
+# os.environ["MLFLOW_TRACKING_USERNAME"] = "andreabasile97"
+# os.environ["MLFLOW_TRACKING_PASSWORD"] = "6e3ac8f03201e07f4c0faee9317fc2fd57b6943c"
 mlflow.set_experiment("Evaluation stage")
 mlflow.start_run()
 

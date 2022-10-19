@@ -8,21 +8,21 @@ stages:
       size: 852840944
       nfiles: 6047
     - path: src/data/make_dataset.py
-      md5: e7b16fd445fbcdf10523971e79b27cc2
-      size: 9145
+      md5: 50e288e90dcd6d46d46a96aff36746ae
+      size: 9327
     outs:
     - path: data/processed/test
-      md5: 1d9274f97c30ca2f90fe38ceb4f26f1f.dir
-      size: 55957959
-      nfiles: 330
+      md5: f4a225919f909d1496a28cb049d918a0.dir
+      size: 4610823
+      nfiles: 40
     - path: data/processed/train
-      md5: a00fff54108434774b38adcfc69431af.dir
-      size: 662932826
-      nfiles: 3773
+      md5: d40c978142d4c92973ea47477d98d7a2.dir
+      size: 11587097
+      nfiles: 100
     - path: data/processed/val
-      md5: 3e658c7be9d34e5c16544275e9313508.dir
-      size: 113056731
-      nfiles: 841
+      md5: cefe8e3a8b54122acdcb2c7eaf5a5a54.dir
+      size: 4577358
+      nfiles: 37
   train:
     cmd: python src/models/train_model.py
     deps:
