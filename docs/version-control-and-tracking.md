@@ -138,7 +138,7 @@ A graph representing the summary of our dvc pipeline is reported below:
 
 <br>
 
-[![eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg](https://i.postimg.cc/rmn8BLB6/eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg)](https://postimg.cc/47ckcj4w)
+![eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg](https://i.postimg.cc/TwFLtbVC/Grafo.png)
 
 
 
