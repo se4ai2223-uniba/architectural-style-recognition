@@ -12,7 +12,7 @@
   - [Prepare-dataset](#prepare-dataset)
   - [Training](#training)
   - [Predict](#predict)
-- [MLFlow](#mlflow)
+- [MLflow](#mlflow)
   - [Parameters](#parameters)
   - [Metrics](#metrics)
   - [Comparisons](#comparisons)
@@ -142,9 +142,9 @@ A graph representing the summary of our dvc pipeline is reported below:
 
 
 
-## MLFlow
+## MLflow
 
-To track parameters and metrics relevant to our ML model we have chosen MLFlow. As a preliminary step, we have set as a tracking URI our DagsHub repository, so that we can visualize the results on that repository under the "Experiments" tab (or, alternatively, using the .mlflow URI).
+To track parameters and metrics relevant to our ML model we have chosen MLflow. As a preliminary step, we have set as a tracking URI our DagsHub repository, so that we can visualize the results on that repository under the "Experiments" tab (or, alternatively, using the .mlflow URI).
 
 Then, we have added the necessary code into the train_model.py and in the predict_model.py files, to track parameters and metrics. The code and the results on DagsHub are visible below.
 
@@ -163,6 +163,6 @@ Then, we have added the necessary code into the train_model.py and in the predic
 
 ### Comparison
 
-One of the most important uses of MLFlow is the comparison between different parameters based on their impact on the relevant metrics. Below we report a sample comparison between 3 different values of the learning rate, using validation accuracy as our metric. Four runs have been executed for each of the three values.
+One of the most important uses of MLflow is the comparison between different parameters based on their impact on the relevant metrics. Below we report a sample comparison between 3 different values of the learning rate, using validation accuracy as our metric. Four runs have been executed for each of the three values.
 
 [![learning-rate-comparison.png](https://i.postimg.cc/52Nq6CXh/learning-rate-comparison.png)](https://postimg.cc/SJ3zPj7d)
