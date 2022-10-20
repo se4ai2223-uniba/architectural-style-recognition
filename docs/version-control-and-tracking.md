@@ -16,7 +16,7 @@
   - [Parameters](#parameters)
   - [Metrics](#metrics)
   - [Comparisons](#comparisons)
-
+- [Additional Resources](#additional-resources)
 
 ## Introduction
 
@@ -166,3 +166,10 @@ Then, we have added the necessary code into the train_model.py and in the predic
 One of the most important uses of MLflow is the comparison between different parameters based on their impact on the relevant metrics. Below we report a sample comparison between 3 different values of the learning rate, using validation accuracy as our metric. Four runs have been executed for each of the three values.
 
 [![learning-rate-comparison.png](https://i.postimg.cc/52Nq6CXh/learning-rate-comparison.png)](https://postimg.cc/SJ3zPj7d)
+
+
+
+## Additional Resources
+
+
+  [DagsHub repo](https://dagshub.com/RobertoLorusso/architectural-style-recognition)
