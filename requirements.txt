@@ -23,3 +23,6 @@ tensorflow_hub
 split-folders
 random
 glob
+pytest
+pylint
+great_expectations
