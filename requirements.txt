@@ -21,8 +21,8 @@ mlflow==1.29.0
 dvc
 tensorflow_hub
 split-folders
-random
-glob
+random2
+glob2
 pytest
 pylint
 great_expectations
