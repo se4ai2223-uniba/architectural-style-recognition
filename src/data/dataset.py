@@ -6,22 +6,27 @@ import numpy as np
 import glob
 import random
 import tensorflow as tf
+import splitfolders
+#UNIT TEST
+#Behavioral Test
+    #Invariance
+    #Directional
+    #Minimum Functionality
 
+#testare che augment_data produca un numero esatto di samples per ogni classe
 
 class Dataset:
     def __init__(self):
-        self.dataset_path = r"data/processed/arcDatasetSelected/"
-        self.dataset_path_test = r"data/processed/test/"
-
-        self.dataset_path_train = r"data/processed/train"
-        self.dataset_path_val = r"data/processed/val"
-
+        self.dataset_path = os.path.join('data','processed','arcDatasetSelected')
+        self.dataset_path_test = os.path.join('data','processed', 'test')
+        self.dataset_path_train = os.path.join('data', 'processed', 'train')
+        self.dataset_path_val = os.path.join('data', 'processed', 'val')
     # Selected classes for the original experiment [0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0]
     def selectClasses(
         self,
         idx=[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0],
-        src_path="data/raw/arcDataset",
-        dst_path="data/processed/arcDatasetSelected",
+        src_path=os.path.join('data', 'raw', 'arcDataset'),
+        dst_path=os.path.join('data', 'processed', 'arcDatasetSelected'),
     ):
         """
         INPUT:
@@ -34,6 +39,8 @@ class Dataset:
             - destination folder with the selected classes
         """
         try:
+            if idx.count(1) < 2 or len(idx) != 25:
+                return False
             if os.path.exists(dst_path):
                 if os.path.isdir(dst_path):
                     shutil.rmtree(dst_path)
@@ -50,8 +57,11 @@ class Dataset:
 
         except Exception as e:
             print(e)
+            return False
 
-    def buildTestSet(
+        return True
+
+    def split_dataset(
         self,
         src_path="data/processed/arcDatasetSelected",
         dst_path="data/processed/test",
@@ -64,7 +74,7 @@ class Dataset:
             -dst path
 
         OUTPUT:
-            - number of instances in the test set for each class
+            - folder with a number of instances in the test set for each class
         """
 
         try:
@@ -128,11 +138,22 @@ class Dataset:
                                 shutil.move(
                                     f, os.path.join(dst_path, os.path.basename(p))
                                 )
-                            n = n + 1
-
+                            n = n + 1    
+                splitfolders.ratio(
+                    self.dataset_path,
+                    output="data/processed",
+                    seed=1337,
+                    ratio=(0.7, 0.3),
+                    group_prefix=None,
+                    move=False,
+                )       
+            else:
+                return False
         except Exception as e:
             print(e)
-
+            return False
+        return True
+        
     def augment_data(self, path):
         dir_dict = {}
         for d in os.listdir(path):

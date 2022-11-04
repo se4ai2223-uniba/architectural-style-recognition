@@ -3,7 +3,6 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv
 import os
-import splitfolders
 import numpy as np
 from dotenv import dotenv_values
 from dataset import Dataset
@@ -23,16 +22,8 @@ def main():
     idx[0] = 1
     idx[1] = 1
     data.selectClasses(idx=idx)
-    data.buildTestSet()
-
-    splitfolders.ratio(
-        data.dataset_path,
-        output="data/processed",
-        seed=1337,
-        ratio=(0.7, 0.3),
-        group_prefix=None,
-        move=False,
-    )  # default values
+    data.split_dataset()
+  # default values
 
     data.augment_data(data.dataset_path_train)
 
