@@ -35,14 +35,16 @@ def test_splitting():
 # test if data augmentation is producing same number of file in each folder of training
 def test_data_augumentation():
     data.augment_data(data.dataset_path_train)
-    count_p = 0
-    count_n = 0
-    for d in os.listdir(data.dataset_path_train):
-        if(d != '.DS_Store'):
-            for root_dir, cur_dir, files in os.walk(os.path.join(data.dataset_path_train, d)):
-                count_p += len(files)
-            assert count_p == 343      
-    shutil.rmtree(data.dataset_path_test)
-    shutil.rmtree(data.dataset_path_train)
-    shutil.rmtree(data.dataset_path_val)
-    shutil.rmtree(data.dataset_path)
+    number_of_files = 0
+    array_counter = []
+    try:
+        for d in os.listdir(data.dataset_path_train):
+            if(d != '.DS_Store'):
+                for root_dir, cur_dir, files in os.walk(os.path.join(data.dataset_path_train, d)):
+                    number_of_files += len(files)
+                array_counter.append(number_of_files)
+                number_of_files = 0
+        for i in range (len(array_counter)-1):
+            assert array_counter[i] == array_counter[i+1]
+    except: 
+        print("Errore! Prova ad eliminare la cartella data.processed.train")
