@@ -7,26 +7,29 @@ import glob
 import random
 import tensorflow as tf
 import splitfolders
-#UNIT TEST
-#Behavioral Test
-    #Invariance
-    #Directional
-    #Minimum Functionality
 
-#testare che augment_data produca un numero esatto di samples per ogni classe
+# UNIT TEST
+# Behavioral Test
+# Invariance
+# Directional
+# Minimum Functionality
+
+# testare che augment_data produca un numero esatto di samples per ogni classe
+
 
 class Dataset:
     def __init__(self):
-        self.dataset_path = os.path.join('data','processed','arcDatasetSelected')
-        self.dataset_path_test = os.path.join('data','processed', 'test')
-        self.dataset_path_train = os.path.join('data', 'processed', 'train')
-        self.dataset_path_val = os.path.join('data', 'processed', 'val')
+        self.dataset_path = os.path.join("data", "processed", "arcDatasetSelected")
+        self.dataset_path_test = os.path.join("data", "processed", "test")
+        self.dataset_path_train = os.path.join("data", "processed", "train")
+        self.dataset_path_val = os.path.join("data", "processed", "val")
+
     # Selected classes for the original experiment [0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0]
     def selectClasses(
         self,
         idx=[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0],
-        src_path=os.path.join('data', 'raw', 'arcDataset'),
-        dst_path=os.path.join('data', 'processed', 'arcDatasetSelected'),
+        src_path=os.path.join("data", "raw", "arcDataset"),
+        dst_path=os.path.join("data", "processed", "arcDatasetSelected"),
     ):
         """
         INPUT:
@@ -138,7 +141,7 @@ class Dataset:
                                 shutil.move(
                                     f, os.path.join(dst_path, os.path.basename(p))
                                 )
-                            n = n + 1    
+                            n = n + 1
                 splitfolders.ratio(
                     self.dataset_path,
                     output="data/processed",
@@ -146,83 +149,121 @@ class Dataset:
                     ratio=(0.7, 0.3),
                     group_prefix=None,
                     move=False,
-                )       
+                )
             else:
                 return False
         except Exception as e:
             print(e)
             return False
         return True
-        
+
     def augment_data(self, path):
-        dir_dict = {}
-        for d in os.listdir(path):
-            if os.path.isdir(os.path.join(path, d)):
-                p = os.path.join(path, d)
-                dir_dict[d] = len(
-                    [f for f in os.listdir(p) if os.path.isfile(os.path.join(p, f))]
-                )
-        nmax = max(dir_dict.values())
-        for folder in os.listdir(path):
-            # if(os.path.dirname(folder) != files_names[argmax]):
-            length = len(
-                [
-                    f
-                    for f in os.listdir(os.path.join(path, folder))
-                    if os.path.isfile(os.path.join(os.path.join(path, folder), f))
-                ]
-            )
-            ratio = 0.0
-            diff = 0
-            n_instances = 0
-            try:
-                ratio = np.floor((nmax / length))
-                diff = nmax - length
-                n_instances = np.round(diff / ratio)
-            except:
-                ratio = 0.0
-                n_instances = 0.0
-            ratio = int(ratio)
-            if ratio == 1:
-                files = [
-                    file
-                    for file in os.listdir(os.path.join(path, folder))
-                    if os.path.isfile(os.path.join(os.path.join(path, folder), file))
-                ]
-                j = diff
-                for file in files:
-                    j = j - 1
-                    if j >= 0:
-                        src = os.path.join(os.path.join(path, folder), file)
-                        # print("src= ",src)
-                        dst = "copia_" + str(j) + "_" + file
-                        # print("dst= ",dst)
-                        shutil.copy(src, os.path.join(os.path.join(path, folder), dst))
-            if ratio > 1:
-                files = [
-                    file
-                    for file in os.listdir(os.path.join(path, folder))
-                    if os.path.isfile(os.path.join(os.path.join(path, folder), file))
-                ]
-                for i in range(ratio):
-                    # print("ratio "+str(i))
-                    # print("PATH: "+os.path.join(path,folder))
-                    for file in files:
-                        new_length = len(
+
+        ## Verify if the dataset is already balanced
+        counter = []
+        try:
+            src = self.dataset_path_train
+            for d in os.listdir(src):
+                if os.path.isdir(os.path.join(src, d)):
+                    # append in counter the number of non-hidden files in every directory (class)
+                    counter.append(len([f for f in glob.glob(os.path.join(src, d))]))
+
+            # If the dataset is unbalanced then balance it
+            if counter.count(counter[0]) != len(counter):
+
+                dir_dict = {}
+                # Retrieve the number of files per class
+                for d in os.listdir(path):
+                    if os.path.isdir(os.path.join(path, d)):
+                        p = os.path.join(path, d)
+                        dir_dict[d] = len(
                             [
                                 f
-                                for f in os.listdir(os.path.join(path, folder))
-                                if os.path.isfile(
-                                    os.path.join(os.path.join(path, folder), f)
-                                )
+                                for f in os.listdir(p)
+                                if os.path.isfile(os.path.join(p, f))
                             ]
                         )
-                        if (diff - (new_length - length)) > 0:
-                            src = os.path.join(os.path.join(path, folder), file)
-                            dst = "copia_" + str(i) + "_" + file
-                            shutil.copy(
-                                src, os.path.join(os.path.join(path, folder), dst)
+                # Take the number of files in the most represented class
+                nmax = max(dir_dict.values())
+
+                for folder in os.listdir(path):
+
+                    # Take the number of files in the current folder
+                    length = len(
+                        [
+                            f
+                            for f in os.listdir(os.path.join(path, folder))
+                            if os.path.isfile(
+                                os.path.join(os.path.join(path, folder), f)
                             )
+                        ]
+                    )
+
+                    ratio = 0.0
+                    diff = 0
+                    # n_instances = 0
+
+                    # Obtain the ratio between the the most representd class and the current one
+                    try:
+                        ratio = np.floor((nmax / length))
+                        diff = nmax - length
+                        # n_instances = np.round(diff / ratio)
+                    except:
+                        ratio = 0.0
+                        # n_instances = 0.0
+                    ratio = int(ratio)
+
+                    # Duplicate files until the count difference is zero
+                    if ratio == 1:
+                        files = [
+                            file
+                            for file in os.listdir(os.path.join(path, folder))
+                            if os.path.isfile(
+                                os.path.join(os.path.join(path, folder), file)
+                            )
+                        ]
+                        j = diff
+                        for file in files:
+                            j = j - 1
+                            if j >= 0:
+                                src = os.path.join(os.path.join(path, folder), file)
+                                # print("src= ",src)
+                                dst = "copia_" + str(j) + "_" + file
+                                # print("dst= ",dst)
+                                shutil.copy(
+                                    src, os.path.join(os.path.join(path, folder), dst)
+                                )
+                    # Duplicate files until the ratio and the count difference are satisfied
+                    if ratio > 1:
+                        files = [
+                            file
+                            for file in os.listdir(os.path.join(path, folder))
+                            if os.path.isfile(
+                                os.path.join(os.path.join(path, folder), file)
+                            )
+                        ]
+                        for i in range(ratio):
+                            # print("ratio "+str(i))
+                            # print("PATH: "+os.path.join(path,folder))
+                            for file in files:
+                                new_length = len(
+                                    [
+                                        f
+                                        for f in os.listdir(os.path.join(path, folder))
+                                        if os.path.isfile(
+                                            os.path.join(os.path.join(path, folder), f)
+                                        )
+                                    ]
+                                )
+                                if (diff - (new_length - length)) > 0:
+                                    src = os.path.join(os.path.join(path, folder), file)
+                                    dst = "copia_" + str(i) + "_" + file
+                                    shutil.copy(
+                                        src,
+                                        os.path.join(os.path.join(path, folder), dst),
+                                    )
+        except Exception as e:
+            print(e)
 
     def blur(self, path):
         for folder in os.listdir(path):

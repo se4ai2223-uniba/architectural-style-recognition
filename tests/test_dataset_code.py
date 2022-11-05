@@ -42,11 +42,8 @@ def test_splitting():
 
 
 # test if data augmentation is producing same number of file in each folder of training
-def test_data_augumentation():
-    data = Dataset()
-    # count del primo elemento sia uguale alla lunghezza dell'array
+def test_data_augmentation():
     data.augment_data(data.dataset_path_train)
-
     counter = []
     try:
         src = data.dataset_path_train
