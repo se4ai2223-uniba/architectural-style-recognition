@@ -1,0 +1,103 @@
+{
+  "data_asset_type": "Dataset",
+  "expectation_suite_name": "img_features_suite",
+  "expectations": [
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "label",
+        "include_unexpected_rows": true,
+        "result_format": "COMPLETE",
+        "value_set": [
+          "Achaemenid architecture",
+          "American craftsman style",
+          "American Foursquare architecture",
+          "Ancient Egyptian architecture",
+          "Art Deco architecture",
+          "Art Nouveau architecture",
+          "Baroque architecture",
+          "Bauhaus architecture",
+          "Beaux-Arts architecture",
+          "Byzantine architecture",
+          "Chicago school architecture",
+          "Colonial architecture",
+          "Deconstructivism",
+          "Edwardian architecture",
+          "Georgian architecture",
+          "Gothic architecture",
+          "Greek Revival architecture",
+          "International style",
+          "Novelty architecture",
+          "Palladian architecture",
+          "Postmodern architecture",
+          "Queen Anne architecture",
+          "Romanesque architecture",
+          "Russian Revival architecture",
+          "Tudor Revival architecture"
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "colors",
+        "include_unexpected_rows": true,
+        "result_format": "COMPLETE",
+        "value_set": [
+          "Y"
+        ]
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "img_variance",
+        "include_unexpected_rows": true,
+        "min_value": 0,
+        "result_format": "COMPLETE",
+        "strict_min": true
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "height",
+        "include_unexpected_rows": true,
+        "min_value": 50,
+        "result_format": "COMPLETE",
+        "strict_min": true
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_between",
+      "kwargs": {
+        "column": "width",
+        "include_unexpected_rows": true,
+        "min_value": 50,
+        "result_format": "COMPLETE",
+        "strict_min": true
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "citations": [
+      {
+        "batch_request": {
+          "data_asset_name": "images_features.csv",
+          "data_connector_name": "default_inferred_data_connector_name",
+          "datasource_name": "img_feature_ds",
+          "limit": 1000
+        },
+        "citation_date": "2022-11-04T22:57:12.279440Z",
+        "comment": "Created suite added via CLI"
+      }
+    ],
+    "great_expectations_version": "0.15.30"
+  }
+}
