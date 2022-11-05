@@ -163,13 +163,13 @@ class Dataset:
         counter = []
         try:
             src = self.dataset_path_train
-            for d in os.listdir(src):
-                if os.path.isdir(os.path.join(src, d)):
-                    # append in counter the number of non-hidden files in every directory (class)
-                    counter.append(len([f for f in glob.glob(os.path.join(src, d))]))
+            # for d in os.listdir(src):
+            #     if os.path.isdir(os.path.join(src, d)):
+            #         # append in counter the number of non-hidden files in every directory (class)
+            #         counter.append(len([f for f in glob.glob(os.path.join(src, d))]))
 
             # If the dataset is unbalanced then balance it
-            if counter.count(counter[0]) != len(counter):
+            if True:
 
                 dir_dict = {}
                 # Retrieve the number of files per class
