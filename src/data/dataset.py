@@ -42,21 +42,28 @@ class Dataset:
             - destination folder with the selected classes
         """
         try:
-            if idx.count(1) < 2 or len(idx) != 25:
+            dirs = [
+                d
+                for d in os.listdir(src_path)
+                if os.path.isdir(os.path.join(src_path, d))
+            ]
+
+            if idx.count(1) < 2 or len(idx) != len(dirs):
                 return False
+
             if os.path.exists(dst_path):
                 if os.path.isdir(dst_path):
                     shutil.rmtree(dst_path)
 
             i = 0
 
-            for d in sorted(os.listdir(src_path)):
-                if os.path.isdir(os.path.join(src_path, d)):
-                    p = os.path.join(src_path, d)
-                    if idx[i] == 1:
-                        shutil.copytree(p, os.path.join(dst_path, d))
-                        print(os.path.join(dst_path, d))
-                    i = i + 1
+            for d in sorted(dirs):
+                p = os.path.join(src_path, d)
+                if idx[i] == 1:
+                    # shutil.copytree creates the folder if it doesn't exists
+                    shutil.copytree(p, os.path.join(dst_path, d))
+                    print(os.path.join(dst_path, d))
+                i = i + 1
 
         except Exception as e:
             print(e)
@@ -67,7 +74,7 @@ class Dataset:
     def split_dataset(
         self,
         src_path="data/processed/arcDatasetSelected",
-        dst_path="data/processed/test",
+        dst_path="data/processed",
         n_instances=30,
     ):
 
@@ -79,8 +86,10 @@ class Dataset:
         OUTPUT:
             - folder with a number of instances in the test set for each class
         """
-
+        print(src_path)
+        print(dst_path)
         try:
+
             dir_dict = {}
             for d in os.listdir(src_path):
                 if os.path.isdir(os.path.join(src_path, d)):
@@ -88,19 +97,23 @@ class Dataset:
                     # print(p)
                     dir_dict[d] = len(glob.glob(os.path.join(p, "*")))
 
+            print(dir_dict)
+
             nmin = min(dir_dict.values())
 
             ## if the number of instances is greater than the 30% of the least represented class
             ## then use the 30% of that class as number to make a uniform distribution of the test set over the classes
             if n_instances >= int(0.3 * nmin):
                 n_instances = int(0.3 * nmin)
+                if n_instances == 0:
+                    n_instances = 1
 
-            ##shutil.copy_tree requires the folder to exist
-            if os.path.exists(dst_path):
-                shutil.rmtree(dst_path)
-                os.mkdir(dst_path)
+            ##shutil.copy_tree requires the test folder to exist
+            if os.path.exists(os.path.join(dst_path, "test")):
+                shutil.rmtree(os.path.join(dst_path, "test"))
+                os.mkdir(os.path.join(dst_path, "test"))
             else:
-                os.mkdir(dst_path)
+                os.mkdir(os.path.join(dst_path, "test"))
 
             if os.path.exists(src_path) and os.path.isdir(src_path):
                 for d in sorted(os.listdir(src_path)):
@@ -108,9 +121,15 @@ class Dataset:
 
                         ## if the class folder in dst_path does not exist then we create it
                         if not os.path.exists(
-                            os.path.join(dst_path, os.path.basename(d))
+                            os.path.join(
+                                os.path.join(dst_path, "test"), os.path.basename(d)
+                            )
                         ):
-                            os.mkdir(os.path.join(dst_path, os.path.basename(d)))
+                            os.mkdir(
+                                os.path.join(
+                                    os.path.join(dst_path, "test"), os.path.basename(d)
+                                )
+                            )
 
                         p = os.path.join(src_path, d)
 
@@ -139,12 +158,17 @@ class Dataset:
                         for f in files:
                             if ran[n] == 1:
                                 shutil.move(
-                                    f, os.path.join(dst_path, os.path.basename(p))
+                                    f,
+                                    os.path.join(
+                                        os.path.join(dst_path, "test"),
+                                        os.path.basename(p),
+                                    ),
                                 )
                             n = n + 1
+
                 splitfolders.ratio(
-                    self.dataset_path,
-                    output="data/processed",
+                    src_path,
+                    output=dst_path,
                     seed=1337,
                     ratio=(0.7, 0.3),
                     group_prefix=None,
@@ -181,6 +205,7 @@ class Dataset:
                                 f
                                 for f in os.listdir(p)
                                 if os.path.isfile(os.path.join(p, f))
+                                and not f.startswith(".")
                             ]
                         )
                 # Take the number of files in the most represented class
@@ -196,6 +221,7 @@ class Dataset:
                             if os.path.isfile(
                                 os.path.join(os.path.join(path, folder), f)
                             )
+                            and not f.startswith(".")
                         ]
                     )
 
@@ -221,6 +247,7 @@ class Dataset:
                             if os.path.isfile(
                                 os.path.join(os.path.join(path, folder), file)
                             )
+                            and not file.startswith(".")
                         ]
                         j = diff
                         for file in files:
@@ -241,6 +268,7 @@ class Dataset:
                             if os.path.isfile(
                                 os.path.join(os.path.join(path, folder), file)
                             )
+                            and not file.startswith(".")
                         ]
                         for i in range(ratio):
                             # print("ratio "+str(i))
@@ -253,6 +281,7 @@ class Dataset:
                                         if os.path.isfile(
                                             os.path.join(os.path.join(path, folder), f)
                                         )
+                                        and not f.startswith(".")
                                     ]
                                 )
                                 if (diff - (new_length - length)) > 0:
