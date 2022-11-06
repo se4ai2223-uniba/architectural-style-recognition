@@ -58,15 +58,22 @@ def test_trainModel():
 
     if os.path.exists(src_path):
         shutil.rmtree(src_path)
-
     shutil.copytree(orig_path, src_path)
 
-
+    # creazione del train dummy
     data.split_dataset(src_path = src_path)
-
-  # default values
-
     data.augment_data(data.dataset_path_train)
 
+    model_.params.batch_size = 5
+    model_.params.epochs = 10
+    model_.params.early_stopping_metric = 'loss'
+    model_.params.patience = 1
 
+    # fitting del modello dummy sul train dummy
+    model, hist = model_.trainModel()
+    
+    print(hist['loss'][0], hist['loss'][-2])
 
+    # assert that loss decrease
+    assert hist['loss'][0] > hist['loss'][-2]
+    shutil.rmtree(src_path)

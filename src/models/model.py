@@ -1,7 +1,7 @@
 from src.data.dataset import Dataset
 import tensorflow as tf
 import tensorflow_hub as hub
-from tensorflow.keras.models import model_from_json
+from tensorflow.python.keras.models import model_from_json
 import os
 from keras.callbacks import EarlyStopping
 import mlflow
@@ -25,7 +25,8 @@ class Params:
             self.epochs = conf["epochs"]
             self.algorithm = conf["algorithm"]
             self.loss = conf["loss"]
-
+            self.patience = conf["patience"]
+            self.early_stopping_metric = conf["early_stopping_metric"]
 
 class Model:
     def __init__(self):
@@ -132,17 +133,15 @@ class Model:
 
         steps_per_epoch = train_size // BATCH_SIZE
         validation_steps = valid_size // BATCH_SIZE
-
+        print(valid_size, BATCH_SIZE)
         model = self.buildModel(class_names)
 
-        es = EarlyStopping(monitor="val_loss", mode="min", patience=20, restore_best_weights=True, verbose=1)
-
+        es = EarlyStopping(monitor=self.params.early_stopping_metric, mode="min", patience=self.params.patience, restore_best_weights=True, verbose=1)
         hist = model.fit(
             ds_train,
+            validation_data=ds_validation,
             epochs=self.params.epochs,
             steps_per_epoch=steps_per_epoch,
-            validation_data=ds_validation,
-            validation_steps=validation_steps,
             callbacks=[es]
         ).history
 

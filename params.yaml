@@ -7,3 +7,5 @@ batch_size : 32
 epochs : 1
 algorithm: "Stochastic Gradient Descent"
 loss: "Categorical-Cross-Entropy"
+patience: 5
+early_stopping_metric: 'val_loss'
