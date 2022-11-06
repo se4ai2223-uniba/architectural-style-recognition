@@ -186,7 +186,7 @@ class Dataset:
         ## Verify if the dataset is already balanced
         counter = []
         try:
-            src = self.dataset_path_train
+            # src = self.dataset_path_train
             # for d in os.listdir(src):
             #     if os.path.isdir(os.path.join(src, d)):
             #         # append in counter the number of non-hidden files in every directory (class)
@@ -199,6 +199,7 @@ class Dataset:
                 # Retrieve the number of files per class
                 for d in os.listdir(path):
                     if os.path.isdir(os.path.join(path, d)):
+                        print(d)
                         p = os.path.join(path, d)
                         dir_dict[d] = len(
                             [
@@ -213,84 +214,94 @@ class Dataset:
 
                 for folder in os.listdir(path):
 
-                    # Take the number of files in the current folder
-                    length = len(
-                        [
-                            f
-                            for f in os.listdir(os.path.join(path, folder))
-                            if os.path.isfile(
-                                os.path.join(os.path.join(path, folder), f)
-                            )
-                            and not f.startswith(".")
-                        ]
-                    )
+                    if os.path.isdir(os.path.join(path, folder)):
+                        # Take the number of files in the current folder
+                        length = len(
+                            [
+                                f
+                                for f in os.listdir(os.path.join(path, folder))
+                                if os.path.isfile(
+                                    os.path.join(os.path.join(path, folder), f)
+                                )
+                                and not f.startswith(".")
+                            ]
+                        )
 
-                    ratio = 0.0
-                    diff = 0
-                    # n_instances = 0
-
-                    # Obtain the ratio between the the most representd class and the current one
-                    try:
-                        ratio = np.floor((nmax / length))
-                        diff = nmax - length
-                        # n_instances = np.round(diff / ratio)
-                    except:
                         ratio = 0.0
-                        # n_instances = 0.0
-                    ratio = int(ratio)
+                        diff = 0
+                        # n_instances = 0
 
-                    # Duplicate files until the count difference is zero
-                    if ratio == 1:
-                        files = [
-                            file
-                            for file in os.listdir(os.path.join(path, folder))
-                            if os.path.isfile(
-                                os.path.join(os.path.join(path, folder), file)
-                            )
-                            and not file.startswith(".")
-                        ]
-                        j = diff
-                        for file in files:
-                            j = j - 1
-                            if j >= 0:
-                                src = os.path.join(os.path.join(path, folder), file)
-                                # print("src= ",src)
-                                dst = "copia_" + str(j) + "_" + file
-                                # print("dst= ",dst)
-                                shutil.copy(
-                                    src, os.path.join(os.path.join(path, folder), dst)
+                        # Obtain the ratio between the the most representd class and the current one
+                        try:
+                            ratio = np.floor((nmax / length))
+                            diff = nmax - length
+                            # n_instances = np.round(diff / ratio)
+                        except:
+                            ratio = 0.0
+                            # n_instances = 0.0
+                        ratio = int(ratio)
+
+                        # Duplicate files until the count difference is zero
+                        if ratio == 1:
+                            files = [
+                                file
+                                for file in os.listdir(os.path.join(path, folder))
+                                if os.path.isfile(
+                                    os.path.join(os.path.join(path, folder), file)
                                 )
-                    # Duplicate files until the ratio and the count difference are satisfied
-                    if ratio > 1:
-                        files = [
-                            file
-                            for file in os.listdir(os.path.join(path, folder))
-                            if os.path.isfile(
-                                os.path.join(os.path.join(path, folder), file)
-                            )
-                            and not file.startswith(".")
-                        ]
-                        for i in range(ratio):
-                            # print("ratio "+str(i))
-                            # print("PATH: "+os.path.join(path,folder))
+                                and not file.startswith(".")
+                            ]
+                            j = diff
                             for file in files:
-                                new_length = len(
-                                    [
-                                        f
-                                        for f in os.listdir(os.path.join(path, folder))
-                                        if os.path.isfile(
-                                            os.path.join(os.path.join(path, folder), f)
-                                        )
-                                        and not f.startswith(".")
-                                    ]
-                                )
-                                if (diff - (new_length - length)) > 0:
+                                j = j - 1
+                                if j >= 0:
                                     src = os.path.join(os.path.join(path, folder), file)
-                                    dst = "copia_" + str(i) + "_" + file
+                                    # print("src= ",src)
+                                    dst = "copia_" + str(j) + "_" + file
+                                    # print("dst= ",dst)
                                     shutil.copy(
                                         src,
                                         os.path.join(os.path.join(path, folder), dst),
                                     )
+                        # Duplicate files until the ratio and the count difference are satisfied
+                        if ratio > 1:
+                            files = [
+                                file
+                                for file in os.listdir(os.path.join(path, folder))
+                                if os.path.isfile(
+                                    os.path.join(os.path.join(path, folder), file)
+                                )
+                                and not file.startswith(".")
+                            ]
+                            for i in range(ratio):
+                                # print("ratio "+str(i))
+                                # print("PATH: "+os.path.join(path,folder))
+                                for file in files:
+                                    new_length = len(
+                                        [
+                                            f
+                                            for f in os.listdir(
+                                                os.path.join(path, folder)
+                                            )
+                                            if os.path.isfile(
+                                                os.path.join(
+                                                    os.path.join(path, folder), f
+                                                )
+                                            )
+                                            and not f.startswith(".")
+                                        ]
+                                    )
+                                    if (diff - (new_length - length)) > 0:
+                                        src = os.path.join(
+                                            os.path.join(path, folder), file
+                                        )
+                                        dst = "copia_" + str(i) + "_" + file
+                                        shutil.copy(
+                                            src,
+                                            os.path.join(
+                                                os.path.join(path, folder), dst
+                                            ),
+                                        )
         except Exception as e:
             print(e)
 

@@ -1,0 +1,5 @@
+outs:
+- md5: c4533a55eb3d8b066fd261b6224835f8.dir
+  size: 6501813
+  nfiles: 27
+  path: test_data_origin

@@ -135,13 +135,15 @@ class Model:
 
         model = self.buildModel(class_names)
 
-        es = EarlyStopping(monitor="val_loss", mode="min", verbose=1)
+        es = EarlyStopping(monitor="val_loss", mode="min", patience=20, restore_best_weights=True, verbose=1)
+
         hist = model.fit(
             ds_train,
             epochs=self.params.epochs,
             steps_per_epoch=steps_per_epoch,
             validation_data=ds_validation,
             validation_steps=validation_steps,
+            callbacks=[es]
         ).history
 
         return model, hist

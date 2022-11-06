@@ -45,7 +45,8 @@
         "include_unexpected_rows": true,
         "result_format": "COMPLETE",
         "value_set": [
-          "Y"
+          "Y",
+          "N"
         ]
       },
       "meta": {}
