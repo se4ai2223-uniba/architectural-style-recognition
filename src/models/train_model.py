@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import mlflow
-from model import Model
+from model import Model # type: ignore
 from dotenv import dotenv_values
 from dotenv import find_dotenv
 import os
@@ -13,8 +13,8 @@ mlflow.set_tracking_uri(
     "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
 )
 conf = dotenv_values(find_dotenv())
-os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]
-os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]
+os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"] # type: ignore
+os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"] # type: ignore
 mlflow.set_experiment("Training stage")
 # Start MLFlow
 mlflow.start_run()

@@ -1,14 +1,10 @@
 from src.data.dataset import Dataset
 import tensorflow as tf
 import tensorflow_hub as hub
-from tensorflow.python.keras.models import model_from_json
+from tensorflow.keras.models import model_from_json  # type: ignore
 import os
 from keras.callbacks import EarlyStopping
-import mlflow
-from dotenv import dotenv_values
-from dotenv import find_dotenv
 import yaml
-import sys
 
 
 class Params:
@@ -175,7 +171,7 @@ class Model:
             model_json, custom_objects={"KerasLayer": hub.KerasLayer}
         )
         # load weights into new model
-        model_loaded.load_weights(os.path.join(path, "model.h5"))
+        model_loaded.load_weights(os.path.join(path, "model.h5"))  # type: ignore
         print("Loaded model from disk")
 
         return model_loaded

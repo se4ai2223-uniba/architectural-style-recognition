@@ -82,8 +82,8 @@ def test_trainModel():
 def test_modelPerformances():
     model_ = Model()
     data = Dataset()
-    loaded_model = model_.loadModel()
-    evals = loaded_model.evaluate(data.dataset_path_test)
+    #loaded_model = model_.loadModel()
+    evals = loaded_model.evaluate(data.dataset_path_test) # type: ignore
     assert evals[1] > 0.50  
     # aggiungere altri assert
 
