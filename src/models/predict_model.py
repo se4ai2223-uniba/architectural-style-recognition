@@ -19,7 +19,7 @@ model = Model()
 test_set = model.data.getTestSet()
 
 
-model_loaded = model.loadModel("models/saved-model")
+model_loaded = model.loadModel(os.path.join('models', 'saved-model'))
 
 model_loaded.compile(
     optimizer=tf.keras.optimizers.SGD(
