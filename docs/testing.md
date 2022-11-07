@@ -30,10 +30,12 @@ The information are the followings:
 </ul>
 
 The GE suite has been created importing the GE library and running the following commands:
+
     great_expectations init
     great_expectations datasource new
     great_expectations suite new
     great_expectations checkpoint new img_feature_checkpoint
+    
 that, in order: create the whole infrastructure, link GE to the file that we want to check, create the test suite and create the checkpoint that is the mechanism that allows to run the tests.
 
 The test site is a json file presents in great_expectations\expectations\img_features_suite.json were it's possible to express the kind of test, the checked column anche the accetable values for that column, for example:
