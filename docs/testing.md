@@ -4,6 +4,7 @@
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Testing Data](#testing-data)
+- [Great Expectations](#great-expectations)
 - [Testing Code](#testing-code)
 - [Testing Model](#testing-model)
 - [Putting All Together](#putting-all-together)
@@ -71,7 +72,7 @@ and is possbile to see the results throught a GUI using the html page sotred in:
 
     great_expectations/uncommitted/data_docs/local_site/index.html
 
-## Testing Code: Unit and Integration tests
+## Testing Code
 
 In order to verify that the code perform its task in a correct way we need a mechanism that run the code in a close context and make assertion about the correctness of the results.
 This mechanisms are the <b>Unit Test</b> and the <b>Integration Test</b>, the first type check the correctness of a function or a method, the second check the correctness of a whole sequence of modules.
@@ -111,7 +112,7 @@ Then, also the code of the model definition has been tested:
 </ul>
 In particular the second test checks that the builded model has the expected layer dimensions, the third instead, since has the aim of test the actual correctness of the whole trainig phase, needs to call all the steps of our pipeline and for this reason has the role of an integration test.
 
-## Testing Model: System test
+## Testing Model
 
 In a ML workflow is necessary to verify that every version of a model satisfy a set of condition on its performances. These kind of tests are called <b>System Test</b> and are performed on the output model of our ML pipeline.
 In our project also these kind of test has been implemented using pytest tests and are the followings:
@@ -133,6 +134,6 @@ And the three Pytest files can be executed using the command
 
     pytest <filename.py>
 
-However in a ML pipelin we want that every time we run our code we also ensure that module of the project, the overall integration and the model quality still respect our assertions. In order to do so we have extended ou DVC pipeline in order to sistematically check the correctness of every modification applied in the code in future releases.
+However in a ML pipeline we want that every time we run our code we also ensure that module of the project, the overall integration and the model quality still respect our assertions. In order to do so we have extended ou DVC pipeline in order to sistematically check the correctness of every modification applied in the code in future releases.
 The new DVC pipeline is so defined:
 
