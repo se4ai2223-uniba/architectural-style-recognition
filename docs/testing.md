@@ -3,10 +3,10 @@
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
-- [Testing Data](#tesingdata)
-- [Testing Code](#tesingdata)
-- [Testing Model](#tesingdata)
-- [Putting All Toghether](#tesingdata)
+- [Testing Data](#testing-data)
+- [Testing Code](#testing-code)
+- [Testing Model](#testing-model)
+- [Putting All Together](#putting-all-together)
 
 
 ## Testing Data
@@ -14,10 +14,10 @@ In a ML model data are the most critical aspect, as the motto says "trash in - t
 
 Especially in dataset that grow over time, for example colllecting users data, this step is crucial since there are chance that users could send non realible data.
 
-## Great Expectation
-A tool that can help us to do this kind of tests is Great Expectation.
+## Great Expectations
+A tool that can help us to do this kind of tests is Great Expectations.
 It offers a set of functionality that helps developers to build up reliable tests on datasets.
-Great Expectation is oriented to tabular data and not images like in our project, but this has not been a problem, we have extracted a set of informations from our dataset and saved them into a .csv file generated before applyng the GE test suite.
+Great Expectations is oriented to tabular data and not images like in our project, but this has not been a problem, we have extracted a set of informations from our dataset and saved them into a .csv file generated before applyng the GE test suite.
 The informations are the followings:
 <ul>
     <li>File Name </li>
@@ -71,13 +71,68 @@ and is possbile to see the results throught a GUI using the html page sotred in:
 
     great_expectations/uncommitted/data_docs/local_site/index.html
 
-##Testing Code
+## Testing Code: Unit and Integration tests
+
 In order to verify that the code perform its task in a correct way we need a mechanism that run the code in a close context and make assertion about the correctness of the results.
-This mechanisms are the Unit Test anche the Integration Test, the first type check the correctness of a function or a method, the second check the correctness of a whole sequence of modules.
+This mechanisms are the <b>Unit Test</b> and the <b>Integration Test</b>, the first type check the correctness of a function or a method, the second check the correctness of a whole sequence of modules.
 In our project Pytest has been used in order to implement this kind of test and we have checked the correctness of the following modules:
 
-<ul Dataset Preprocessing Functionalities>
+<b>Dataset Preprocessing Functionalities Tests</b>
+<ul>
     <li>Dataset class selection</li>
     <li>Dataset Splitting</li>
     <li>Dataset Augmentation</li>
 </ul>
+
+All these tests has been performed on a sample of data just enough to verify that the modules produces the expected results.
+In order to easily create and manage this sample we have used the Pytest decorator fixture with autouse:
+
+    @pytest.fixture(autouse=True)
+    def prepareTestData():
+
+        if os.path.exists(src_path):
+            shutil.rmtree(src_path)
+
+        shutil.copytree(orig_path, src_path)
+        yield src_path
+        shutil.rmtree(src_path)
+        if os.path.exists(dst_path):
+            ut.remove_content(dst_path)
+
+that allow to every test to run the file system utilities needed to perform each test.
+
+Then, also the code of the model definition has been tested:
+
+<b>ML Model Definition Tests</b>
+<ul>
+    <li>YAML parameter loader</li>
+    <li>Model building</li>
+    <li>Model training</li>
+</ul>
+In particular the second test checks that the builded model has the expected layer dimensions, the third instead, since has the aim of test the actual correctness of the whole trainig phase, needs to call all the steps of our pipeline and for this reason has the role of an integration test.
+
+## Testing Model: System test
+
+In a ML workflow is necessary to verify that every version of a model satisfy a set of condition on its performances. These kind of tests are called <b>System Test</b> and are performed on the output model of our ML pipeline.
+In our project also these kind of test has been implemented using pytest tests and are the followings:
+<b>ML Model Evaluation Tests</b>
+<ul>
+    <li>Check on metrics</li>
+    <li>Directional Test</li>
+    <li>Invariance Test</li>
+</ul>
+
+For the first test we have checked that the accuracy and the f1-scorse was greater than a predifined treshold, for the second test we have checked that differently labeled inputs was classified in different way, for the third one we have checked that slightly different inputs reffering to the same class was classified in the same way.
+
+## Putting All Togheter
+The Great Expectation checpoint can be launched using the following comand on the temrinal:
+
+    great_expectations checkpoint run my_checkpoint      
+
+And the three Pytest files can be executed using the command
+
+    pytest <filename.py>
+
+However in a ML pipelin we want that every time we run our code we also ensure that module of the project, the overall integration and the model quality still respect our assertions. In order to do so we have extended ou DVC pipeline in order to sistematically check the correctness of every modification applied in the code in future releases.
+The new DVC pipeline is so defined:
+
