@@ -8,6 +8,7 @@ import mlflow
 from dotenv import dotenv_values
 from dotenv import find_dotenv
 import yaml
+import sys
 
 
 class Params:
@@ -27,6 +28,7 @@ class Params:
             self.loss = conf["loss"]
             self.patience = conf["patience"]
             self.early_stopping_metric = conf["early_stopping_metric"]
+
 
 class Model:
     def __init__(self):
@@ -136,13 +138,19 @@ class Model:
         print(valid_size, BATCH_SIZE)
         model = self.buildModel(class_names)
 
-        es = EarlyStopping(monitor=self.params.early_stopping_metric, mode="min", patience=self.params.patience, restore_best_weights=True, verbose=1)
+        es = EarlyStopping(
+            monitor=self.params.early_stopping_metric,
+            mode="min",
+            patience=self.params.patience,
+            restore_best_weights=True,
+            verbose=1,
+        )
         hist = model.fit(
             ds_train,
             validation_data=ds_validation,
             epochs=self.params.epochs,
             steps_per_epoch=steps_per_epoch,
-            callbacks=[es]
+            callbacks=[es],
         ).history
 
         return model, hist

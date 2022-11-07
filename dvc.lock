@@ -12,17 +12,17 @@ stages:
       size: 1738
     outs:
     - path: data/processed/test
-      md5: 72159bc664d7eec58baa07e2ff302d57.dir
-      size: 56625168
-      nfiles: 300
+      md5: 7604eef6cffd4691eea19be1088fe7d9.dir
+      size: 4977579
+      nfiles: 40
     - path: data/processed/train
-      md5: ebf2a234dac7e0babd328cf7c4a32d9e.dir
-      size: 894590533
-      nfiles: 4492
+      md5: 1c61dea353c333e6dc15a89c1132c864.dir
+      size: 11597987
+      nfiles: 100
     - path: data/processed/val
-      md5: 14ce86f9a9d11d9ffdd7eaf426893064.dir
-      size: 341392935
-      nfiles: 2460
+      md5: bfe1872af8f4f14343e8200d186ac727.dir
+      size: 4244716
+      nfiles: 37
   train:
     cmd: python src/models/train_model.py
     deps:
