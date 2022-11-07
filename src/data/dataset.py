@@ -47,8 +47,13 @@ class Dataset:
                 for d in os.listdir(src_path)
                 if os.path.isdir(os.path.join(src_path, d))
             ]
+            count = 0
 
-            if idx.count(1) < 2 or len(idx) != len(dirs):
+            for el in idx:
+                if el == 1:
+                    count = count + 1
+
+            if count < 2 or len(idx) != len(dirs):
                 return False
 
             if os.path.exists(dst_path):

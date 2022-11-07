@@ -70,6 +70,7 @@ def test_trainModel():
 
     # fitting del modello dummy sul train dummy
     model, hist = model_.trainModel()
+
     
     print(hist['loss'][0], hist['loss'][-2])
 
@@ -81,9 +82,9 @@ def test_trainModel():
 def test_modelPerformances():
     model_ = Model()
     data = Dataset()
-    loaded_model = model_.loadModel()
-    evals = loaded_model.evaluate(data.dataset_path_test)
-    assert evals[1] > 0.50
+    #loaded_model = model_.loadModel()
+    evals = loaded_model.evaluate(data.dataset_path_test) # type: ignore
+    assert evals[1] > 0.50  
     # aggiungere altri assert
 
 
