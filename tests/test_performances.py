@@ -5,6 +5,7 @@ import os
 import tensorflow as tf
 import os
 from sklearn.metrics import precision_recall_fscore_support as score
+import cv2
 
 def test_modelPerformances():
     model_ = Model()
@@ -69,13 +70,14 @@ def test_invariance():
     testSet = data.getTestSet()
     # load the best model
     loaded_model = model_.loadModel(os.path.join('models', 'saved-model'))
-
-    # predere 1 immagine
-    # applicare trasformazione
-    # predirre immagine senza trasformazione e con trasformazione per vedere se sono uguali
     example = list(testSet.as_numpy_iterator())
-    image = np.squeeze(example[0][0])
 
+    image_matrix = np.squeeze(example[0][0])
+    image = np.array(image_matrix ,dtype=np.uint8)
+
+    cv2.imshow('img', image)
+    cv2.waitKey(0)
+    cv2.destroyWindow('i')
 
 
 test_invariance()
