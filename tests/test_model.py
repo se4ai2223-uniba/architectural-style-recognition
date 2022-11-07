@@ -6,7 +6,7 @@ import numpy as np
 import os
 from src.models.model import Model
 import shutil
-
+from tensorflow.python.keras.models import model_from_json
 
 orig_path = os.path.join("data", "pytest", "test_data_origin")
 src_path = os.path.join("data", "pytest", "test_data")
@@ -40,7 +40,6 @@ def test_params():
         assert l2 > 1e-15
         assert np.mod(batch_size, 2) == 0  # Batch size must be a multiple of 2
         assert epochs > 0
-
 
 
 def test_buildModel():
@@ -77,3 +76,15 @@ def test_trainModel():
     # assert that loss decrease
     assert hist['loss'][0] > hist['loss'][-2]
     shutil.rmtree(src_path)
+
+
+def test_modelPerformances():
+    model_ = Model()
+    data = Dataset()
+    loaded_model = model_.loadModel()
+    evals = loaded_model.evaluate(data.dataset_path_test)
+    assert evals[1] > 0.50
+    # aggiungere altri assert
+
+
+
