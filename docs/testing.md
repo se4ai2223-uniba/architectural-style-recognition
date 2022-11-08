@@ -7,7 +7,6 @@
   - [Great Expectations](#great-expectations)
 - [Testing Code](#testing-code)
 - [Testing Model](#testing-model)
-- [Putting All Together](#putting-all-together)
 
 
 ## ⚙️ Testing Data
@@ -199,16 +198,3 @@ In our project also these kind of test has been implemented using pytest tests a
 </table>
 
 For the first test we have checked that the accuracy and the f1-scorse was greater than a predifined treshold, for the second test we have checked that differently labeled inputs was classified in different way, for the third one we have checked that slightly different inputs reffering to the same class was classified in the same way.
-
-# 📦 Putting All Togheter
-The Great Expectation checpoint can be launched using the following comand on the temrinal:
-
-    great_expectations checkpoint run my_checkpoint      
-
-And the three Pytest files can be executed using the command
-
-    pytest <filename.py>
-
-However in a ML pipeline we want that every time we run our code we also ensure that module of the project, the overall integration and the model quality still respect our assertions. In order to do so we have extended ou DVC pipeline in order to sistematically check the correctness of every modification applied in the code in future releases.
-The new DVC pipeline is so defined:
-

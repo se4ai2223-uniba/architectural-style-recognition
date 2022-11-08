@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+import os
 import logging
 from pathlib import Path
 from dotenv import find_dotenv
-import os
 import numpy as np
 from dotenv import dotenv_values
-from dataset import Dataset
+from src.data.dataset import Dataset
 
 
 def main():

@@ -6,7 +6,6 @@ import numpy as np
 import os
 from src.models.model import Model
 import shutil
-from tensorflow.python.keras.models import model_from_json
 
 orig_path = os.path.join("data", "pytest", "test_data_origin")
 src_path = os.path.join("data", "pytest", "test_data")

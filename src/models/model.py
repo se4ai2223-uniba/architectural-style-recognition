@@ -1,8 +1,8 @@
+import os
 from src.data.dataset import Dataset
 import tensorflow as tf
 import tensorflow_hub as hub
-from tensorflow.keras.models import model_from_json  # type: ignore
-import os
+from keras.models import model_from_json
 from keras.callbacks import EarlyStopping
 import yaml
 
@@ -130,7 +130,6 @@ class Model:
         #                         labels))
 
         steps_per_epoch = train_size // BATCH_SIZE
-        validation_steps = valid_size // BATCH_SIZE
         print(valid_size, BATCH_SIZE)
         model = self.buildModel(class_names)
 
