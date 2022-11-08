@@ -81,7 +81,7 @@ stores:
     class_name: ValidationsStore
     store_backend:
       class_name: TupleFilesystemStoreBackend
-      base_directory: uncommitted/validations/
+      base_directory: results/validations/
 
   evaluation_parameter_store:
     class_name: EvaluationParameterStore
