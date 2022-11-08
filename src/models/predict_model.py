@@ -1,9 +1,9 @@
-import tensorflow as tf
 import os
+import tensorflow as tf
 import mlflow
 from dotenv import find_dotenv
 from dotenv import dotenv_values
-from model import Model # type: ignore
+from src.models.model import Model
 
 
 mlflow.set_tracking_uri(
@@ -19,7 +19,7 @@ model = Model()
 test_set = model.data.getTestSet()
 
 
-model_loaded = model.loadModel(os.path.join('models', 'saved-model'))
+model_loaded = model.loadModel(os.path.join("models", "saved-model"))
 
 model_loaded.compile(
     optimizer=tf.keras.optimizers.SGD(
@@ -45,6 +45,6 @@ mlflow.end_run()
 print(evaluations)
 print(predictions_test)
 
-f = open("src/models/results.txt", "w")
-f.write(str(evaluations) + "\n" + str(predictions_test))
-f.close()
+with open("src/models/results.txt", "w") as f:
+    f.write(str(evaluations) + "\n" + str(predictions_test))
+    f.close()
