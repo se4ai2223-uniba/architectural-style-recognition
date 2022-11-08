@@ -182,19 +182,19 @@ In our project also these kind of test has been implemented using pytest tests a
     <td>Check on metrics</td>
     <td>test_modelPerformances()</td>
     <td>System Test</td>
-    <td> ❌ </td>
+    <td> ✔️ </td>
   </tr>
   <tr>
     <td>Check directionality on image</td>
     <td>test_directional()</td>
     <td>System Test</td>
-    <td> ✔️ </td>
+    <td> ❌ </td>
   </tr>
   <tr>
     <td>Check invariance on image</td>
     <td>test_invariance()</td>
     <td>System Test</td>
-    <td> ✔️ </td>
+    <td> ❌ </td>
   </tr>
 </table>
 
