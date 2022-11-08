@@ -26,3 +26,27 @@ stages:
     - src/models/predict_model.py
     outs:
     - src/models/results.txt
+  feature-extraction:
+    cmd: python src/data/feature_extraction.py
+    deps:
+    - data/raw/arcDataset
+    - src/data/feature_extraction.py
+    outs:
+    - data/img_feature/images_features.csv
+  great-expectations:
+    cmd: python src/tests/run_img_features_checkpoint.py
+    deps:
+    - data/img_feature/images_features.csv
+    - src/tests/run_img_features_checkpoint.py
+  test-dataset:
+    cmd: pytest src/tests/test_dataset_code.py
+    deps:
+    - data/pytest/test_data_origin
+    - src/tests/test_dataset_code.py
+  test-model:
+    cmd: pytest src/tests/test_model.py
+    deps:
+    - data/processed/train
+    - data/processed/val
+    - params.yaml
+    - src/tests/test_model.py

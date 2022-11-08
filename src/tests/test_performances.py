@@ -36,9 +36,9 @@ def test_modelPerformances():
     print(predictions_, labels_)
     # get scores
     precision, recall, fscore, support = score(labels_, predictions_, average="macro")
-    evals = loaded_model.evaluate(testSet)  # type: ignore
-    assert fscore > 0.20
-    assert evals[1] >= 0.50
+    evals = loaded_model.predict(testSet)
+    assert fscore > 0.3
+    assert evals[1] >= 0.5
 
 
 # directional test

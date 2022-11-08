@@ -64,3 +64,53 @@ stages:
     - path: src/models/results.txt
       md5: a3b7489e396237a8e080939bf794b6c6
       size: 1025
+  feature-extraction:
+    cmd: python src/data/feature_extraction.py
+    deps:
+    - path: data/raw/arcDataset
+      md5: 6dcfb8f5fcb23f28a99b5954ec04317c.dir
+      size: 852840944
+      nfiles: 6047
+    - path: src/data/feature_extraction.py
+      md5: 2b8150baa582d07164f6e27dd53b7012
+      size: 2204
+    outs:
+    - path: data/img_feature/images_features.csv
+      md5: a7b04f09b9fe456e57fe7052da2c8a6d
+      size: 586814
+  great-expectations:
+    cmd: python src/tests/run_img_features_checkpoint.py
+    deps:
+    - path: data/img_feature/images_features.csv
+      md5: a7b04f09b9fe456e57fe7052da2c8a6d
+      size: 586814
+    - path: src/tests/run_img_features_checkpoint.py
+      md5: 67c5f56ba02cd4fa7fc9f111c36a8fe2
+      size: 1620
+  test-dataset:
+    cmd: pytest src/tests/test_dataset_code.py
+    deps:
+    - path: data/pytest/test_data_origin
+      md5: 94260a638f3f9ead6399622270bd11a6.dir
+      size: 6514105
+      nfiles: 29
+    - path: src/tests/test_dataset_code.py
+      md5: 4f49ae48cecc40cdff345cc0f200188d
+      size: 2213
+  test-model:
+    cmd: pytest src/tests/test_model.py
+    deps:
+    - path: data/processed/train
+      md5: 5ce2b2ca9f505d36b12be4d9d60e843a.dir
+      size: 30349924
+      nfiles: 265
+    - path: data/processed/val
+      md5: 45619f86f602a39b2c4b017ced1272b7.dir
+      size: 8831337
+      nfiles: 45
+    - path: params.yaml
+      md5: a109dda6186f4eb2d104d334ab294696
+      size: 236
+    - path: src/tests/test_model.py
+      md5: 8783ca6a8a9467884ae24a398ede940f
+      size: 2341
