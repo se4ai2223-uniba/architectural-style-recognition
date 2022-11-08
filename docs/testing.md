@@ -11,9 +11,9 @@
 
 
 ## ⚙️ Testing Data
-In a ML model data are the most critical aspect, as the motto says "trash in - trash out" so we need to carefully check if data are coherent with a set of predifined quality check and avoid that strange values could spoil the training phase and the overall model's quality.
+In a ML model data are the most critical aspect, as the motto says "trash in - trash out" so we need to carefully check if data are coherent with a set of predefined quality check and avoid that strange values could spoil the training phase and the overall model's quality.
 
-Especially in dataset that grow over time, for example colllecting users data, this step is crucial since there are chance that users could send non realible data.
+Especially in dataset that grow over time, for example collecting users data, this step is crucial since there are chance that users could send non reliable data.
 
 ### <b> Great Expectations </b> <img src='..\great_expectations\logo.png' style='width:20pt; vertical-align:middle'></img>
 A tool that can help us to do this kind of tests is Great Expectations.
@@ -66,11 +66,11 @@ The whole test suite include the followings tests:
 
 All the execution are stored into:
 
-    great_expectations\uncommitted\validations\img_features_suite
+    great_expectations\results\validations
 
 and is possbile to see the results throught a GUI using the html page sotred in:
 
-    great_expectations/uncommitted/data_docs/local_site/index.html
+    great_expectations\results\data_docs\local_site\index.html
 
 ## ⚙️ Testing Code
 
