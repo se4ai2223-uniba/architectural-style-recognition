@@ -36,9 +36,7 @@ def test_modelPerformances():
     print(predictions_, labels_)
     # get scores
     precision, recall, fscore, support = score(labels_, predictions_, average="macro")
-    evals = loaded_model.predict(testSet)
     assert fscore > 0.3
-    assert evals[1] >= 0.5
 
 
 # directional test
@@ -102,6 +100,3 @@ def test_invariance():
     flipx_pred = np.argmax(loaded_model.predict(img_flipx))
 
     assert gauss_pred == flipx_pred == flipy_pred == image_label
-
-
-test_invariance()
