@@ -186,7 +186,7 @@ In our project also these kind of test has been implemented using pytest tests a
   <tr>
     <td>Check directionality on image</td>
     <td>test_directional()</td>
-    <td>System Test</td>
+    <td>Minimum Functionality Test</td>
     <td> ❌ </td>
   </tr>
   <tr>
