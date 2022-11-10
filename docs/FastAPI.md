@@ -1,4 +1,4 @@
-# Web API
+# Web API 🪛
 
 Client - Server communicate with Request and Response.
 
@@ -41,7 +41,7 @@ Other specific information and Data.
 +400: Error in Client Side
 +500: Error in Server Side
 
-# FastAPI
+# FastAPI ⚡
 
 Why this tool?
 Similar to NodeJS and Go.
@@ -81,7 +81,7 @@ ValidationError can be catched using:
 
 The printing will show what went wrong in validate the class.
 
-# Installation FastAPI
+# Installation FastAPI 💾
 
         pip install "fastapi[all]"
 
@@ -93,7 +93,7 @@ The printing will show what went wrong in validate the class.
             #Simple Response to Get Request
             return { "message: Hello! you are in the root!" }
 
-## Running the server
+## Running the server 🖥️
 
 use <b> uvicorn </b> library in order to start a server.
 
