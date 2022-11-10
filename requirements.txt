@@ -26,3 +26,4 @@ glob2
 pytest
 pylint
 great_expectations
+fastapi[all]
