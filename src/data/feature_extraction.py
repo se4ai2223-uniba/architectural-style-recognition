@@ -1,9 +1,5 @@
 import os
 import cv2
-import string
-import numpy as np
-import great_expectations as ge
-
 
 def featureExtractor(dataset_raw_path, file_name):
     csv = open(file_name, "w")

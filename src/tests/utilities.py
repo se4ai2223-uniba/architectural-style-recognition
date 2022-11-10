@@ -2,6 +2,7 @@ import os
 import shutil
 from src.data.dataset import Dataset
 import glob
+import numpy as np
 
 # count how many files there are for each folder inside src
 def count_files(src):
@@ -26,3 +27,4 @@ def remove_content(path):
                 shutil.rmtree(file_path)
         except Exception as e:
             print("Failed to delete %s. Reason: %s" % (file_path, e))
+

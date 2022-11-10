@@ -6,7 +6,6 @@ import numpy as np
 import os
 from src.models.model import Model
 import shutil
-from tensorflow.python.keras.models import model_from_json
 
 orig_path = os.path.join("data", "pytest", "test_data_origin")
 src_path = os.path.join("data", "pytest", "test_data")
@@ -26,12 +25,12 @@ def test_params():
         batch_size = conf["batch_size"]
         epochs = conf["epochs"]
 
-        assert isinstance(learning_rate,float)
-        assert isinstance(momentum,float)
-        assert isinstance(label_smoothing,float)
-        assert isinstance(dropout_rate,float)
-        assert isinstance(l2,float)
-        assert isinstance(epochs,int)
+        assert isinstance(learning_rate, float)
+        assert isinstance(momentum, float)
+        assert isinstance(label_smoothing, float)
+        assert isinstance(dropout_rate, float)
+        assert isinstance(l2, float)
+        assert isinstance(epochs, int)
 
         assert learning_rate > 1e-10
         assert momentum > 1e-10
@@ -44,11 +43,11 @@ def test_params():
 
 def test_buildModel():
     model_ = Model()
-    class_names = ['dummy1','dummy2','dummy3']
+    class_names = ["dummy1", "dummy2", "dummy3"]
     model = model_.buildModel(class_names)
 
-    assert model.layers[0].input.shape == (None,224,224,3)
-    assert model.layers[-1].output.shape == (None,len(class_names))
+    assert model.layers[0].input.shape == (None, 224, 224, 3)
+    assert model.layers[-1].output.shape == (None, len(class_names))
 
 
 def test_trainModel():
@@ -60,32 +59,19 @@ def test_trainModel():
     shutil.copytree(orig_path, src_path)
 
     # creazione del train dummy
-    data.split_dataset(src_path = src_path)
+    data.split_dataset(src_path=src_path)
     data.augment_data(data.dataset_path_train)
 
     model_.params.batch_size = 5
-    model_.params.epochs = 10
-    model_.params.early_stopping_metric = 'loss'
+    model_.params.epochs = 3
+    model_.params.early_stopping_metric = "loss"
     model_.params.patience = 1
 
     # fitting del modello dummy sul train dummy
     model, hist = model_.trainModel()
 
-    
-    print(hist['loss'][0], hist['loss'][-2])
+    print(hist["loss"][0], hist["loss"][-2])
 
     # assert that loss decrease
-    assert hist['loss'][0] > hist['loss'][-2]
+    assert hist["loss"][0] > hist["loss"][-2]
     shutil.rmtree(src_path)
-
-
-def test_modelPerformances():
-    model_ = Model()
-    data = Dataset()
-    #loaded_model = model_.loadModel()
-    evals = loaded_model.evaluate(data.dataset_path_test) # type: ignore
-    assert evals[1] > 0.50  
-    # aggiungere altri assert
-
-
-

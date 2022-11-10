@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
 import mlflow
-from model import Model # type: ignore
+from src.models.model import Model
 from dotenv import dotenv_values
 from dotenv import find_dotenv
-import os
 
 model = Model()
 
@@ -13,8 +13,8 @@ mlflow.set_tracking_uri(
     "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
 )
 conf = dotenv_values(find_dotenv())
-os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"] # type: ignore
-os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"] # type: ignore
+os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]  # type: ignore
+os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]  # type: ignore
 mlflow.set_experiment("Training stage")
 # Start MLFlow
 mlflow.start_run()
@@ -32,8 +32,8 @@ mlflow.log_params(
     }
 )
 model_trained, hist = model.trainModel()
-save_path = "models/saved-model"
-model.saveModel(model_trained, save_path)
+SAVE_PATH = "models/saved-model"
+model.saveModel(model_trained, SAVE_PATH)
 
 
 train_loss = hist["loss"][-1]
