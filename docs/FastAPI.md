@@ -41,7 +41,7 @@ Other specific information and Data.
 +400: Error in Client Side
 +500: Error in Server Side
 
-# FastAPI ⚡ 🐝 
+# FastAPI ⚡ 🐝 🐝
 
 Why this tool?
 Similar to NodeJS and Go.
