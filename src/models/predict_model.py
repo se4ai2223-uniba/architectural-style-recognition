@@ -1,62 +1,39 @@
-import tensorflow as tf
-from tensorflow import keras
 import os
-from tensorflow.keras.models import model_from_json
-import tensorflow_hub as hub
+import tensorflow as tf
 import mlflow
-from dotenv import find_dotenv, load_dotenv
+from dotenv import find_dotenv
 from dotenv import dotenv_values
+from src.models.model import Model
 
-dataset_path_test = "data/processed/test"
+
 mlflow.set_tracking_uri(
     "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
 )
 conf = dotenv_values(find_dotenv())
-os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]
-os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]
+os.environ["MLFLOW_TRACKING_USERNAME"] = conf["MLFLOW_TRACKING_USERNAME"]  # type: ignore
+os.environ["MLFLOW_TRACKING_PASSWORD"] = conf["MLFLOW_TRACKING_PASSWORD"]  # type: ignore
 mlflow.set_experiment("Evaluation stage")
 mlflow.start_run()
 
-
-def buildTestset():
-    ds_test = tf.keras.preprocessing.image_dataset_from_directory(
-        dataset_path_test,
-        labels="inferred",
-        label_mode="categorical",
-        image_size=(224, 224),
-        shuffle=True,
-        seed=123,
-        batch_size=1,
-    )
-    return ds_test
+model = Model()
+test_set = model.data.getTestSet()
 
 
-def loadModel(path):
-    model_loaded = tf.keras.Sequential()
-    # load json and create model
-    json_file = open(os.path.join(path, "model.json"), "r")
-    model_json = json_file.read()
-    json_file.close()
-    model_loaded = model_from_json(
-        model_json, custom_objects={"KerasLayer": hub.KerasLayer}
-    )
-    # load weights into new model
-    model_loaded.load_weights(os.path.join(path, "model.h5"))
-    print("Loaded model from disk")
-    return model_loaded
+model_loaded = model.loadModel(os.path.join("models", "saved-model"))
 
-
-model = loadModel("models/saved-model")
-test_set = buildTestset()
-model.compile(
-    optimizer=tf.keras.optimizers.SGD(learning_rate=0.005, momentum=0.9),
+model_loaded.compile(
+    optimizer=tf.keras.optimizers.SGD(
+        learning_rate=model.params.learning_rate, momentum=model.params.momentum
+    ),
     loss=tf.keras.losses.CategoricalCrossentropy(
-        from_logits=False, label_smoothing=0.1
+        from_logits=False, label_smoothing=model.params.label_smoothing
     ),
     metrics=["accuracy"],
 )
-evaluations = model.evaluate(test_set)
-predictions_test = model.predict(test_set)
+
+
+evaluations = model_loaded.evaluate(test_set)
+predictions_test = model_loaded.predict(test_set)
 
 mlflow.log_metrics(
     {"test-set-accuracy": evaluations[1], "test-set-loss": evaluations[0]}
@@ -68,6 +45,6 @@ mlflow.end_run()
 print(evaluations)
 print(predictions_test)
 
-f = open("src/models/results.txt", "w")
-f.write(str(evaluations) + "\n" + str(predictions_test))
-f.close()
+with open("src/models/results.txt", "w") as f:
+    f.write(str(evaluations) + "\n" + str(predictions_test))
+    f.close()
