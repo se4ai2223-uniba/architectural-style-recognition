@@ -1,0 +1,47 @@
+Milestone Four
+
+-Raspberry 
+-3 servizi
+	-classifica -> id class; id img; class
+	-valuta classificazione 
+	-aggiungi nuova immagine
+
+-Sistemare test di direzionalità
+
+\img\img_1.png
+
+classificazioni
+{
+id_img_1: classe0
+
+}
+
+dataset{
+id_img_0: classe_2
+id_img_1: classe_1
+}
+________________________________________________
+
+Servizio uno: classifica immagine
+input: immagine da classificare
+elaborazione:
+	crea un id univoco per l'immagine e la salva usando l'id come nome nella cartella
+	classifica l'immagine producendo una coppia json {id_immagine:classe}
+	salva questa informazione in classificazioni.json
+	invia questa informazione al richiedente
+output: messaggio json {id_immagine:classe}
+	
+Servizio due: valuta classifcazione
+input: messaggio json {id_immagine: classe}
+elaborazione
+	verifica che l'immagine esista nella cartella
+	verifica che l'immagine NON esista nel file dataset.json
+	aggiunge il messaggio inviato al file dataset.json
+output: messaggio OK o KO (con ragione errore)
+
+Servizio tre: aggiungi nuova immagine al dataset
+input: immagine da aggiungere, classe
+elaborazione:
+	crea un id univoco per l'immagine e la salva usando l'id come nome nella cartella
+	aggiunge la coppia {id_immagine: classe} dataset.json
+output: messaggio OK o KO (con ragione errore)
