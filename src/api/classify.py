@@ -25,8 +25,6 @@ async def create_upload_image(file: UploadFile):
     with open(os.path.join('..','..','data','external', 'ids.txt'), 'a') as id_file:
         id_file.write("\n" + str(generated_id))
         id_file.close() 
-
-
     print("File Uploaded")
     path_saved_model = os.path.join('..','..','models','saved-model-optimal/')
     model = load_model(path_saved_model)
