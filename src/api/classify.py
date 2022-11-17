@@ -18,11 +18,16 @@ app = FastAPI()
 @app.post("/uploadimage/")
 async def create_upload_image(file: UploadFile):
     contents = await file.read()
-    image_path = os.path.join('..','..','data','external', file.filename)
+    generated_id = generate_id(os.path.join('..','..','data','external', 'ids.txt'))
+    image_path = os.path.join('..','..','data','external', str(generated_id) + "_" + file.filename)
     with open(image_path, "wb") as f:
         f.write(contents)
+    with open(os.path.join('..','..','data','external', 'ids.txt'), 'a') as id_file:
+        id_file.write("\n" + str(generated_id))
+        id_file.close() 
+
+
     print("File Uploaded")
-    print(file.content_type)
     path_saved_model = os.path.join('..','..','models','saved-model-optimal/')
     model = load_model(path_saved_model)
     preprocessed_image = prepare_image(image_path)
@@ -46,3 +51,9 @@ def prepare_image(file):
     img_array = image.img_to_array(img)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return tf.keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
+
+def generate_id(ids_path_file):
+    with open(ids_path_file) as f:
+        lines = f.readlines()[-1]
+        print(lines)
+    return int(lines)+1
