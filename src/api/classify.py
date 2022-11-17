@@ -19,11 +19,11 @@ app = FastAPI()
 async def create_upload_image(file: UploadFile):
     contents = await file.read()
     generated_id = generate_id(os.path.join('..','..','data','external', 'ids.txt'))
-    image_path = os.path.join('..','..','data','external', str(generated_id) + "_" + file.filename)
+    image_path = os.path.join('..','..','data','external', 'images', str(generated_id) + "_" + file.filename)
     with open(image_path, "wb") as f:
         f.write(contents)
     with open(os.path.join('..','..','data','external', 'ids.txt'), 'a') as id_file:
-        id_file.write("\n" + str(generated_id))
+        id_file.write(str(generated_id)+"\n")
         id_file.close() 
     print("File Uploaded")
     path_saved_model = os.path.join('..','..','models','saved-model-optimal/')
@@ -51,7 +51,23 @@ def prepare_image(file):
     return tf.keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
 
 def generate_id(ids_path_file):
-    with open(ids_path_file) as f:
-        lines = f.readlines()[-1]
-        print(lines)
-    return int(lines)+1
+    id_founded = []
+    i=0
+    try:
+        # Inserisci tutti gli id relative alle immagini presenti in /images
+        with open(ids_path_file, 'w') as id_file:
+            for image in os.listdir(os.path.join('..','..','data','external', 'images')):
+                id = image.split('_')[0]
+                id_founded.append(id)
+                id_file.write(str(id)+"\n")
+            print(id_founded)
+            id_file.close() 
+        while(str(i) in id_founded):
+            i=i+1
+        return i
+    except:
+        return 0
+
+generate_id(os.path.join('..','..','data','external', 'ids.txt'))
+
+    
