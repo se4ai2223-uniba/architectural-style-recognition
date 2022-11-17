@@ -60,14 +60,11 @@ def generate_id(ids_path_file):
                 id = image.split('_')[0]
                 id_founded.append(id)
                 id_file.write(str(id)+"\n")
-            print(id_founded)
             id_file.close() 
         while(str(i) in id_founded):
             i=i+1
         return i
     except:
         return 0
-
-generate_id(os.path.join('..','..','data','external', 'ids.txt'))
 
     
