@@ -3,18 +3,17 @@ from fastapi import FastAPI, File, UploadFile
 import tensorflow as tf
 import tensorflow_hub as hub
 import numpy as np
-from tensorflow.keras.applications import imagenet_utils #type:ignore
 from tensorflow.keras.preprocessing import image #type:ignore
 from tensorflow.keras.models import model_from_json #type:ignore
 import os
-
+import csv
 app = FastAPI()
 
 from fastapi import FastAPI
 
 app = FastAPI()
 
-# Esempio di path marameters che deve essere per forza un intero
+#riceve un'immagine e fornisce la predizione. l'immagine e la predizione vengono salvate.
 @app.post("/uploadimage/")
 async def create_upload_image(file: UploadFile):
     contents = await file.read()
@@ -31,8 +30,10 @@ async def create_upload_image(file: UploadFile):
     preprocessed_image = prepare_image(image_path)
     predictions = model.predict(preprocessed_image)
     label = np.argmax(predictions)
+    insert_into_csv(os.path.join('..','..','data','external', 'predictions.csv'), str(generated_id), str(label))
     return {"filename": file.filename, "label": str(label)}
 
+#carica il modello allenato dal path
 def load_model(path):
     model_loaded = tf.keras.Sequential()
     # load json and create model
@@ -44,12 +45,14 @@ def load_model(path):
     model_loaded.load_weights(path+"model.h5")
     return model_loaded
 
+#prepara l'immagine in maniera che sia accettabile dalla CNN
 def prepare_image(file):
     img = image.load_img(file, target_size=(224, 224))
     img_array = image.img_to_array(img)
     img_array_expanded_dims = np.expand_dims(img_array, axis=0)
     return tf.keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
 
+#genera un'id tenendo conto delle immagini esterne
 def generate_id(ids_path_file):
     id_founded = []
     i=0
@@ -66,5 +69,12 @@ def generate_id(ids_path_file):
         return i
     except:
         return 0
+
+#Inserisce una predizione nel csv
+def insert_into_csv(path_json_file, id_image, label):
+    pred = [id_image, label]
+    with open(path_json_file, 'a', newline='') as predictions_file:
+        w=csv.writer(predictions_file)
+        w.writerow(pred)
 
     
