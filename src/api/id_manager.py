@@ -1,6 +1,6 @@
 import json
 import os
-file_name = os.path.join('data','external','id.json')
+file_name = os.path.join('..', '..', 'data','external','id.json')
 def read_id():    
     f = open(file_name)
     data = json.load(f)

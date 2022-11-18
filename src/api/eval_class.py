@@ -5,7 +5,7 @@ import os
 
 app = FastAPI()
 dataset_csv = os.path.join('..','..','data','external','dataset.csv')
-classification_csv = os.path.join('..','..','data','external','classification.csv')
+classification_csv = os.path.join('..','..','data','external','predictions.csv')
 
 def evaluate_classification(id, classification):
     idsd = []
@@ -17,7 +17,7 @@ def evaluate_classification(id, classification):
     if not dfd.empty:
         idsd = dfd["id_img"].to_list()
     if (id in idsc and id not in idsd):
-        dfd_ins = pd.DataFrame([[id, classification]], columns=['id_img', 'classification'])        
+        dfd_ins = pd.DataFrame([[id, classification]], columns=['id_img', 'id_class'])        
         dfd=pd.concat([dfd, dfd_ins])  
 
         print(dfd)

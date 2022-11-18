@@ -7,6 +7,10 @@ from tensorflow.keras.preprocessing import image #type:ignore
 from tensorflow.keras.models import model_from_json #type:ignore
 import os
 import csv
+from id_manager import read_id, increase_id
+
+
+
 app = FastAPI()
 
 from fastapi import FastAPI
@@ -17,20 +21,28 @@ app = FastAPI()
 @app.post("/uploadimage/")
 async def create_upload_image(file: UploadFile):
     contents = await file.read()
-    generated_id = generate_id(os.path.join('..','..','data','external', 'ids.txt'))
-    image_path = os.path.join('..','..','data','external', 'images', str(generated_id) + "_" + file.filename)
+    #generated_id = generate_id(os.path.join('..','..','data','external', 'ids.txt'))
+
+    
+    nuovo_id = read_id()
+
+
+    image_path = os.path.join('..','..','data','external', 'images', str(nuovo_id) + "_" + file.filename)
     with open(image_path, "wb") as f:
         f.write(contents)
-    with open(os.path.join('..','..','data','external', 'ids.txt'), 'a') as id_file:
-        id_file.write(str(generated_id)+"\n")
-        id_file.close() 
+    # with open(os.path.join('..','..','data','external', 'ids.txt'), 'a') as id_file:
+    #     id_file.write(str(generated_id)+"\n")
+    #     id_file.close() 
     print("File Uploaded")
     path_saved_model = os.path.join('..','..','models','saved-model-optimal/')
     model = load_model(path_saved_model)
     preprocessed_image = prepare_image(image_path)
     predictions = model.predict(preprocessed_image)
     label = np.argmax(predictions)
-    insert_into_csv(os.path.join('..','..','data','external', 'predictions.csv'), str(generated_id), str(label))
+    insert_into_csv(os.path.join('..','..','data','external', 'predictions.csv'), str(nuovo_id), str(label))
+
+    increase_id()
+
     return {"filename": file.filename, "label": str(label)}
 
 #carica il modello allenato dal path
@@ -53,22 +65,22 @@ def prepare_image(file):
     return tf.keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
 
 #genera un'id tenendo conto delle immagini esterne
-def generate_id(ids_path_file):
-    id_founded = []
-    i=0
-    try:
-        # Inserisci tutti gli id relative alle immagini presenti in /images
-        with open(ids_path_file, 'w') as id_file:
-            for image in os.listdir(os.path.join('..','..','data','external', 'images')):
-                id = image.split('_')[0]
-                id_founded.append(id)
-                id_file.write(str(id)+"\n")
-            id_file.close() 
-        while(str(i) in id_founded):
-            i=i+1
-        return i
-    except:
-        return 0
+# def generate_id(ids_path_file):
+#     id_founded = []
+#     i=0
+#     try:
+#         # Inserisci tutti gli id relative alle immagini presenti in /images
+#         with open(ids_path_file, 'w') as id_file:
+#             for image in os.listdir(os.path.join('..','..','data','external', 'images')):
+#                 id = image.split('_')[0]
+#                 id_founded.append(id)
+#                 id_file.write(str(id)+"\n")
+#             id_file.close() 
+#         while(str(i) in id_founded):
+#             i=i+1
+#         return i
+#     except:
+#         return 0
 
 #Inserisce una predizione nel csv
 def insert_into_csv(path_json_file, id_image, label):
