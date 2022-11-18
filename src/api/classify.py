@@ -72,7 +72,13 @@ def generate_id(ids_path_file):
 
 #Inserisce una predizione nel csv
 def insert_into_csv(path_json_file, id_image, label):
+    header = ['id_img', 'id_class']
     pred = [id_image, label]
+
+    if(not os.path.exists(path_json_file)):
+        with open(path_json_file, 'a', newline='') as predictions_file:
+            w=csv.writer(predictions_file)
+            w.writerow(header)
     with open(path_json_file, 'a', newline='') as predictions_file:
         w=csv.writer(predictions_file)
         w.writerow(pred)
