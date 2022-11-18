@@ -97,7 +97,7 @@ The printing will show what went wrong in validate the class.
 
 use <b> uvicorn </b> library in order to start a server.
 
-        univorn server.py:app --reload
+        uvicorn server.py:app --reload
 
 we can find auto-generated doc in http://126.0.0.1:8000
 
