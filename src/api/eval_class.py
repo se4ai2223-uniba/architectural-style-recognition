@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import os
 
-app = FastAPI()
+
 dataset_csv = os.path.join('..','..','data','external','dataset.csv')
 classification_csv = os.path.join('..','..','data','external','predictions.csv')
 
@@ -25,8 +25,3 @@ def evaluate_classification(id, classification):
         return 'ok'
     else:
         return 'ko'
-
-@app.post("/eval_class/")
-async def eval_class( id_img: int, new_class: str):
-    res = evaluate_classification(id_img, new_class)
-    return {"result": res}
