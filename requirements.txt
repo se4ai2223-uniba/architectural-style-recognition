@@ -26,4 +26,7 @@ glob2
 pytest
 pylint
 great_expectations
+
+#milestone 4
 fastapi[all]
+uvicorn[standard]
