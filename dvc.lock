@@ -23,6 +23,7 @@ stages:
       md5: 8536ccf9a9084cd8e91384920743d281.dir
       size: 4047899
       nfiles: 37
+>>>>>>> 16f82195252f859761092527651e1653b3a86784
   train:
     cmd: python src/models/train_model.py
     deps:
@@ -34,6 +35,7 @@ stages:
       md5: 8536ccf9a9084cd8e91384920743d281.dir
       size: 4047899
       nfiles: 37
+>>>>>>> 16f82195252f859761092527651e1653b3a86784
     - path: src/models/train_model.py
       md5: 10ed10d3037a0119cf7157e04a93e07a
       size: 1664
@@ -61,6 +63,11 @@ stages:
       md5: 1da738efe4932da3957099255e69462b
       size: 1431
     outs:
+<<<<<<< HEAD
+    - path: src/models/predictions.txt
+      md5: 5aa523471d05e104767ffd8d808f76c7
+      size: 1066
+=======
     - path: src/models/results.txt
       md5: 64f79984424e7ffa400af90411017a3d
       size: 1026

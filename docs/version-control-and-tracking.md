@@ -7,15 +7,16 @@
   - [Why Reproducibility?](#why-reproducibility)
   - [Data versioning, Pipeline and Experiment Tracking](#data-versioning-pipeline-and-experiment-tracking)
   - [Technologies: DVC, MLFlow, DagsHub](#technologies-dvc-mlflow-dagshub)
-- [Intermediate Steps](#intermediate-steps)
-  - [Setting Up DugsHub](#setting-up-dugshub)
-  - [Code restructuring](#code-restructuring)
+- [Code restructuring](#code-restructuring)
 - [DVC](#dvc)
-- [MLFlow](#mlflow)
+  - [Prepare-dataset](#prepare-dataset)
+  - [Training](#training)
+  - [Predict](#predict)
+- [MLflow](#mlflow)
   - [Parameters](#parameters)
   - [Metrics](#metrics)
-
-
+  - [Comparisons](#comparisons)
+- [Additional Resources](#additional-resources)
 
 ## Introduction
 
@@ -129,7 +130,7 @@ In order to add the stage to dvc.yaml file we execute the following command:
     -d models/saved-model/model.h5 \
     -d models/saved-model/model.json \
     -d src/models/predict_model.py \
-    -o src/models/results.txt \
+    -o src/models/predictions.txt \
     python src/models/predict_model.py 
 
 <br>
@@ -137,13 +138,15 @@ A graph representing the summary of our dvc pipeline is reported below:
 
 <br>
 
-[![eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg](https://i.postimg.cc/rmn8BLB6/eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg)](https://postimg.cc/47ckcj4w)
+![eb58fef3-5ecb-4fb3-bb94-794513ba69a0.jpg](https://i.postimg.cc/TwFLtbVC/Grafo.png)
 
 
 
-## MLFlow
+## MLflow
 
-We have tracked parameters and metrics relevant to our ML model using MLFlow, by writing the appropriate code in the file train_model.py. The results are visible in our DagsHub repository under the "Experiments" tab. Below we report the relevant code and the visualization in MLFlow of our parameters and our metrics (derived from two different experiments).
+To track parameters and metrics relevant to our ML model we have chosen MLflow. As a preliminary step, we have set as a tracking URI our DagsHub repository, so that we can visualize the results on that repository under the "Experiments" tab (or, alternatively, using the .mlflow URI).
+
+Then, we have added the necessary code into the train_model.py and in the predict_model.py files, to track parameters and metrics. The code and the results on DagsHub are visible below.
 
 ### Parameters
 
@@ -156,6 +159,17 @@ We have tracked parameters and metrics relevant to our ML model using MLFlow, by
 
 [![metrics-code.png](https://i.postimg.cc/HkKmT2xK/metrics-code.png)](https://postimg.cc/PCm9411z)
 
-[![metrics-mlflow-1.png](https://i.postimg.cc/PqZgTn0p/metrics-mlflow-1.png)](https://postimg.cc/VSfGWpfm)
+[![evaluation-metrics.png](https://i.postimg.cc/fbQz8xYF/evaluation-metrics.png)](https://postimg.cc/RWGxFJsQ)
 
-[![metrics-mlflow-2.png](https://i.postimg.cc/mrQ5KNF7/metrics-mlflow-2.png)](https://postimg.cc/PL5ywDyq)
+### Comparison
+
+One of the most important uses of MLflow is the comparison between different parameters based on their impact on the relevant metrics. Below we report a sample comparison between 3 different values of the learning rate, using validation accuracy as our metric. Four runs have been executed for each of the three values.
+
+[![learning-rate-comparison.png](https://i.postimg.cc/52Nq6CXh/learning-rate-comparison.png)](https://postimg.cc/SJ3zPj7d)
+
+
+
+## Additional Resources
+
+
+  [DagsHub repo](https://dagshub.com/RobertoLorusso/architectural-style-recognition)

@@ -1,4 +1,4 @@
-# Web API 🪛
+# Web API 🕸️
 
 Client - Server communicate with Request and Response.
 
@@ -41,7 +41,7 @@ Other specific information and Data.
 +400: Error in Client Side
 +500: Error in Server Side
 
-# FastAPI ⚡
+# FastAPI ⚡ 🐝 🐝
 
 Why this tool?
 Similar to NodeJS and Go.
@@ -151,3 +151,6 @@ TIP: message, status-code and data are field that a response must have
 Verify that all is ok:
 - Start server
 - Make requests with Curl
+
+
+
