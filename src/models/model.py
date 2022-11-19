@@ -10,7 +10,7 @@ import yaml
 class Params:
     def __init__(self):
 
-        with open("params.yaml", "rb") as f:
+        with open("../../params.yaml", "rb") as f:
             conf = yaml.safe_load(f.read())  # load the config file
 
             self.learning_rate = conf["learning_rate"]
