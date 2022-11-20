@@ -11,6 +11,8 @@ from id_manager import read_id, increase_id
 
 
 #riceve un'immagine e fornisce la predizione. l'immagine e la predizione vengono salvate.
+
+# refactoring e modularizzzazoine
 async def upload_img(file: UploadFile):
     contents = await file.read()
     nuovo_id = read_id()
@@ -28,6 +30,8 @@ async def upload_img(file: UploadFile):
     return {"filename": file.filename, "id":str(nuovo_id), "label": str(label)}
 
 #carica il modello allenato dal path
+
+# Caricare modello nel server
 def load_model(path):
     model_loaded = tf.keras.Sequential()
     # load json and create model
