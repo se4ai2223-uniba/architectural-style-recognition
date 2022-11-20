@@ -2,6 +2,7 @@ from fastapi import UploadFile
 import numpy as np
 import os
 from id_manager import read_id, increase_id
+
 from utils import *
 import pandas as pd
 
@@ -30,7 +31,6 @@ async def do_predict(file: UploadFile, model):
         str(label),
     )
     increase_id()
-
     if os.path.exists(os.path.join("..", "..", "data", "external", "dictionary.csv")):
         df = pd.read_csv(os.path.join("..", "..", "data", "external", "dictionary.csv"))
         label = df[str(label)]
