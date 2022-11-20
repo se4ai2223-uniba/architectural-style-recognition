@@ -1,4 +1,5 @@
 from cmath import e
+import pandas as pd
 import os
 import shutil
 import cv2
@@ -331,6 +332,25 @@ class Dataset:
         nmax = max(dir_dict.values())
         print(nmax)
         return dir_dict
+
+    def make_dict(self, src_path=None, save_path=None):
+        """
+        Saves a dictionary containing as keys the class labels, as values the class names.
+        """
+        if src_path is None:
+            src_path = self.dataset_path
+        if save_path is None:
+            save_path = os.path.join("data", "external", "dictionary.csv")
+        dir_dict = {}
+        i = 1
+        for d in sorted(os.listdir(src_path)):
+            if os.path.isdir(os.path.join(src_path, d)):
+                print(os.path.basename(os.path.join(src_path, d)))
+                dir_dict[i] = os.path.basename(os.path.join(src_path, d)).lower()
+                i = i + 1
+        df = pd.DataFrame(dir_dict, index=[1])
+        print(df)
+        df.to_csv(save_path, sep=",")
 
     def getTestSet(self):
         return tf.keras.preprocessing.image_dataset_from_directory(

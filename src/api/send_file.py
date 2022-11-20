@@ -4,7 +4,7 @@ import os
 #metodo che invia un file all'endpoint adibito
 def post_file(endpoint, filepath):
     filename, file_extension = os.path.splitext(filepath)
-    if(str(file_extension).lower() in ['.jpg', 'bmp', 'gif', 'png']):
+    if(str(file_extension).lower() in ['.jpg', 'bmp', 'gif', 'png',]):
         file = {'file': open(filepath, 'rb')}
         resp = requests.post(url=endpoint, files=file)
         print(resp.json())
