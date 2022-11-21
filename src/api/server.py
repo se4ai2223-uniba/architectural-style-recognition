@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from src.models.model import Model
 from classify import *
 from eval_class import *
@@ -18,9 +18,9 @@ app = FastAPI()
 
 
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile, label: str):
+async def upload_file(file: UploadFile, label: int):
 
-    # conteollare che label sia nel giusto range e decidere se debba essere testuale o numerica
+    # controllare che label sia nel giusto range e decidere se debba essere testuale o numerica
     try:
         contents = await file.read()
         new_id = read_id()
@@ -38,21 +38,29 @@ async def create_upload_file(file: UploadFile, label: str):
         )
         increase_id()
     except:
-        print("FastAPI: Exception thrown in uploadimage endpoint")
+        raise HTTPException(status_code=500, detail="Internal server error")
     finally:
         file.file.close()
-        return {"filename": file.filename, "Label": label}
+        return {"filename": file.filename, "label": label}
 
 
 @app.post("/predict/")
 async def predict(file: UploadFile):
-    return await do_predict(file, model)
-
-
-# creare endpoint per classificazione
-
+    try:
+        res = await do_predict(file, model)
+    except:
+        raise HTTPException(status_code=500, detail="Internal server error")
+    return res
 
 @app.post("/eval_class/")
-async def eval_class(id_img: int, new_class: str):
-    res = evaluate_classification(id_img, new_class)
-    return {"result": res}
+async def eval_class(id_img: int, new_class: int):
+    try:
+        res = evaluate_classification(id_img, new_class)   
+    except:
+        raise HTTPException(status_code=500, detail="Internal server error") 
+    if(res == 'ko404'):
+        raise HTTPException(status_code=404, detail="There is no classified image with that id")
+    if(res == 'ko406'):
+        raise HTTPException(status_code=406, detail="There is already a class specified for that that image id")
+    
+    return res
