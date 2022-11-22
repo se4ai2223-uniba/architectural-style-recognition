@@ -41,7 +41,7 @@ Other specific information and Data.
 +400: Error in Client Side
 +500: Error in Server Side
 
-# FastAPI ⚡ 🐝 🐝
+# FastAPI ⚡ 🐝 
 
 Why this tool?
 Similar to NodeJS and Go.
@@ -152,5 +152,21 @@ Verify that all is ok:
 - Start server
 - Make requests with Curl
 
+
+# FastAPI & PyTest
+
+FastApi uses Starlette in order to do tests.
+In order to do this it is needed to install:
+
+- httpx (already available with FastApi[all] library)
+
+Then import TestClient in the script.
+
+        from fastapi.testclient import TestClient
+        client = TestClient(app)
+
+        def test_read_main():
+                response = client.get("/")
+                [...]
 
 
