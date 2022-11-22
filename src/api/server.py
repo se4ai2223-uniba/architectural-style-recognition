@@ -13,7 +13,6 @@ model = Model(cur_path=os.path.join("..", ".."))
 
 model = model.loadModel(path_saved_model)
 
-
 app = FastAPI()
 
 
