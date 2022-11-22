@@ -16,7 +16,7 @@ def evaluate_classification(id, classification):
 
     if not dfd.empty:
         idsd = dfd["id_img"].to_list()
-
+    
     if (id in idsc and id not in idsd): 
         insert_into_csv(
         os.path.join(dataset_csv),

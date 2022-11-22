@@ -10,4 +10,4 @@ def post_file(endpoint, filepath):
         print(resp.json())
     else:
         print("File non riconosciuto")
-post_file('http://127.0.0.1:8000/uploadimage/', 'data/processed/arcDatasetSelected/Achaemenid architecture/21_Tonbeaux-achemenides.JPG')
+post_file('http://127.0.0.1:8000/predict/', 'data/processed/arcDatasetSelected/Achaemenid architecture/21_Tonbeaux-achemenides.JPG')

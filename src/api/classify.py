@@ -33,8 +33,7 @@ async def do_predict(file: UploadFile, model):
     increase_id()
     if os.path.exists(os.path.join("..", "..", "data", "external", "dictionary.csv")):
         df = pd.read_csv(os.path.join("..", "..", "data", "external", "dictionary.csv"))
-        print(df)
-        print(str(label))
         label = df[str(label)][0]
         del df
+
     return {"filename": file.filename, "id": str(nuovo_id), "label": label}
