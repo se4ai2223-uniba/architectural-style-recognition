@@ -3,6 +3,7 @@ from tensorflow.keras.preprocessing import image #type:ignore
 import csv
 import tensorflow as tf
 import numpy as np
+import json
 import os
 
 
@@ -26,4 +27,21 @@ def insert_into_csv(path_json_file, id_image, label):
         w=csv.writer(predictions_file)
         w.writerow(pred)
 
+file_name = os.path.join('..', '..', 'data','json','id.json')
+def read_id():    
+    f = open(file_name)
+    data = json.load(f)
+    i = data['next_id']
+    f.close()
+    return (i)    
+
+def increase_id():
+    # Opening JSON file
+    f = open(file_name)
+    data = json.load(f)
+    f.close()
+    data['next_id'] = data['next_id']+1
+    f = open(file_name,'w')
+    json.dump( data , f)
+    f.close()
     
