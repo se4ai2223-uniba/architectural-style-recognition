@@ -12,7 +12,7 @@ async def do_upload(file: UploadFile, label: int):
         "..", "..", "data", "external", "images", str(new_id) + "_" + file.filename
     )
     with open(image_path, "wb") as f:
-        await f.write(contents)
+        f.write(contents)
     print("File Uploaded")
 
     insert_into_csv(
@@ -20,5 +20,6 @@ async def do_upload(file: UploadFile, label: int):
         str(new_id),
         str(label),
     )
-    increase_id()   
+    increase_id()  
+     
     return {"filename": file.filename, "label": label}
