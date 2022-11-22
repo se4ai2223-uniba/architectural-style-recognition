@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from src.models.model import Model
 from classify import *
 from eval_class import *
+from uploadfile import *
 import shutil
 from typing import Union
 
@@ -19,29 +20,14 @@ app = FastAPI()
 
 @app.post("/uploadfile/")
 async def upload_file(file: UploadFile, label: int):
-
-    # controllare che label sia nel giusto range e decidere se debba essere testuale o numerica
     try:
-        contents = await file.read()
-        new_id = read_id()
-        image_path = os.path.join(
-            "..", "..", "data", "external", "images", str(new_id) + "_" + file.filename
-        )
-        with open(image_path, "wb") as f:
-            await f.write(contents)
-        print("File Uploaded")
-
-        insert_into_csv(
-            os.path.join("..", "..", "data", "external", "dataset.csv"),
-            str(new_id),
-            str(label),
-        )
-        increase_id()
+        res = await do_upload(file, label)
     except:
         raise HTTPException(status_code=500, detail="Internal server error")
     finally:
         file.file.close()
-        return {"filename": file.filename, "label": label}
+        return res
+
 
 
 @app.post("/predict/")
@@ -50,7 +36,9 @@ async def predict(file: UploadFile):
         res = await do_predict(file, model)
     except:
         raise HTTPException(status_code=500, detail="Internal server error")
-    return res
+    finally:
+        file.file.close()
+        return res
 
 @app.post("/eval_class/")
 async def eval_class(id_img: int, new_class: int):
