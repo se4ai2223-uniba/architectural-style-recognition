@@ -81,4 +81,4 @@ async def do_upload(file: UploadFile, label: int):
     )
     increase_id()  
      
-    return {"filename": file.filename, "label": label}
+    return {"filename": file.filename, "id": str(new_id), "label": label}
