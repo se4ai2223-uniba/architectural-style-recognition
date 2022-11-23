@@ -59,7 +59,7 @@ async def predict(imgfile: UploadFile):
     except ValidationError as e:
         raise HTTPException(status_code=406, detail=str(e.raw_errors[0].exc))
 
-@app.post("/eval_class/")
+@app.put("/eval_class/")
 async def eval_class(id_img: int, new_class: int):
     try:
         labelModel = LabelValidator(
