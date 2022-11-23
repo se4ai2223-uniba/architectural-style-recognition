@@ -18,14 +18,14 @@ class ImageValidator(BaseModel):
     # Same name as parameter of body request
     image: UploadFile
     @validator("image")
-    def is_image(cls, v):
-        contents = v.file.read()
+    def checkImage(cls, image):
+        img = image.file.read()
         try:
-            Image.open(io.BytesIO(contents))
-            v.file.close()
+            Image.open(io.BytesIO(img))
+            image.file.close()
         except PIL.UnidentifiedImageError:
             raise ValueError('Image upload error, the file provided is not an image.')
-        return contents
+        return img
 
 class LabelValidator(BaseModel):
     val: int
