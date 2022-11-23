@@ -13,7 +13,6 @@ eval_class_endpoint = 'http://127.0.0.1:8000/eval_class/'
 
 external =  os.path.join("..","..","data","external")
 
-
 client = TestClient(server.app)
 
 def delete_last_row_csv(filename):
@@ -29,8 +28,7 @@ def remove_file(filename):
 
 def test_predict_ok():
     test_file = os.path.join(external,"test_file", "pyramid.jpg")
-    resp = client.post(url=predict_endpoint, files={'imgfile': open(test_file, 'rb')})
-    
+    resp = client.post(url=predict_endpoint, files={'imgfile': open(test_file, 'rb')})    
     id=resp.json()['id']
     label=resp.json()['label']
     original_filename = resp.json()['filename']
@@ -78,7 +76,7 @@ def test_eval_class_ok():
     filename=id+'_'+resp.json()['filename']
 
     myobj = {'id_img': id, 'new_class':'2'}
-    resp_eval = requests.put(url=eval_class_endpoint, files={'imgfile': open(test_file, 'rb')}, params = myobj)
+    resp_eval = client.put(url=eval_class_endpoint, files={'imgfile': open(test_file, 'rb')}, params = myobj)
     remove_file(filename)
     delete_last_row_csv('predictions.csv')
     delete_last_row_csv('dataset.csv')
@@ -115,9 +113,3 @@ def test_eval_class_ko_double():
     delete_last_row_csv('dataset.csv')
     assert resp_eval_double.status_code == HTTPStatus.NOT_ACCEPTABLE
     assert resp_eval_double.json() == {'detail': 'There is already a class specified for that that image id.'}
-
-test_predict_ok()
-test_predict_ko()
-test_upload_ok()
-test_upload_ko_image()
-test_upload_ko_id()
