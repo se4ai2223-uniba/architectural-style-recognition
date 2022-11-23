@@ -85,7 +85,6 @@ def test_eval_class_ok():
     assert resp_eval.status_code == HTTPStatus.OK
     assert resp_eval.json() =={"result": "ok, new class saved"}
 
-##
 def test_eval_class_ko_not_found():
     test_file = os.path.join(external,"test_file", "pyramid.jpg")
     resp = client.post(url=predict_endpoint, files={'imgfile': open(test_file, 'rb')})
