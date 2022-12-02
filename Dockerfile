@@ -15,6 +15,7 @@ RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 RUN pip install --no-cache-dir -r /src/requirements.txt
 
-EXPOSE 8000
+CMD ["uvicorn", "src.api.server:app", "--host", "0.0.0.0", "--port", "80"]
 
-CMD ["uvicorn", "src.api.server:app", "--host", "127.0.0.1", "--port", "8000"]
+#docker build -t fastapi_image .
+#docker run -p 80:80 fastapi_image
