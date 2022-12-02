@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from utils import *
+from src.api.utils import *
 from fastapi import UploadFile
 import numpy as np
 import os

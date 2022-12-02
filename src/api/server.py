@@ -1,15 +1,17 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
-from services import *
+from src.api.services import do_predict, do_upload, evaluate_classification
 import PIL
 from PIL import Image
 import io
 import copy
-path_saved_model = os.path.join("..", "..", "models", "saved-model-optimal")
+import os
+
+path_saved_model = os.path.join("/./src", "models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
-model = Model(cur_path=os.path.join("..", ".."))
+model = Model(cur_path=os.path.join("src"))
 model = model.loadModel(path_saved_model)
 app = FastAPI()
 
