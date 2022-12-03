@@ -1,13 +1,13 @@
 import pandas as pd
 import os
-from utils import *
+from src.api.utils import *
 from fastapi import UploadFile
 import numpy as np
 import os
 
-dataset_csv = os.path.join("..", "..", 'data','external','dataset.csv')
-classification_csv = os.path.join("..", "..", 'data','external','predictions.csv')
-dictionary_csv = os.path.join("..", "..", "data", "external", "dictionary.csv")
+dataset_csv = os.path.join('data','external','dataset.csv')
+classification_csv = os.path.join('data','external','predictions.csv')
+dictionary_csv = os.path.join("data", "external", "dictionary.csv")
 
 # riceve un'immagine e fornisce la predizione. l'immagine e la predizione vengono salvate.
 async def do_predict(file: UploadFile, model):
@@ -15,7 +15,7 @@ async def do_predict(file: UploadFile, model):
     contents = await file.read()
     nuovo_id = read_id()
     image_path = os.path.join(
-        "..", "..", "data", "external", "images", str(nuovo_id) + "_" + file.filename
+        "data", "external", "images", str(nuovo_id) + "_" + file.filename
     )
     with open(image_path, "wb") as f:
         f.write(contents)
@@ -68,7 +68,7 @@ async def do_upload(file: UploadFile, label: int):
     contents = await file.read()
     new_id = read_id()
     image_path = os.path.join(
-        "..", "..", "data", "external", "images", str(new_id) + "_" + file.filename
+        "data", "external", "images", str(new_id) + "_" + file.filename
     )
     with open(image_path, "wb") as f:
         f.write(contents)

@@ -27,7 +27,7 @@ def insert_into_csv(path_json_file, id_image, label):
         w=csv.writer(predictions_file)
         w.writerow(pred)
 
-file_name = os.path.join('..', '..', 'data','json','id.json')
+file_name = os.path.join('data','json','id.json')
 def read_id():    
     f = open(file_name)
     data = json.load(f)
