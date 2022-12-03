@@ -8,9 +8,15 @@ import yaml
 
 
 class Params:
-    def __init__(self):
-
-        with open("params.yaml", "rb") as f:
+    def __init__(self, cur_path=None):
+        self.cur_path = cur_path
+        p = "params.yaml"
+        if self.cur_path is not None:
+            print(self.cur_path)
+            p = os.path.join(self.cur_path, p)
+            print(p)
+        print(p)
+        with open(p, "rb") as f:
             conf = yaml.safe_load(f.read())  # load the config file
 
             self.learning_rate = conf["learning_rate"]
@@ -27,13 +33,13 @@ class Params:
 
 
 class Model:
-    def __init__(self):
+    def __init__(self, cur_path=None):
 
         # create the object for the dataset in order to get the dataset with its methods
         self.data = Dataset()
 
         # create the object for the paramaters being read from 'params.yaml'
-        self.params = Params()
+        self.params = Params(cur_path)
 
     def buildModel(self, class_names):
 

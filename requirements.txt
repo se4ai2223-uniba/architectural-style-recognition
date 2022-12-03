@@ -1,6 +1,4 @@
 # local package
--e .
-
 # external requirements
 #Sphinx
 #coverage
@@ -27,3 +25,5 @@ pytest
 pylint
 great_expectations
 fastapi[all]
+uvicorn[standard]
+python-multipart
