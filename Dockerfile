@@ -33,9 +33,10 @@ RUN chmod 0644 /etc/cron.d/dvc-cron
 RUN crontab /etc/cron.d/dvc-cron
 
 WORKDIR /home/archinet
+EXPOSE 81
 CMD /usr/sbin/cron && uvicorn src.api.server:app --reload --host 0.0.0.0 --port 81
 
-EXPOSE 81
+
 
 #docker build -t fastapi_image .
 #docker run -p 80:80 fastapi_image
