@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'test-api'
+      - 'main'
     paths:
       - 'src/api/**'
   
