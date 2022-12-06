@@ -2,9 +2,7 @@ name: api_testing_workflow
 
 on:
   push:
-    branches:
-      - test-api
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
