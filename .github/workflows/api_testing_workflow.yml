@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'test-api'
+    paths:
+      - 'src/api/**'
   
 jobs:
   api-testing:
