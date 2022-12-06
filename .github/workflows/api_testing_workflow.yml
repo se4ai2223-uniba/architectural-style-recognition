@@ -3,7 +3,7 @@ name: api_testing_workflow
 on:
   push:
     branches:
-      - test-api
+      - 'test-api'
   
 jobs:
   build:
@@ -21,4 +21,4 @@ jobs:
           pip install -r ./requirements.txt
       - name: Test the API with pytest
         run: |
-          pytest src/api/test_server.py
+          pytest ./src/api/test_server.py
