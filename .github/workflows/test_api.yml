@@ -6,8 +6,7 @@ on:
       - test-api
 
 jobs:
-  api-testing:
-    name: API testing
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
