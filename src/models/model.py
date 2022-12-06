@@ -41,6 +41,8 @@ class Model:
         # create the object for the paramaters being read from 'params.yaml'
         self.params = Params(cur_path)
 
+        print(self.params.algorithm)
+
     def buildModel(self, class_names):
 
         IMAGE_SIZE = (224, 224)

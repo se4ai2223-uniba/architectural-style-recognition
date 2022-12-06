@@ -5,8 +5,8 @@ from fastapi import UploadFile
 import numpy as np
 import os
 
-dataset_csv = os.path.join('data','external','dataset.csv')
-classification_csv = os.path.join('data','external','predictions.csv')
+dataset_csv = os.path.join("data", "external", "dataset.csv")
+classification_csv = os.path.join("data", "external", "predictions.csv")
 dictionary_csv = os.path.join("data", "external", "dictionary.csv")
 
 # riceve un'immagine e fornisce la predizione. l'immagine e la predizione vengono salvate.
@@ -39,30 +39,28 @@ async def do_predict(file: UploadFile, model):
 
     return {"filename": file.filename, "id": str(nuovo_id), "label": label}
 
+
 def evaluate_classification(id, classification):
     idsd = []
     dfc = pd.read_csv(classification_csv)
-    
+
     dfd = pd.read_csv(dataset_csv)
     if not dfc.empty:
         idsc = dfc["id_img"].to_list()
 
     if not dfd.empty:
         idsd = dfd["id_img"].to_list()
-    
-    if (id in idsc and id not in idsd): 
-        insert_into_csv(
-        os.path.join(dataset_csv),
-        str(id),
-        str(classification)
-    )
+
+    if id in idsc and id not in idsd:
+        insert_into_csv(os.path.join(dataset_csv), str(id), str(classification))
         return {"result": "ok, new class saved"}
     else:
-    
-        if(id in idsc):
-            return 'ko406' #the id exists in prediction.csv but already classified
+
+        if id in idsc:
+            return "ko406"  # the id exists in prediction.csv but already classified
         else:
-            return 'ko404' #the id doesn't exist in prediction.csv
+            return "ko404"  # the id doesn't exist in prediction.csv
+
 
 async def do_upload(file: UploadFile, label: int):
     contents = await file.read()
@@ -79,6 +77,6 @@ async def do_upload(file: UploadFile, label: int):
         str(new_id),
         str(label),
     )
-    increase_id()  
-     
+    increase_id()
+
     return {"filename": file.filename, "id": str(new_id), "label": label}
