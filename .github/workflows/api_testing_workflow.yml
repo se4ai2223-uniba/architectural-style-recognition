@@ -3,7 +3,7 @@ name: api_testing_workflow
 on:
   push:
     branches:
-      - 'main'
+      - 'test-api'
   
 jobs:
   api-testing:
