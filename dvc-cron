@@ -1,2 +1,2 @@
-* * * * *  root echo "ciao" > /home/log.txt
+* * * * *  python /home/archinet/src/data/cronjob.py
 

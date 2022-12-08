@@ -1,22 +1,20 @@
 FROM python:3.9
 
+COPY requirements.txt /home/archinet/requirements.txt
+RUN pip install --no-cache-dir -r /home/archinet/requirements.txt
+
 RUN apt-get update
 RUN apt-get -y install ffmpeg libsm6 libxext6 
 RUN apt-get -y install cron
 RUN apt-get -y install vim
 
 
-
-COPY requirements.txt /home/archinet/requirements.txt
-RUN pip install --no-cache-dir -r /home/archinet/requirements.txt
-
-
 COPY src/models /home/archinet/src/models
 COPY src/data /home/archinet/src/data
 COPY src/api /home/archinet/src/api
 COPY models/saved-model-optimal /home/archinet/models/saved-model-optimal
-COPY data /home/archinet/data
 COPY params.yaml /home/archinet/params.yaml
+COPY data /home/archinet/data
 
 COPY dvc.yaml /home/archinet/dvc.yaml
 COPY dvc.lock /home/archinet/dvc.lock

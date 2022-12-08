@@ -40,11 +40,13 @@ def clean_data():
             if id in id_pred and id in imgs_id:
 
                 # Retrieve the image name corresponding to the its id
-                img_name = imgs_names[np.argwhere(imgs_id == id)[0][0]]
+                img_name = str(imgs_names[np.argwhere(imgs_id == id)[0][0]])
 
                 # Retrieve the numeric value of the label corresponding to the image id
                 label_id = df_data.loc[df_data["id_img"] == id]["id_class"].values[0]
 
+                if label_id == 10:
+                    label_id = 9
                 # Retrieve the label name from its numerical form
                 label = df_dict[str(label_id)][0]
 
@@ -53,9 +55,14 @@ def clean_data():
                     os.path.join(path_imgs, img_name),
                     os.path.join(path_raw_data, label),
                 )
-                return True
-            else:
-                return False
+
+        return True
 
     except Exception as e:
         print(e)
+        return False
+
+
+b = clean_data()
+
+print(b)
