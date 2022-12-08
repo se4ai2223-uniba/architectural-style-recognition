@@ -38,6 +38,5 @@ CMD /usr/sbin/cron && uvicorn src.api.server:app --reload --host 0.0.0.0 --port 
 
 
 
-#docker build -t fastapi_image .
-#docker run -p 80:80 fastapi_image
-#docker run -d -p 9100:81   --name fastapi_container   --mount source=fastapi_volume,target=/home/archinet/data fastapi_image:latest
+#docker build . -t roblor/se4ai 
+#docker run -d -p 9100:81   --name fastapi_container   --mount source=fastapi_volume,target=/home/archinet/data roblor/se4ai:latest
