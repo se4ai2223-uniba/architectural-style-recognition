@@ -2,7 +2,7 @@ import shutil
 import pytest
 from src.data.dataset import Dataset
 import os
-import utilities as ut # type: ignore
+import src.tests.utilities as ut # type: ignore
 
 # Behavioral Test
 # Test behavior depending on different arrays
