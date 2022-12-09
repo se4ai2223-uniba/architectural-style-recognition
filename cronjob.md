@@ -1,6 +1,9 @@
 # Important notes
 
-The script called cronjob.py will be periodically called by the cron daemon on the host machine in order to move the images, correctly labeled by the experts, inside the raw dataset.
+-   The script cronjob.py must be in the same directory of the Dockerfile (the root in this case).
+-   The script called cronjob.py will be periodically called by the cron daemon on the host machine in order to move the images, correctly labeled by the experts, inside the raw dataset.
+-   The script also removes the rows corresponding to the moved images from the dataset.csv and predictions.csv.
+-   The script logs the errors into the file /home/archinet/log-cron.txt
 
 
 ## Image Names
@@ -11,12 +14,6 @@ The script collects the ids of the images from their name by searching to the fi
 
 It is needed to lower all the names of the raw dataset folder in order to move the images into them. 
 This because the class names saved into the dictionary.csv files are all lowered.
-
-# To-do
-
-It is needed to remove the rows corresponding to the moved images from the dataset.csv and predictions.csv.
-For the moment it is useful to mantain the records for test purposes
-
 
 # To-fix
 

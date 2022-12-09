@@ -9,7 +9,6 @@ python-dotenv>=0.5.1
 tensorflow~=2.9
 keras~=2.10.0
 scikit-learn~=1.1.2
-numpy~=1.23.4
 opencv-python~=4.6.0.66
 numpy~=1.23.4
 matplotlib

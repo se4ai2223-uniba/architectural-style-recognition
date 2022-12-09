@@ -1,7 +1,8 @@
 FROM python:3.9
 
+RUN  python3 -m pip install --upgrade pip 
 COPY requirements.txt /home/archinet/requirements.txt
-RUN pip install --no-cache-dir -r /home/archinet/requirements.txt
+RUN python3 -m pip install --no-cache-dir -r /home/archinet/requirements.txt
 
 RUN apt-get update
 RUN apt-get -y install ffmpeg libsm6 libxext6 
@@ -22,11 +23,12 @@ COPY .dvc /home/archinet/.dvc
 COPY .git /home/archinet/.git
 COPY .gitignore /home/archinet/.gitignore
 
-
+COPY cronjob.py /home/archinet/cronjob.py
 # Copy dvc-cron file to the cron.d directory
 COPY dvc-cron /etc/cron.d/dvc-cron
-# Give execution rights on the cron job
+# Give execution rights on the cron job and python file
 RUN chmod 0644 /etc/cron.d/dvc-cron
+RUN chmod 0644 /home/archinet/cronjob.py
 # Apply cron job
 RUN crontab /etc/cron.d/dvc-cron
 
