@@ -35,7 +35,6 @@ model_trained, hist = model.trainModel()
 SAVE_PATH = "models/saved-model"
 model.saveModel(model_trained, SAVE_PATH)
 
-
 train_loss = hist["loss"][-1]
 val_loss = hist["val_loss"][-1]
 
