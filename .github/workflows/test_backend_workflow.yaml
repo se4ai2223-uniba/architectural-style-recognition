@@ -28,3 +28,4 @@ jobs:
         run: |
           pytest ./src/tests/test_dataset_code.py
           pytest ./src/tests/test_model.py
+          pytest src/api/test_server.py

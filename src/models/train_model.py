@@ -7,6 +7,7 @@ from dotenv import find_dotenv
 
 model = Model()
 
+
 # Init the mlflow connection and parameters to track
 mlflow.set_tracking_uri(
     "https://dagshub.com/RobertoLorusso/architectural-style-recognition.mlflow"
