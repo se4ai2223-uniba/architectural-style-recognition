@@ -1,2 +1,3 @@
-* * * * *  root echo "ciao" > /home/log.txt
+* * * * *  /usr/local/bin/python3 /home/archinet/cronjob.py >> /home/archinet/log-cron.txt  2>&1
+
 
