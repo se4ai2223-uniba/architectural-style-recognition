@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel, ValidationError, validator
-from models.model import Model
-from services import do_predict, do_upload, evaluate_classification
+from src.models.model import Model
+from src.api.services import do_predict, do_upload, evaluate_classification
 import PIL
 from PIL import Image
 import io

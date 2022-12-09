@@ -1,7 +1,7 @@
 import os
 from http import HTTPStatus
 from fastapi.testclient import TestClient
-import server
+import src.api.server as server
 
 predict_endpoint = 'http://127.0.0.1:80/predict/'
 upload_endpoint = 'http://127.0.0.1:80/uploadfile/'
