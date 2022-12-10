@@ -50,8 +50,6 @@ def clean_data():
                 # Retrieve the numeric value of the label corresponding to the image id
                 label_id = df_data.loc[df_data["id_img"] == id]["id_class"].values[0]
 
-                if label_id == 10:
-                    label_id = 9
                 # Retrieve the label name from its numerical form
                 label = df_dict[str(label_id)][0]
 
