@@ -1,3 +1,1 @@
-* * * * *  /usr/local/bin/python3 /home/archinet/cronjob.py >> /home/archinet/log-cron.txt  2>&1
-
-
+* * * * *  sh /home/archinet/dvc-cron.sh
