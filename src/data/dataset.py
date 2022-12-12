@@ -17,7 +17,6 @@ class Dataset:
         self.dataset_path_test = os.path.join("data", "processed", "test")
         self.dataset_path_train = os.path.join("data", "processed", "train")
         self.dataset_path_val = os.path.join("data", "processed", "val")
-
     # Selected classes for the original experiment [0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0]
     def selectClasses(
         self,
