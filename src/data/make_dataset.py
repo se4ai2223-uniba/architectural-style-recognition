@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+'''This module implements the data processing scripts'''
 import os
 import logging
 from pathlib import Path
-from dotenv import find_dotenv
+from dotenv import find_dotenv, dotenv_values
 import numpy as np
-from dotenv import dotenv_values
 from src.data.dataset import Dataset
 
 
@@ -17,7 +17,8 @@ def main():
 
     data = Dataset()
     ## Here we select only two classes for test purposes, making the training time very short
-    ## if you want to retain the 10 classes selected in the original experiment, just call selectedClasses without any param
+    ## if you want to retain the 10 classes selected in the original experiment:
+        # Just call selectedClasses without any param
     idx = np.zeros(25)
     idx[0] = 1
     idx[1] = 1
@@ -37,8 +38,8 @@ def main():
 
 
 if __name__ == "__main__":
-    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+    LOG_FMT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(level=logging.INFO, format=LOG_FMT)
 
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]

@@ -85,13 +85,13 @@ class Model:
             self.params.epochs = 10
 
         # Creazione del dataset per il training
-        ds_train = self.data.getTrainSet()
+        ds_train = self.data.get_train_set()
 
         class_names = tuple(ds_train.class_names)
         print(class_names)
 
         # Creazione del dataset per la validation
-        ds_validation = self.data.getValSet()
+        ds_validation = self.data.get_val_set()
 
         BATCH_SIZE = self.params.batch_size
 
