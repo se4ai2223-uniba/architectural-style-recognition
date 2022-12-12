@@ -5,6 +5,9 @@ on:
     types: [closed]
     paths:
       - 'src/**'
+  push:
+    branches:
+      - main
 
 jobs:
   push_to_registry:
