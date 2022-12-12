@@ -11,7 +11,7 @@ import cv2
 def test_modelPerformances():
     model_ = Model()
     data = Dataset()
-    testSet = data.getTestSet()
+    testSet = data.get_test_set()
     # load the best model
     loaded_model = model_.loadModel(os.path.join("models", "saved-model"))
     # Compile model
@@ -44,7 +44,7 @@ def test_modelPerformances():
 def test_directional():
     model_ = Model()
     data = Dataset()
-    testSet = data.getTestSet()
+    testSet = data.get_test_set()
     # load the best model
     loaded_model = model_.loadModel(os.path.join("models", "saved-model"))
     output = []
@@ -67,7 +67,7 @@ def test_directional():
 def test_invariance():
     model_ = Model()
     data = Dataset()
-    testSet = data.getTestSet()
+    testSet = data.get_test_set()
 
     # Load the model
     loaded_model = model_.loadModel(os.path.join("models", "saved-model"))
