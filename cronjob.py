@@ -39,42 +39,41 @@ def clean_data():
             id_data = df_data["id_img"].to_list()
 
         for id in id_data:
-
-            # Check if the image was priorly classified by the systems
-            # and that it exists in the filesystem (by looking in imgs_id)
-            if id in id_pred and id in imgs_id:
-
+            if id in imgs_id:
                 # Retrieve the image name corresponding to the its id
                 img_name = str(imgs_names[np.argwhere(imgs_id == id)[0][0]])
-
                 # Retrieve the numeric value of the label corresponding to the image id
                 label_id = df_data.loc[df_data["id_img"] == id]["id_class"].values[0]
-
                 # Retrieve the label name from its numerical form
                 label = df_dict[str(label_id)][0]
-
                 try:
-
                     # Move the image to the raw dataset
                     shutil.move(
                         os.path.join(path_imgs, img_name),
                         os.path.join(path_raw_data, label),
                     )
-
                     # If no exception is thrown from the previuos instruction,
                     # then drop the row corresponding to that id
                     df_data.drop(
                         df_data.loc[df_data["id_img"] == id].index, inplace=True
                     )
+                    df_data.to_csv(dataset_csv, index=False)
 
+                except Exception as e:
+                    print("cronjob.py: Exception in dataset.csv")
+                    print(e)
+
+            # Check if the image was priorly classified by the systems
+            # and that it exists in the filesystem (by looking in imgs_id)
+            elif id in id_pred and id in imgs_id:
+                try:
                     df_pred.drop(
                         df_pred.loc[df_pred["id_img"] == id].index, inplace=True
                     )
-
-                    df_data.to_csv(dataset_csv)
-                    df_pred.to_csv(predictions_csv)
+                    df_pred.to_csv(predictions_csv, index=False)
 
                 except Exception as e:
+                    print("cronjob.py: Exception in prediction.csv")
                     print(e)
 
         return True

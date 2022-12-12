@@ -42,6 +42,7 @@ async def do_predict(file: UploadFile, model):
 
 def evaluate_classification(id, classification):
     idsd = []
+    idsc = []
     dfc = pd.read_csv(classification_csv)
 
     dfd = pd.read_csv(dataset_csv)
