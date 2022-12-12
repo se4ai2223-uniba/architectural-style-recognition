@@ -11,7 +11,6 @@ orig_path = os.path.join("data", "pytest", "test_data_origin")
 src_path = os.path.join("data", "pytest", "test_data")
 dst_path = os.path.join("data", "pytest", "apply_test")
 
-
 def test_params():
 
     assert os.path.exists("params.yaml")
@@ -40,7 +39,6 @@ def test_params():
         assert np.mod(batch_size, 2) == 0  # Batch size must be a multiple of 2
         assert epochs > 0
 
-
 def test_buildModel():
     model_ = Model()
     class_names = ["dummy1", "dummy2", "dummy3"]
@@ -48,7 +46,6 @@ def test_buildModel():
 
     assert model.layers[0].input.shape == (None, 224, 224, 3)
     assert model.layers[-1].output.shape == (None, len(class_names))
-
 
 def test_trainModel():
     model_ = Model()
