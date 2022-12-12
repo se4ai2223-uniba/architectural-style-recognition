@@ -16,6 +16,7 @@ model = Model()
 model = model.loadModel(path_saved_model)
 app = FastAPI()
 
+
 class ImageValidator(BaseModel):
     '''Pydantic validator for images'''
     # Same name as parameter of body request
