@@ -7,14 +7,19 @@ from PIL import Image
 import io
 import copy
 import os
+from fastapi.staticfiles import StaticFiles
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
 model = Model()
 model = model.loadModel(path_saved_model)
-app = FastAPI()
 
+
+
+app = FastAPI()
+path_to_static = os.path.join('src', 'frontend', 'static')
+app.mount("/static", StaticFiles(directory=path_to_static), name="static")
 
 class ImageValidator(BaseModel):
 
