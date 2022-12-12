@@ -28,5 +28,5 @@ jobs:
           pylint --fail-under=7 src/models
       - name: Test the model code with pytest
         run: |
-          pytest src\tests\test_dataset_code.py
-          pytest src\tests\src\tests\test_model.py.py
+          pytest src/tests/test_dataset_code.py
+          pytest src/tests/src/tests/test_model.py
