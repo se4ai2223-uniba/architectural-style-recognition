@@ -44,7 +44,9 @@ def evaluate_classification(id_img, classification):
     '''Implement the behaviour of the eval_class endpoint'''
     idsd = []
     idsc = []
+
     data_frame_class = pd.read_csv(classification_csv)
+
 
     data_frame_dataset = pd.read_csv(dataset_csv)
     if not data_frame_class.empty:
