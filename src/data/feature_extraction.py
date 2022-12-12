@@ -1,7 +1,11 @@
+'''
+This module implements the feature extraction of the images in the dataset.
+These feature are then stored in a csv file and processed by Great Expectations.
+'''
 import os
 import cv2
-
-def featureExtractor(dataset_raw_path, file_name):
+def feature_extractor(dataset_raw_path, file_name):
+    '''Function that implements the feature extraction'''
     csv = open(file_name, "w")
     csv.write("file_name,file_type,label,colors,height,width,img_variance\n")
     for i, (dirpath, dirnames, filenames) in enumerate(os.walk(dataset_raw_path)):
@@ -22,9 +26,9 @@ def featureExtractor(dataset_raw_path, file_name):
                     img_type = f.split(".")[-1]
                     if img_type != "tmp":
 
-                        s = img.shape
-                        height = s[0]
-                        width = s[1]
+                        img_shape = img.shape
+                        height = img_shape[0]
+                        width = img_shape[1]
                         if (img[:, :, 0] == img[:, :, 1]).all() == True and (
                             img[:, :, 1] == img[:, :, 2]
                         ).all() == True:
@@ -52,6 +56,6 @@ def featureExtractor(dataset_raw_path, file_name):
     csv.close()
 
 
-file_name = os.path.join("data", "img_feature", "images_features.csv")
+FILE_NAME = os.path.join("data", "img_feature", "images_features.csv")
 path = os.path.join("data", "raw", "arcDataset")
-featureExtractor(path, file_name)
+feature_extractor(path, FILE_NAME)
