@@ -1,3 +1,4 @@
+#!/bin/bash
 docker pull roblor/se4ai:latest
 docker stop fastapi_container
 docker container prune -f 
