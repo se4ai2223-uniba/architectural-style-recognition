@@ -10,7 +10,7 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -33,3 +33,14 @@ jobs:
           context: .
           push: true
           tags: roblor/se4ai
+  redeploy:
+    name: Redeploy webhook call
+    runs-on: self-hosted
+    needs: [push_to_registry]
+    steps:
+      - name: Deploy docker container webhook
+        uses: joelwmale/webhook-action@master
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
+          data: "{ 'Request': 'Redeploy'}"         
+  
