@@ -10,7 +10,6 @@ EVAL_CLASS_ENDPOINT = 'http://127.0.0.1:80/eval_class/'
 
 external =  os.path.join("data","external")
 
-
 client = TestClient(server.app)
 
 def delete_last_row_csv(filename):
