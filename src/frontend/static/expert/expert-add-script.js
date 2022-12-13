@@ -3,21 +3,14 @@ var new_label
 
 function readURL(input) {
     if (input.files && input.files[0]) {
-  
       var reader = new FileReader();
-  
       reader.onload = function(e) {
         $('.image-upload-wrap').hide();
-  
         $('.file-upload-image').attr('src', e.target.result);
         $('.file-upload-content').show();
-  
         $('.image-title').html(input.files[0].name);
       };
-  
       reader.readAsDataURL(input.files[0]);
-      upload(input.files[0])
-  
     } else {
       removeUpload();
     }
@@ -36,39 +29,23 @@ function readURL(input) {
   });
   
 
-  const upload = (file) =>{
+  
+  async function uploadNewImage(){
+
+    var imageFile = document.getElementById("image_to_predict").files[0];
+
     let formData = new FormData();
-    formData.append("imgfile", file);
-    var paragraph = document.getElementById("prediction");
-    fetch('http://localhost:81/predict/', { // Your POST endpoint
-      method: 'POST',
-      headers: {
-        // Content-Type may need to be completely **omitted**
-        // or you may need something
-      },
-      body: formData // This is your file object
-    }).then(
-      response => response.json() // if the response is a JSON object
-    )
-    .then(
-      success => {console.log(success['label']) // Handle the success response object
-      label = success['label'];
-      id_image = success['id'];
-      var text = document.createTextNode("This building looks like " + label +" style")
-      paragraph.appendChild(text)
-    }).catch(
-      error => console.log(error) // Handle the error response object
-    );
-  };
+    formData.append("imgfile", imageFile);
 
-
-  async function uploadNewClass(){
     var newLabel = document.getElementById("new_label");
     var value = newLabel.value;
-    console.log("New class: "+value+ " ID image: "+id_image)
-    fetch('http://localhost:81/eval_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
-    method: 'PUT',
+
+    console.log(imageFile, value)
+
+    fetch('http://localhost:81/uploadfile/?label='+parseInt(value), {
+    method: 'POST',
     headers: {},
+    body: formData,
     }).then(
       response => {
         console.log(response.status);
@@ -87,6 +64,7 @@ function readURL(input) {
       $("#fail").addClass("show");
     });
   }
+
 
   $(function() {
     $(".btn-close").click(function() {

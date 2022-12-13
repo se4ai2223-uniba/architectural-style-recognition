@@ -9,7 +9,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <link rel="stylesheet" href="expert-form.css">
-  <script type="text/javascript" src="expert-form-script.js"></script>
+  <script type="text/javascript" src="expert-add-script.js"></script>
   <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 
@@ -27,9 +27,8 @@
     </div>
     
     <div class="text-center" style="color: white">
-      <h1>Predict & Correct</h1>
-      <p>Upload an building pic and let ArchiNet guess its style</p>
-      <p> Alternatively you can <a href="expert-add.html">add new data</a> in order to enlarge our dataset </p>
+      <h1>Add images</h1>
+      <p>Help us to enlarge the database inserting new data</p>
     </div>
 
     <div class="file-upload">
@@ -45,8 +44,6 @@
 
       <div class="file-upload-content">
         <img class="file-upload-image" src="#" alt="your image" />
-        <p id="prediction"></p>
-        <p id="question">The Architectural Style is not correct? Suggest the correct one:</p>
         <select id="new_label" class="form-select" style="margin-bottom: 10px;" aria-label="Default select example">
           <option selected>Suggest the correct label</option>
           <option value="0">Ancient egyptian architecture</option>
@@ -62,7 +59,7 @@
         </select>
 
         <div class="image-title-wrap">
-          <button type="button" onclick="uploadNewClass()" class="save-image">Save</button>
+          <button type="button" onclick="uploadNewImage()" class="save-image">Save</button>
         </div>
       </div>
     </div>
