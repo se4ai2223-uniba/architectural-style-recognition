@@ -1,3 +1,6 @@
+var id_image
+var new_label
+
 function readURL(input) {
     if (input.files && input.files[0]) {
   
@@ -35,8 +38,8 @@ function readURL(input) {
 
   const upload = (file) =>{
     let formData = new FormData();
-    var paragraph = document.getElementById("prediction");
     formData.append("imgfile", file);
+    var paragraph = document.getElementById("prediction");
     fetch('http://localhost:81/predict/', { // Your POST endpoint
       method: 'POST',
       headers: {
@@ -50,9 +53,42 @@ function readURL(input) {
     .then(
       success => {console.log(success['label']) // Handle the success response object
       label = success['label'];
+      id_image = success['id'];
       var text = document.createTextNode("This building looks like " + label +" style")
       paragraph.appendChild(text)
     }).catch(
       error => console.log(error) // Handle the error response object
     );
   };
+
+
+  async function uploadNewClass(){
+    var newLabel = document.getElementById("new_label");
+    var value = newLabel.value;
+    console.log("New class: "+value+ " ID image: "+id_image)
+    fetch('http://localhost:81/eval_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
+    method: 'PUT',
+    headers: {},
+    }).then(
+      response => {
+        console.log(response.status);
+        response.json();
+        if (response.status == '200')
+          $("#success").addClass("show");
+        else
+          $("#fail").addClass("show");
+      }
+    ).then(
+      data => console.log(data)
+    ).then(
+      success => {console.log("Success: " +success);
+    }).catch(
+      error => {console.log("error:"+error);
+    });
+  }
+
+  $(function() {
+    $(".btn-close").click(function() {
+       $(this).closest(".alert").hide();         
+   });
+});

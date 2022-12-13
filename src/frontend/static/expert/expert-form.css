@@ -89,6 +89,7 @@ body {
   color: #222;
 }
 
+
 .drag-text {
   text-align: center;
 }
@@ -147,6 +148,11 @@ body {
 .remove-image:active {
   border: 0;
   transition: all .2s ease;
+}
+
+.alert {
+  position: fixed;
+  width: 100%;
 }
 
 @-webkit-keyframes slide-in-elliptic-top-fwd {
