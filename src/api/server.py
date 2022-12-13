@@ -9,6 +9,7 @@ from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
 
+
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
