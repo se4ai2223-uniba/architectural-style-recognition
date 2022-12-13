@@ -31,7 +31,7 @@ jobs:
           images: my-docker-hub-namespace/my-docker-hub-repository
 
       - name: Build Docker image
-        run:docker build . -t roblor/se4ai 
+        run: docker build . -t roblor/se4ai 
 
   redeploy:
     name: Redeploy webhook call
