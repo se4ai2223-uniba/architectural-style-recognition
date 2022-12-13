@@ -16,8 +16,7 @@ mlflow.set_experiment("Evaluation stage")
 mlflow.start_run()
 
 model = Model()
-test_set = model.data.getTestSet()
-
+test_set = model.data.get_test_set()
 
 model_loaded = model.loadModel(os.path.join("models", "saved-model"))
 
@@ -30,7 +29,6 @@ model_loaded.compile(
     ),
     metrics=["accuracy"],
 )
-
 
 evaluations = model_loaded.evaluate(test_set)
 predictions_test = model_loaded.predict(test_set)

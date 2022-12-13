@@ -1,30 +1,22 @@
-from cmath import e
-import pandas as pd
+'''This module implements utilities for the dataset manipulation, selection of the usefuls subclasses and so on.'''
 import os
-import shutil
-import cv2
-import numpy as np
 import glob
 import random
-import tensorflow as tf
+import shutil
+from cmath import e
 import splitfolders
-
-# UNIT TEST
-# Behavioral Test
-# Invariance
-# Directional
-# Minimum Functionality
-
-# testare che augment_data produca un numero esatto di samples per ogni classe
-
+import pandas as pd
+import cv2
+import numpy as np
+import tensorflow as tf
 
 class Dataset:
+    '''Core class of the module'''
     def __init__(self):
         self.dataset_path = os.path.join("data", "processed", "arcDatasetSelected")
         self.dataset_path_test = os.path.join("data", "processed", "test")
         self.dataset_path_train = os.path.join("data", "processed", "train")
         self.dataset_path_val = os.path.join("data", "processed", "val")
-
     # Selected classes for the original experiment [0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0]
     def selectClasses(
         self,
@@ -188,7 +180,7 @@ class Dataset:
         return True
 
     def augment_data(self, path):
-
+        '''Allows to replicate randomly selected iamges in order to have balanced classes'''
         ## Verify if the dataset is already balanced
         counter = []
         try:
@@ -348,11 +340,11 @@ class Dataset:
                 print(os.path.basename(os.path.join(src_path, d)))
                 dir_dict[i] = os.path.basename(os.path.join(src_path, d)).lower()
                 i = i + 1
-        df = pd.DataFrame(dir_dict, index=[1])
-        print(df)
-        df.to_csv(save_path, sep=",")
+        data_frame = pd.DataFrame(dir_dict, index=[1])
+        print(data_frame)
+        data_frame.to_csv(save_path, sep=",")
 
-    def getTestSet(self):
+    def get_test_set(self):
         return tf.keras.preprocessing.image_dataset_from_directory(
             self.dataset_path_test,
             labels="inferred",
@@ -363,7 +355,7 @@ class Dataset:
             batch_size=1,
         )
 
-    def getTrainSet(self):
+    def get_train_set(self):
         return tf.keras.preprocessing.image_dataset_from_directory(
             self.dataset_path_train,
             labels="inferred",
@@ -374,7 +366,7 @@ class Dataset:
             batch_size=1,
         )
 
-    def getValSet(self):
+    def get_val_set(self):
         return tf.keras.preprocessing.image_dataset_from_directory(
             self.dataset_path_val,
             labels="inferred",
