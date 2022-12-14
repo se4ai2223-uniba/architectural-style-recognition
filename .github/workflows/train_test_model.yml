@@ -10,13 +10,17 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-      
-      #dvc pull
-
-      #run great expectation
-      
-      #dvc repro
+      - name: Dvc pull
+        run: |
+        dvc pull
+      - name: Great Expectations tests
+        run: |
+        python src/data/feature_extraction.py
+        pytest src/tests/run_img_features_checkpoint.py
+      - name: Dvc repro
+        run: |
+        dvc repro
