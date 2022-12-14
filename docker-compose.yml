@@ -1,0 +1,16 @@
+services:
+  backend:
+    container_name: fastapi_container
+    image: roblor/se4ai:latest
+    expose:
+      - 9100:81
+    volumes:
+      - fastapi_volume
+
+  frontend:
+    container_name: frontend_container
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
