@@ -11,6 +11,8 @@ jobs:
     name: Execute tests od data, train and test the model
     runs-on: self-hosted
     steps:
+      - name: Setup DVC
+        uses: iterative/setup-dvc@v1
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Dvc pull
