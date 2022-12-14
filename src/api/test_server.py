@@ -4,9 +4,9 @@ from http import HTTPStatus
 from fastapi.testclient import TestClient
 from src.api import server
 
-PREDICT_ENDPOINT = 'http://127.0.0.1:80/predict/'
-UPLOAD_ENDPOINT = 'http://127.0.0.1:80/uploadfile/'
-EVAL_CLASS_ENDPOINT = 'http://127.0.0.1:80/eval_class/'
+PREDICT_ENDPOINT = 'http://127.0.0.1:80/classify_image/'
+UPLOAD_ENDPOINT = 'http://127.0.0.1:80/extend_dataset/'
+EVAL_CLASS_ENDPOINT = 'http://127.0.0.1:80/feedback_class/'
 
 external =  os.path.join("data","external")
 
@@ -103,7 +103,6 @@ def test_eval_class_ok():
     myobj = {'id_img': id_img, 'new_class':'2'}
 
     resp_eval = client.put(url=EVAL_CLASS_ENDPOINT,
-                            files={'imgfile': open(test_file, 'rb')},
                             params = myobj)
 
     remove_file(filename)
@@ -125,7 +124,6 @@ def test_eval_class_ko_not_found():
     myobj = {'id_img': str(int(id_img)+1), 'new_class':'2'}
 
     resp_eval = client.put(url=EVAL_CLASS_ENDPOINT,
-                            files={'imgfile': open(test_file, 'rb')},
                             params = myobj)
 
     remove_file(filename)
@@ -146,13 +144,11 @@ def test_eval_class_ko_double():
     myobj = {'id_img': id_img, 'new_class':'2'}
 
     client.put(url=EVAL_CLASS_ENDPOINT,
-                files={'imgfile': open(test_file, 'rb')},
                 params = myobj)
 
     myobj = {'id_img': id_img, 'new_class':'3'}
 
     resp_eval_double = client.put(url=EVAL_CLASS_ENDPOINT,
-                                    files={'imgfile': open(test_file, 'rb')},
                                     params = myobj)
 
     remove_file(filename)

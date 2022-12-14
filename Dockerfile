@@ -43,6 +43,5 @@ EXPOSE 81
 CMD /usr/sbin/cron && uvicorn src.api.server:app --reload --host 0.0.0.0 --port 81
 
 
-
 #docker build . -t roblor/se4ai 
 #docker run -d -p 9100:81   --name fastapi_container   --mount source=fastapi_volume,target=/home/archinet/data roblor/se4ai:latest

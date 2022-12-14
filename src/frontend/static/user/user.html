@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ArchiNet - User</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="user-form.css">
+  <script type="text/javascript" src="user-form-script.js"></script>
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+
+
+<div class="layer">
+  <div class="text-center" style="color: white">
+    <h1>Predict</h1>
+    <p>Upload an building pic and let ArchiNet guess its style</p> 
+  </div>
+  <div class="file-upload">
+    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload a Building Pic</button>
+
+    <div class="image-upload-wrap">
+      <input id="image_to_predict" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/png, image/PNG, image/jpeg, image/jpg, image/gif" />
+      <div class="drag-text">
+        <h3>Drag and drop your pic</h3>
+      </div>
+    </div>
+    
+    <div class="file-upload-content">
+      <img class="file-upload-image" src="#" alt="your image" />
+      <p id="prediction"></p>
+    </div>
+  </div>
+</div>

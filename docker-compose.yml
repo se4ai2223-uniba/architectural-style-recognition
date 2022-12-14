@@ -1,0 +1,24 @@
+services:
+  backend:
+    container_name: fastapi_container
+    image: roblor/se4ai:latest
+    ports:
+      - '9100:81'
+    volumes:
+      - type: volume
+        source: fastapi_volume
+        target: /home/archinet/data
+
+  frontend:
+    container_name: frontend_container
+    ports:
+      - '9200:84'
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+
+volumes:
+  fastapi_volume:
+

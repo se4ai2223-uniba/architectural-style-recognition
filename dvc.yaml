@@ -24,5 +24,3 @@ stages:
     - models/saved-model/model.h5
     - models/saved-model/model.json
     - src/models/predict_model.py
-    outs:
-    - src/models/predictions.txt
