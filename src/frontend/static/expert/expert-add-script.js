@@ -41,15 +41,15 @@ function readURL(input) {
     var value = newLabel.value;
 
     console.log(imageFile, value)
-
-    fetch('http://localhost:9100/extend_dataset/?label='+parseInt(value), {
+    console.log("http://localhost:81/extend_dataset/")
+    fetch('http://localhost:81/extend_dataset/?label='+parseInt(value), {
     method: 'POST',
     headers: {},
     body: formData,
     }).then(
       response => {
-        console.log(response.status);
         response.json();
+        console.log(response.status);
         if (response.status == '200')
           $("#success").addClass("show");
         else

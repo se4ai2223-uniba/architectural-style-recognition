@@ -9,6 +9,7 @@ from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
@@ -17,6 +18,22 @@ model = Model()
 model = model.loadModel(path_saved_model)
 
 app = FastAPI()
+
+
+origins = [
+    "http://localhost:81",
+    "http://localhost",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 class ImageValidator(BaseModel):
     '''Pydantic validator for images'''
