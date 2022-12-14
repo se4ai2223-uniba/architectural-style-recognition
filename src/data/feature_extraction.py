@@ -1,11 +1,13 @@
-'''
+"""
 This module implements the feature extraction of the images in the dataset.
 These feature are then stored in a csv file and processed by Great Expectations.
-'''
+"""
 import os
 import cv2
+
+
 def feature_extractor(dataset_raw_path, file_name):
-    '''Function that implements the feature extraction'''
+    """Function that implements the feature extraction"""
     csv = open(file_name, "w")
     csv.write("file_name,file_type,label,colors,height,width,img_variance\n")
     for i, (dirpath, dirnames, filenames) in enumerate(os.walk(dataset_raw_path)):
@@ -13,12 +15,12 @@ def feature_extractor(dataset_raw_path, file_name):
             # Modify dirpath.split("\\") with machine os.path....
             semantic_label = os.path.basename(dirpath)
             for f in filenames:
-                original_image = cv2.imread(os.path.join(dirpath, f))
-
-                img = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
-
                 # hidden files will be ignored
                 if not f.startswith("."):
+                    original_image = cv2.imread(os.path.join(dirpath, f))
+
+                    img = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)
+
                     img_name = f.split(".")[0]
 
                     img_name = img_name.translate(str.maketrans("", "", ","))
