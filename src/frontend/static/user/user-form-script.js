@@ -37,7 +37,7 @@ function readURL(input) {
     let formData = new FormData();
     var paragraph = document.getElementById("prediction");
     formData.append("imgfile", file);
-    fetch('http://localhost:81/classify_image/', { // Your POST endpoint
+    fetch('http://localhost:9100/classify_image/', { // Your POST endpoint
       method: 'POST',
       headers: {
         // Content-Type may need to be completely **omitted**

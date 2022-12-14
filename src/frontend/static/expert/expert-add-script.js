@@ -42,7 +42,7 @@ function readURL(input) {
 
     console.log(imageFile, value)
 
-    fetch('http://localhost:81/extend_dataset/?label='+parseInt(value), {
+    fetch('http://localhost:9100/extend_dataset/?label='+parseInt(value), {
     method: 'POST',
     headers: {},
     body: formData,
@@ -61,7 +61,6 @@ function readURL(input) {
       success => {console.log("Success: " +success);
     }).catch(
       error => {console.log("error:"+error);
-      $("#fail").addClass("show");
     });
   }
 

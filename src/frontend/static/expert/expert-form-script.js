@@ -66,7 +66,7 @@ function readURL(input) {
     var newLabel = document.getElementById("new_label");
     var value = newLabel.value;
     console.log("New class: "+value+ " ID image: "+id_image)
-    fetch('http://localhost:81/feedback_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
+    fetch('http://localhost:9100/feedback_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
     method: 'PUT',
     headers: {},
     }).then(
