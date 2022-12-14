@@ -1,0 +1,28 @@
+name: train_test_model
+on:
+  push:
+    branches:
+      - development
+    paths:
+      - 'params.yaml'
+
+jobs:
+  push_to_registry:
+    name: Execute tests od data, train and test the model
+    runs-on: self-hosted
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Dvc pull
+        run: |
+          dvc pull
+      - name: Great Expectations tests
+        run: |
+          python src/data/feature_extraction.py
+          pytest src/tests/run_img_features_checkpoint.py
+      - name: Dvc repro
+        run: |
+          dvc repro
+      - name: Model tests
+        run: |
+          pytest src/tests/test_performances.py
