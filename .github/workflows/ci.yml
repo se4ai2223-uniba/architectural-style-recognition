@@ -1,10 +1,12 @@
 name: ci
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches:
+      - main
     paths:
-      - 'src/**'
+      - 'src/api/**'
+      - 'src/models/**'
 
 jobs:
   push_to_registry:
