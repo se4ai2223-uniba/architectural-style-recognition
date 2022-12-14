@@ -50,7 +50,7 @@ class LabelValidator(BaseModel):
                 "Id label error, the label must be a value between 0 and 9."
             )
 
-@app.post("/uploadfile/")
+@app.post("/extend_dataset/")
 async def upload_file(imgfile: UploadFile, label: int):
     '''Upload an image in order to expand the dataset'''
     try:
@@ -61,7 +61,7 @@ async def upload_file(imgfile: UploadFile, label: int):
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
 
-@app.post("/predict/")
+@app.post("/classify_image/")
 async def predict(imgfile: UploadFile):
     '''Use the ml model in order to classify an image'''
     try:
@@ -71,7 +71,7 @@ async def predict(imgfile: UploadFile):
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
 
-@app.put("/eval_class/")
+@app.put("/feedback_class/")
 async def eval_class(id_img: int, new_class: int):
     '''Allows experts to give the real label of an image already classified'''
     try:

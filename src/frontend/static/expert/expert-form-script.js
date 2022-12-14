@@ -40,7 +40,7 @@ function readURL(input) {
     let formData = new FormData();
     formData.append("imgfile", file);
     var paragraph = document.getElementById("prediction");
-    fetch('http://localhost:81/predict/', { // Your POST endpoint
+    fetch('http://localhost:81/classify_image/', { // Your POST endpoint
       method: 'POST',
       headers: {
         // Content-Type may need to be completely **omitted**
@@ -66,7 +66,7 @@ function readURL(input) {
     var newLabel = document.getElementById("new_label");
     var value = newLabel.value;
     console.log("New class: "+value+ " ID image: "+id_image)
-    fetch('http://localhost:81/eval_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
+    fetch('http://localhost:81/feedback_class/?id_img='+parseInt(id_image)+'&new_class='+parseInt(value), {
     method: 'PUT',
     headers: {},
     }).then(

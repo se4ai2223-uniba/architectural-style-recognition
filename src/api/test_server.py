@@ -4,9 +4,9 @@ from http import HTTPStatus
 from fastapi.testclient import TestClient
 from src.api import server
 
-PREDICT_ENDPOINT = 'http://127.0.0.1:80/predict/'
-UPLOAD_ENDPOINT = 'http://127.0.0.1:80/uploadfile/'
-EVAL_CLASS_ENDPOINT = 'http://127.0.0.1:80/eval_class/'
+PREDICT_ENDPOINT = 'http://127.0.0.1:80/classify_image/'
+UPLOAD_ENDPOINT = 'http://127.0.0.1:80/extend_dataset/'
+EVAL_CLASS_ENDPOINT = 'http://127.0.0.1:80/feedback_class/'
 
 external =  os.path.join("data","external")
 
