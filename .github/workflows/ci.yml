@@ -32,3 +32,10 @@ jobs:
           context: .
           push: true
           tags: roblor/se4ai
+  redeploy:
+    name: Send HTTP GET request to endpoint for redeploying
+    runs-on: ubuntu-latest
+    needs: [push_to_registry]
+    steps:
+      run: |
+      curl -X GET 'http://archinet-se4ai.ddns.net:9000/hooks/redeploy'
