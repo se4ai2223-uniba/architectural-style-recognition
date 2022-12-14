@@ -16,11 +16,7 @@ path_saved_model = os.path.join("models", "saved-model-optimal")
 model = Model()
 model = model.loadModel(path_saved_model)
 
-
-
 app = FastAPI()
-path_to_static = os.path.join('src', 'frontend', 'static')
-app.mount("/static", StaticFiles(directory=path_to_static), name="static")
 
 class ImageValidator(BaseModel):
     '''Pydantic validator for images'''
