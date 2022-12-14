@@ -39,7 +39,7 @@ def test_modelPerformances():
     assert fscore > 0.3
 
 
-# directional test
+# minimum functionality test
 # 2 immagini diverse 2 ouput diversi
 def test_directional():
     model_ = Model()
