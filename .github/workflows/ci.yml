@@ -41,4 +41,4 @@ jobs:
       - name: Send HTTP request 
         run: | 
           curl -X GET  \
-          --url http://archinet-se4ai.ddns.net:9000/hooks/redeploy
+          --url http://archinet-se4ai.ddns.net:8900/hooks/redeploy
