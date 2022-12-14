@@ -15,11 +15,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Dvc pull
         run: |
-        dvc pull
+          dvc pull
       - name: Great Expectations tests
         run: |
-        python src/data/feature_extraction.py
-        pytest src/tests/run_img_features_checkpoint.py
+          python src/data/feature_extraction.py
+          pytest src/tests/run_img_features_checkpoint.py
       - name: Dvc repro
         run: |
-        dvc repro
+          dvc repro
