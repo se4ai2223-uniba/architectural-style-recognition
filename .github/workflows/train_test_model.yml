@@ -1,5 +1,4 @@
 name: train_test_model
-
 on:
   push:
     branches:
