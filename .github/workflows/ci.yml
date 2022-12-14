@@ -39,4 +39,4 @@ jobs:
     needs: [push_to_registry]
     steps:
       run: |
-      curl -X GET 'http://archinet-se4ai.ddns.net:9000/hooks/redeploy'
+        curl -X GET 'http://archinet-se4ai.ddns.net:9000/hooks/redeploy'
