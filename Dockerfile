@@ -13,6 +13,7 @@ RUN apt-get -y install vim
 COPY src/models /home/archinet/src/models
 COPY src/data /home/archinet/src/data
 COPY src/api /home/archinet/src/api
+COPY src/frontend/static /home/archinet/src/frontend/static
 COPY models/saved-model-optimal /home/archinet/models/saved-model-optimal
 COPY params.yaml /home/archinet/params.yaml
 COPY data /home/archinet/data
