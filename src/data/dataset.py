@@ -1,4 +1,4 @@
-'''This module implements utilities for the dataset manipulation, selection of the usefuls subclasses and so on.'''
+"""This module implements utilities for the dataset manipulation, selection of the usefuls subclasses and so on."""
 import os
 import glob
 import random
@@ -10,13 +10,16 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
+
 class Dataset:
-    '''Core class of the module'''
+    """Core class of the module"""
+
     def __init__(self):
         self.dataset_path = os.path.join("data", "processed", "arcDatasetSelected")
         self.dataset_path_test = os.path.join("data", "processed", "test")
         self.dataset_path_train = os.path.join("data", "processed", "train")
         self.dataset_path_val = os.path.join("data", "processed", "val")
+
     def selectClasses(
         self,
         idx=[0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0],
@@ -179,7 +182,7 @@ class Dataset:
         return True
 
     def augment_data(self, path):
-        '''Allows to replicate randomly selected iamges in order to have balanced classes'''
+        """Allows to replicate randomly selected iamges in order to have balanced classes"""
         ## Verify if the dataset is already balanced
         counter = []
         try:
@@ -333,7 +336,7 @@ class Dataset:
         if save_path is None:
             save_path = os.path.join("data", "external", "dictionary.csv")
         dir_dict = {}
-        i = 1
+        i = 0
         for d in sorted(os.listdir(src_path)):
             if os.path.isdir(os.path.join(src_path, d)):
                 print(os.path.basename(os.path.join(src_path, d)))

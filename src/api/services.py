@@ -1,4 +1,4 @@
-'''This module implement the backend beahaviours of the APIs'''
+"""This module implement the backend beahaviours of the APIs"""
 import os
 import pandas as pd
 from fastapi import UploadFile
@@ -11,7 +11,7 @@ dictionary_csv = os.path.join("data", "external", "dictionary.csv")
 
 # riceve un'immagine e fornisce la predizione. l'immagine e la predizione vengono salvate.
 async def do_predict(file: UploadFile, model):
-    '''Implement the behaviour of the predict endpoint'''
+    """Implement the behaviour of the predict endpoint"""
 
     contents = await file.read()
     nuovo_id = read_id()
@@ -35,18 +35,21 @@ async def do_predict(file: UploadFile, model):
     increase_id()
     if os.path.exists(dictionary_csv):
         data_frame = pd.read_csv(dictionary_csv)
+        print("Before label printing")
         label = data_frame[str(label)][0]
+        print(label)
+        print("After label printing")
         del data_frame
 
     return {"filename": file.filename, "id": str(nuovo_id), "label": label}
 
+
 def evaluate_classification(id_img, classification):
-    '''Implement the behaviour of the eval_class endpoint'''
+    """Implement the behaviour of the eval_class endpoint"""
     idsd = []
     idsc = []
 
     data_frame_class = pd.read_csv(classification_csv)
-
 
     data_frame_dataset = pd.read_csv(dataset_csv)
     if not data_frame_class.empty:
@@ -64,8 +67,9 @@ def evaluate_classification(id_img, classification):
 
     return "ko404"  # the id doesn't exist in prediction.csv
 
+
 async def do_upload(file: UploadFile, label: int):
-    '''Implement the behaviour of the uploadfile endpoint'''
+    """Implement the behaviour of the uploadfile endpoint"""
     contents = await file.read()
     new_id = read_id()
     image_path = os.path.join(
