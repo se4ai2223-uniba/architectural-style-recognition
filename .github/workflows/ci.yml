@@ -6,6 +6,8 @@ on:
     paths:
       - 'src/api/**'
       - 'src/models/**'
+      
+  workflow_call:
 
 jobs:
   push_to_registry:
