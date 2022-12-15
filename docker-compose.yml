@@ -12,7 +12,7 @@ services:
   frontend:
     container_name: frontend_container
     ports:
-      - '9200:84'
+      - '9200:82'
     build:
       context: ./src
       dockerfile: Dockerfile
