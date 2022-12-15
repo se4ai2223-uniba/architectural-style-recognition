@@ -1,0 +1,239 @@
+{
+  "evaluation_parameters": {},
+  "meta": {
+    "active_batch_definition": {
+      "batch_identifiers": {},
+      "data_asset_name": "images_features.csv",
+      "data_connector_name": "default_inferred_data_connector_name",
+      "datasource_name": "img_feature_ds"
+    },
+    "batch_markers": {
+      "ge_load_time": "20221214T130102.340458Z",
+      "pandas_data_fingerprint": "87093a264bca250499f595f41f7bb51b"
+    },
+    "batch_spec": {
+      "path": "C:\\Users\\aiacovazzi\\Documents\\GitHub\\architectural-style-recognition\\great_expectations\\..\\data\\img_feature\\images_features.csv"
+    },
+    "checkpoint_id": null,
+    "checkpoint_name": "img_features_checkpoint",
+    "expectation_suite_name": "img_features_suite",
+    "great_expectations_version": "0.15.30",
+    "run_id": {
+      "run_name": "20221214-140102-my-run-name-template",
+      "run_time": "2022-12-14T14:01:02.334440+00:00"
+    },
+    "validation_id": null,
+    "validation_time": "20221214T130102.481930Z"
+  },
+  "results": [
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_in_set",
+        "kwargs": {
+          "batch_id": "1acd279b7a586bdc3ccea66f6ac87010",
+          "column": "label",
+          "include_unexpected_rows": true,
+          "result_format": "COMPLETE",
+          "value_set": [
+            "Achaemenid architecture",
+            "American craftsman style",
+            "American Foursquare architecture",
+            "Ancient Egyptian architecture",
+            "Art Deco architecture",
+            "Art Nouveau architecture",
+            "Baroque architecture",
+            "Bauhaus architecture",
+            "Beaux-Arts architecture",
+            "Byzantine architecture",
+            "Chicago school architecture",
+            "Colonial architecture",
+            "Deconstructivism",
+            "Edwardian architecture",
+            "Georgian architecture",
+            "Gothic architecture",
+            "Greek Revival architecture",
+            "International style",
+            "Novelty architecture",
+            "Palladian architecture",
+            "Postmodern architecture",
+            "Queen Anne architecture",
+            "Romanesque architecture",
+            "Russian Revival architecture",
+            "Tudor Revival architecture"
+          ]
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 6046,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_index_list": [],
+        "unexpected_list": [],
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_in_set",
+        "kwargs": {
+          "batch_id": "1acd279b7a586bdc3ccea66f6ac87010",
+          "column": "colors",
+          "include_unexpected_rows": true,
+          "result_format": "COMPLETE",
+          "value_set": [
+            "Y",
+            "N"
+          ]
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 6046,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_index_list": [],
+        "unexpected_list": [],
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "1acd279b7a586bdc3ccea66f6ac87010",
+          "column": "img_variance",
+          "include_unexpected_rows": true,
+          "min_value": 0,
+          "result_format": "COMPLETE",
+          "strict_min": true
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 6046,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_index_list": [],
+        "unexpected_list": [],
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "1acd279b7a586bdc3ccea66f6ac87010",
+          "column": "height",
+          "include_unexpected_rows": true,
+          "min_value": 50,
+          "result_format": "COMPLETE",
+          "strict_min": true
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 6046,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_index_list": [],
+        "unexpected_list": [],
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    },
+    {
+      "exception_info": {
+        "exception_message": null,
+        "exception_traceback": null,
+        "raised_exception": false
+      },
+      "expectation_config": {
+        "expectation_type": "expect_column_values_to_be_between",
+        "kwargs": {
+          "batch_id": "1acd279b7a586bdc3ccea66f6ac87010",
+          "column": "width",
+          "include_unexpected_rows": true,
+          "min_value": 50,
+          "result_format": "COMPLETE",
+          "strict_min": true
+        },
+        "meta": {}
+      },
+      "meta": {},
+      "result": {
+        "element_count": 6046,
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "partial_unexpected_counts": [],
+        "partial_unexpected_index_list": [],
+        "partial_unexpected_list": [],
+        "unexpected_count": 0,
+        "unexpected_index_list": [],
+        "unexpected_list": [],
+        "unexpected_percent": 0.0,
+        "unexpected_percent_nonmissing": 0.0,
+        "unexpected_percent_total": 0.0
+      },
+      "success": true
+    }
+  ],
+  "statistics": {
+    "evaluated_expectations": 5,
+    "success_percent": 100.0,
+    "successful_expectations": 5,
+    "unsuccessful_expectations": 0
+  },
+  "success": true
+}

@@ -1,5 +1,4 @@
 name: api_testing_workflow
-
 on:
   push:
     branches:

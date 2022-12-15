@@ -17,6 +17,7 @@ dictionary_csv = "/home/archinet/data/external/dictionary.csv"
 # path_imgs = os.path.join(".", "data", "external", "images")
 path_imgs = "/home/archinet/data/external/images"
 # path_raw_data = os.path.join(".", "data", "raw", "arcDataset")
+
 path_raw_data = "/home/archinet/data/raw/arcDataset"
 
 # Every image name starts with the unique id assigned by the system

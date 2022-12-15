@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ArchiNet - Expert</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="expert-form.css">
+  <script type="text/javascript" src="expert-form-script.js"></script>
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+
+<body style="overflow: visible">
+  <div class="layer">
+
+    <div id="success" class="alert alert-success alert-dismissible fade" role="alert">
+      <strong>Well done!</strong> Your feedback was sent correctly! Thank you!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div id="fail" class="alert alert-warning alert-dismissible fade" role="alert">
+      <strong>Something gone wrong!</strong> You already changed the class of this image.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    <div class="text-center" style="color: white">
+      <h1>Predict & Correct</h1>
+      <p>Upload an building pic and let ArchiNet guess its style</p>
+      <p> Alternatively you can <a href="expert-add.html">add new data</a> in order to enlarge our dataset </p>
+    </div>
+
+    <div class="file-upload">
+
+      <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload a Building Pic</button>
+      <div class="image-upload-wrap">
+        <input id="image_to_predict" class="file-upload-input" type='file' onchange="readURL(this);"
+          accept="image/png, image/PNG, image/jpeg, image/jpg, image/gif" />
+        <div class="drag-text">
+          <h3>Drag and drop your pic</h3>
+        </div>
+      </div>
+
+      <div class="file-upload-content">
+        <img class="file-upload-image" src="#" alt="your image" />
+        <p id="prediction"></p>
+        <p id="question">The Architectural Style is not correct? Suggest the correct one:</p>
+        <select id="new_label" class="form-select" style="margin-bottom: 10px;" aria-label="Default select example">
+          <option selected>Suggest the correct label</option>
+          <option value="0">Ancient egyptian architecture</option>
+          <option value="1">Art deco architecture</option>
+          <option value="2">Baroque architecture</option>
+          <option value="3">Colonial architecture</option>
+          <option value="4">Deconstructivism</option>
+          <option value="5">Greek revival architecture</option>
+          <option value="6">International style</option>
+          <option value="7">Novelty architecture</option>
+          <option value="8">Postmodern architecture</option>
+          <option value="9">Queen anne architecture</option>
+        </select>
+
+        <div class="image-title-wrap">
+          <button type="button" onclick="uploadNewClass()" class="save-image">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

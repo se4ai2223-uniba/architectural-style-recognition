@@ -19,10 +19,10 @@ def main():
     ## Here we select only two classes for test purposes, making the training time very short
     ## if you want to retain the 10 classes selected in the original experiment:
         # Just call selectedClasses without any param
-    idx = np.zeros(25)
-    idx[0] = 1
-    idx[1] = 1
-    data.selectClasses(idx=idx)
+    #idx = np.zeros(25)
+    #idx[0] = 1
+    #idx[1] = 1
+    data.selectClasses()
     data.make_dict()
     data.split_dataset()
 

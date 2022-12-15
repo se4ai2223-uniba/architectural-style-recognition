@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ArchiNet</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/65215b8b2a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>ArchiNet</h1>
+  <p>A model trained with MobileNetV2 on several Architectural Styles Pictures</p> 
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Predict your Picture</h3>
+      <p>Upload an picture of a building and ArchiNet will try to guess its Architectural Style.</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Enlarge the training set </h3>
+      <p>If you are an expert, you can upload some images with the corrispective style</p>
+      <p>This will help us to enlarge the training set on which the model will be trained in future iterations</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Correct the model errors</h3>        
+      <p>The Architectural Sytle recognition task is very hard so you can help the model to understand its errors choosing the right label for previous classified building.</p>
+    </div>
+  </div>
+</div>
+<br>
+<div style="text-align: center">
+    <a href="/static/user/user.html" class="btn btn-primary btn-lg" role="button"><i class="fa-solid fa-user"></i> Login as user</a>
+    <a href="/static/expert/expert.html" class="btn btn-expert btn-lg" role="button"><i class="fa-solid fa-user-tie"></i> Login as expert</a>
+</div>
+</body>
+</html>
