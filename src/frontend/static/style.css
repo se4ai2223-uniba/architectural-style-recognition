@@ -1,0 +1,17 @@
+.btn-expert {
+    background-color: #8064A2;
+    color: white;
+}
+
+.jumbotron {
+    background-image: url("https://images.unsplash.com/photo-1493397212122-2b85dda8106b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80;");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.col-sm-4 {
+    text-align: center;
+}
+
+

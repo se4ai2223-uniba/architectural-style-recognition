@@ -16,21 +16,16 @@ Usage:
 - This can be run manually or via a scheduler such, as cron.
 - If your pipeline runner supports python snippets, then you can paste this into your pipeline.
 """
-import sys
-import json
 from great_expectations.checkpoint.types.checkpoint_result import CheckpointResult
 from great_expectations.data_context import DataContext
 
-data_context = DataContext(context_root_dir="great_expectations")
+def test_checkpoint():
+    data_context = DataContext(context_root_dir="great_expectations")
 
-result: CheckpointResult = data_context.run_checkpoint(
-    checkpoint_name="img_features_checkpoint",
-    batch_request=None,
-    run_name=None,
-) 
-if not result["success"]:
-    print("Validation failed!")
-    sys.exit(1)
+    result: CheckpointResult = data_context.run_checkpoint(
+        checkpoint_name="img_features_checkpoint",
+        batch_request=None,
+        run_name=None,
+    ) 
 
-print("Validation succeeded!")
-sys.exit(0)
+    assert result["success"]

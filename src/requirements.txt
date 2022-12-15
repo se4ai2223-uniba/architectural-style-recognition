@@ -1,0 +1,12 @@
+# local package
+# external requirements
+#Sphinx
+#coverage
+#awscli
+#flake8
+pytest
+pylint
+great_expectations
+fastapi[all]
+uvicorn[standard]
+python-multipart
