@@ -35,6 +35,13 @@ jobs:
       - name: Model tests
         run: |
           pytest src/tests/test_performances.py
+      - name: Dvc push
+        run: |
+          dvc add models/saved-model/model.h5
+          dvc add models/saved-model/model.json
+          dvc commit
+          dvc push
+          git 
       - name: Build and Push workflow
         call-workflow-2-in-local-repo:
           uses: ./.github/workflows/ci.yml
