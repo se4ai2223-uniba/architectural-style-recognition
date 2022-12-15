@@ -8,7 +8,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Execute tests od data, train and test the model
+    name: Train and test the model, then call the build workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -35,3 +35,6 @@ jobs:
       - name: Model tests
         run: |
           pytest src/tests/test_performances.py
+      - name: Build and Push workflow
+      call-workflow-2-in-local-repo:
+        uses: ./.github/workflows/ci.yml
