@@ -10,5 +10,5 @@ WORKDIR /home/archinet
 EXPOSE 82
 CMD uvicorn src.frontend.static.frontend:app --reload --host 0.0.0.0 --port 82
 
-#docker build src -t frontend_container
-#docker run -d -p 9100:82 --name frontend_image frontend_container
+#docker build src -t frontend_image
+#docker run -d -p 9200:82 --name frontend_container frontend_image
