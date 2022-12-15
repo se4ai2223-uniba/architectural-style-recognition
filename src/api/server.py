@@ -11,6 +11,7 @@ from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
+
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
@@ -29,6 +30,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 class ImageValidator(BaseModel):
