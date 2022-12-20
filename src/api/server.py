@@ -21,7 +21,8 @@ model = model.loadModel(path_saved_model)
 app = FastAPI()
 
 
-origins = ["http://localhost:9200", "http://localhost:9100", "http://localhost"]
+# origins = ["http://localhost:9200", "http://localhost:9100", "http://localhost"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,7 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 class ImageValidator(BaseModel):
