@@ -54,3 +54,11 @@ A free tool to monitoring website availabiltiy that help to:
 - monitor response time/usage
 - receive Alerts
 - Incident Management
+
+# Prometehus & Grafana        
+
+Prometheus: Collect metrics (Capture/Storaging) & Alerting
+
+- PormQL  
+
+Grafana show the metrics collected by Prometheus

@@ -41,7 +41,7 @@ async def do_predict(file: UploadFile, model):
         print("After label printing")
         del data_frame
 
-    return {"filename": file.filename, "id": str(nuovo_id), "label": label}
+    return {"filename": str(file.filename), "id": str(nuovo_id), "label": str(label)}
 
 
 def evaluate_classification(id_img, classification):
@@ -86,4 +86,4 @@ async def do_upload(file: UploadFile, label: int):
     )
     increase_id()
 
-    return {"filename": file.filename, "id": str(new_id), "label": label}
+    return {"filename": str(file.filename), "id": str(new_id), "label": str(label)}
