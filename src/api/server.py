@@ -11,6 +11,13 @@ from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
+from prometheus_client import Counter, Gauge, Histogram, Summary, push_to_gateway, CollectorRegistry
+
+counter_predictions = Counter("counter_predictions", "Contatore utile ad osservare quante richieste di predizioni sono state eseguite")
+counter_labeled_images = Counter("counter_labeled_images", "Contatore utile ad osservare quante immagini sono state inviate al fine di estendere il dataset")
+counter_feedback= Counter("counter_feedback", "Contatore utile ad osservare quanti feedback sono stati inviati dagli esperti")
+
+
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
@@ -74,6 +81,7 @@ async def upload_file(imgfile: UploadFile, label: int):
         LabelValidator(val=label)
         ImageValidator(image=copy.deepcopy(imgfile))
         res = await do_upload(imgfile, label)
+        counter_labeled_images.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -85,6 +93,8 @@ async def predict(imgfile: UploadFile):
     try:
         ImageValidator(image=copy.deepcopy(imgfile))
         res = await do_predict(imgfile, model)
+        counter_predictions.inc()
+        counter_predictions.push_to_gateway("http://localhost:9090", job="prometheus_api", registry=CollectorRegistry())
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -105,6 +115,7 @@ async def eval_class(id_img: int, new_class: int):
                 status_code=406,
                 detail="There is already a class specified for that that image id.",
             )
+        counter_feedback.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc

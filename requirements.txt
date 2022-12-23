@@ -26,3 +26,5 @@ great_expectations
 fastapi[all]
 uvicorn[standard]
 python-multipart
+
+prometheus_client
