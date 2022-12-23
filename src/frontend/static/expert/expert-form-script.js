@@ -39,27 +39,44 @@ $('.image-upload-wrap').bind('dragleave', function () {
 const upload = (file) => {
   let formData = new FormData();
   formData.append("imgfile", file);
+
   var paragraph = document.getElementById("prediction");
-  fetch('http://localhost:9100/classify_image/', { // Your POST endpoint
-    method: 'POST',
-    headers: {
-      // Content-Type may need to be completely **omitted**
-      // or you may need something
-    },
-    body: formData // This is your file object
-  }).then(
-    response => response.json() // if the response is a JSON object
-  )
-    .then(
-      success => {
-        console.log(success['label']) // Handle the success response object
-        label = success['label'];
-        id_image = success['id'];
-        var text = document.createTextNode("This building looks like " + label + " style")
-        paragraph.appendChild(text)
-      }).catch(
-        error => console.log(error) // Handle the error response object
-      );
+
+  var settings = {
+    "url": "http://archinet-se4ai.ddns.net:9100/classify_image/",
+    "method": "POST",
+    "timeout": 0,
+    "processData": false,
+    "mimeType": "multipart/form-data",
+    "contentType": false,
+    "data": formData
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    res = JSON.parse(response);
+
+    label = res['label'];
+    id_image = res['id'];
+    var text = document.createTextNode("This building looks like " + label)
+    paragraph.appendChild(text)
+  });
+
+  //  fetch("http://archinet-se4ai.ddns.net:9100/classify_image/", { // Your POST endpoint
+  //    requestOptions
+  //  }).then(
+  //    response => response.json() // if the response is a JSON object
+  //  )
+  //    .then(
+  //      success => {
+  //        console.log(success['label']) // Handle the success response object
+  //        label = success['label'];
+  //        id_image = success['id'];
+  //        var text = document.createTextNode("This building looks like " + label + " style")
+  //        paragraph.appendChild(text)
+  //      }).catch(
+  //        error => console.log(error) // Handle the error response object
+  //      );
 };
 
 
@@ -67,28 +84,49 @@ async function uploadNewClass() {
   var newLabel = document.getElementById("new_label");
   var value = newLabel.value;
   console.log("New class: " + value + " ID image: " + id_image)
-  fetch('http://localhost:9100/feedback_class/?id_img=' + parseInt(id_image) + '&new_class=' + parseInt(value), {
-    method: 'PUT',
-    headers: {},
-  }).then(
-    response => {
-      console.log(response.status);
-      response.json();
-      if (response.status == '200')
-        $("#success").addClass("show");
-      else
-        $("#fail").addClass("show");
-    }
-  ).then(
-    data => console.log(data)
-  ).then(
-    success => {
-      console.log("Success: " + success);
-    }).catch(
-      error => {
-        console.log("error:" + error);
-        $("#fail").addClass("show");
-      });
+
+
+  var settings = {
+    "url": "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
+    "method": "PUT",
+
+  };
+
+  $.ajax({
+    url: "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
+    method: "PUT",
+    headers: { 'Accept': 'application/json' }
+  }
+  ).done(function (response) {
+    console.log(response);
+  });
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+
+  //fetch('http://localhost:9100/feedback_class/?id_img=' + parseInt(id_image) + '&new_class=' + parseInt(value), {
+  //  method: 'PUT',
+  //}).then(
+  //  response => {
+  //    console.log(response.status);
+  //    response.json();
+  //    if (response.status == '200')
+  //      $("#success").addClass("show");
+  //    else
+  //      $("#fail").addClass("show");
+  //  }
+  //).then(
+  //  data => console.log(data)
+  //).then(
+  //  success => {
+  //    console.log("Success: " + success);
+  //  }).catch(
+  //    error => {
+  //      console.log("error:" + error);
+  //      $("#fail").addClass("show");
+  //    });
+
 }
 
 $(function () {

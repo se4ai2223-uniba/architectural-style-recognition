@@ -1,7 +1,11 @@
 services:
+
   backend:
     container_name: fastapi_container
     image: roblor/se4ai:latest
+    #build:
+    #  context: ./
+    #  dockerfile: Dockerfile
     ports:
       - '9100:81'
     volumes:
