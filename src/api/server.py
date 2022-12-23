@@ -18,7 +18,6 @@ counter_labeled_images = Counter("counter_labeled_images", "Contatore utile ad o
 counter_feedback= Counter("counter_feedback", "Contatore utile ad osservare quanti feedback sono stati inviati dagli esperti")
 
 
-
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
@@ -94,7 +93,6 @@ async def predict(imgfile: UploadFile):
         ImageValidator(image=copy.deepcopy(imgfile))
         res = await do_predict(imgfile, model)
         counter_predictions.inc()
-        counter_predictions.push_to_gateway("http://localhost:9090", job="prometheus_api", registry=CollectorRegistry())
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
