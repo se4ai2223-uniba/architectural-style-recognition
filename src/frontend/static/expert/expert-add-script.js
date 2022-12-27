@@ -41,10 +41,9 @@ async function uploadNewImage() {
   var value = newLabel.value;
 
   console.log(imageFile, value)
-  console.log("http://localhost:9100/extend_dataset/")
-  fetch('http://localhost:9100/extend_dataset/?label=' + parseInt(value), {
+  console.log("http://0.0.0.0:9100/extend_dataset/")
+  fetch('http://archinet-se4ai.ddns.net:9100/extend_dataset/?label=' + parseInt(value), {
     method: 'POST',
-    headers: {},
     body: formData,
   }).then(
     response => {
@@ -64,6 +63,9 @@ async function uploadNewImage() {
       error => {
         console.log("error:" + error);
       });
+
+
+
 }
 
 

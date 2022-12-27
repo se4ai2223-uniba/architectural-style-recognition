@@ -2,6 +2,8 @@
 import os
 import io
 import copy
+from urllib import response
+from urllib import request
 import PIL
 from PIL import Image
 from fastapi import FastAPI, HTTPException, UploadFile
@@ -9,6 +11,15 @@ from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
+
+
+
+# from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware import Middleware
+
+# from fastapi.middleware.cors import CORSMiddleware
+
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_client import start_http_server
 from wsgiref.simple_server import make_server
@@ -39,25 +50,30 @@ counter_feedback = Counter(
 )
 
 
+
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
 model = Model()
 model = model.loadModel(path_saved_model)
 
-app = FastAPI()
+
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://0.0.0.0:9200",
+            "http://archinet-se4ai.ddns.net:9200",
+            "http://archinet-se4ai.ddns.net:9200/",
+        ],
+        allow_methods=["GET", "PUT", "POST", "OPTIONS"],
+        allow_headers=["*"],
+        allow_credentials=True,
+    )
+]
 
 
-# origins = ["http://localhost:9200", "http://localhost:9100", "http://localhost"]
-origins = ["*"]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = FastAPI(middleware=middleware)
 
 
 class ImageValidator(BaseModel):
@@ -102,6 +118,7 @@ class LabelValidator(BaseModel):
 @app.on_event("startup")
 async def startup():
     Instrumentator().instrument(app).expose(app)
+
 
 
 @app.post("/extend_dataset/")
