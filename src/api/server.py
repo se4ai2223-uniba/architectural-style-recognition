@@ -13,11 +13,42 @@ from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
 
 
+
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
 
 # from fastapi.middleware.cors import CORSMiddleware
+
+from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import start_http_server
+from wsgiref.simple_server import make_server
+from prometheus_fastapi_instrumentator import Instrumentator
+
+from prometheus_client import (
+    Counter,
+    Gauge,
+    Histogram,
+    Summary,
+    push_to_gateway,
+    CollectorRegistry,
+    generate_latest,
+)
+
+
+counter_predictions = Counter(
+    "counter_predictions",
+    "Counter for predictions that have been made",
+)
+counter_labeled_images = Counter(
+    "counter_labeled_images",
+    "Counter for images sent to extend the dataset",
+)
+counter_feedback = Counter(
+    "counter_feedback",
+    "Counter for feedbacks sent by the experts",
+)
+
 
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
@@ -79,25 +110,15 @@ class LabelValidator(BaseModel):
             )
 
 
+# @app.get("/metrics")
+# def get_metrics():
+#    return generate_latest(REGISTRY)
 
-# app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=[
-#        "http://0.0.0.0:9200",
-#        "http://0.0.0.0:9200/",
-#        "http://0.0.0.0:9200/static/index.html",
-#        "http://0.0.0.0:9200/static/expert-add-script.js",
-#        "http://0.0.0.0:9200/static/expert-form-script.js",
-#        "http://archinet-se4ai.ddns.net:9200",
-#        "http://archinet-se4ai.ddns.net:9200/",
-#        "http://archinet-se4ai.ddns.net:9200/static/index.html",
-#        "http://archinet-se4ai.ddns.net:9200/static/expert-add-script.js",
-#        "http://archinet-se4ai.ddns.net:9200/static/expert-form-script.js",
-#    ],
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-#    allow_credentials=True,
-# )
+
+@app.on_event("startup")
+async def startup():
+    Instrumentator().instrument(app).expose(app)
+
 
 
 @app.post("/extend_dataset/")
@@ -107,6 +128,7 @@ async def upload_file(imgfile: UploadFile, label: int):
         LabelValidator(val=label)
         ImageValidator(image=copy.deepcopy(imgfile))
         res = await do_upload(imgfile, label)
+        counter_labeled_images.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -118,6 +140,7 @@ async def predict(imgfile: UploadFile):
     try:
         ImageValidator(image=copy.deepcopy(imgfile))
         res = await do_predict(imgfile, model)
+        counter_predictions.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -138,6 +161,7 @@ async def eval_class(id_img: int, new_class: int):
                 status_code=406,
                 detail="There is already a class specified for that that image id.",
             )
+        counter_feedback.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
