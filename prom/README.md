@@ -39,30 +39,26 @@ A brief example of the configuration of my machine
       "features": {
         "buildkit": true
       },
-      "metrics-addr": "0.0.0.0:9000"
+      "metrics-addr": "0.0.0.0:8967"
     }
 
-As you can see docker will store the metrics on port 9000 of localhost. When the backend container (server) on which the metrics are tracked will be started, then the metrics will be stored at <b>0.0.0.0:9000/metrics.</b>
+As you can see docker will store the metrics on port 8967 of localhost. When the backend container (server) on which the metrics are tracked will be started, then the metrics will be stored at <b>0.0.0.0:8967/metrics.</b>
 
 ### Prometheus yaml
 
 The prometheus configuration file follows.
+If you change the port on Docker engine you'll need to update the port in this file!
 
     global:
       scrape_interval: 5s
-    scrape_configs:
-      - job_name: prometheus_api
-        static_configs:
-          - targets: ['docker.for.mac.localhost:9000']
-        relabel_configs:
-          - source_labels: [__address__]
-            target_label: __param_target
-          - source_labels: [__param_target]
-            target_label: instance
-          - target_label: __address__
-            replacement: docker.for.mac.localhost:9000
 
-When the container of Prometheus will be started, it will pull the metrics from localhost:9000/metrics every 5 seconds.
+    scrape_configs:
+      - job_name: 'prometheus'
+        scrape_interval: 5s
+        static_configs:
+         - targets: ['docker.for.mac.localhost:8967']
+
+When the container of Prometheus will be started, it will pull the metrics from localhost:8967/metrics every 5 seconds.
 
 By default Prometheus is accessible on port 9090 of the container, so be sure that in your docker compose there is the following mapping between the public/private port:
 

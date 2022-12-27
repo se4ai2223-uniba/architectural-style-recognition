@@ -1,14 +1,10 @@
 global:
   scrape_interval: 5s
 
+# Scrape configs only contain one scrape target
 scrape_configs:
-  - job_name: prometheus_api
+  - job_name: 'prometheus'
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
     static_configs:
-      - targets: ['docker.for.mac.localhost:9000']
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-      - target_label: __address__
-        replacement: docker.for.mac.localhost:9000
+      - targets: ['docker.for.mac.localhost:8967']
