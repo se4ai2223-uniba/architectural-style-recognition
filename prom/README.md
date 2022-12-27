@@ -2,7 +2,18 @@
 
 In order to pull the metrics we need to:
 
-<li> Tell to docker where to store the metrics <b>YourIP:YourPort</b>. "Prometheus expects metrics to be available on targets on a path of /metrics". This is done by going to <b>Docker Preferences -> Docker Engine</b> and adding the rows:
+<li> Serve the metrics on an ip and a port <b>YourIP:YourPort</b>. "Prometheus expects metrics to be available on targets on a path of /metrics". 
+<li> Track some metrics with Python library od Prometheus
+<li> Setup the <b>prometheus.yml</b> specifying as target the <b>YourIP:YourPort</b> from the first step
+<li> Start the Containers with docker compose
+
+The metrics tracked with Python will be made available at <b>YourIP:YourPort/metrics</b> and Prometheus will pull them periodically.
+
+## Example
+
+A brief example of the configuration of my machine.
+As eaxmple we can track metrics from Docker as follows:
+<b>Docker Preferences -> Docker Engine</b> and adding the rows:
 
 <br>
 {
@@ -14,17 +25,6 @@ In order to pull the metrics we need to:
 }
 
 <br>
-
-</li>
-<li> Track some metrics with Python library od Prometheus
-<li> Setup the <b>prometheus.yml</b> specifying as target the <b>YourIP:YourPort</b> from the first step
-<li> Start the Containers with docker compose
-
-The metrics tracked with Python will be made available at <b>YourIP:YourPort/metrics</b> and Prometheus will pull them periodically.
-
-## Example
-
-A brief example of the configuration of my machine
 
 ### Docker engine file:
 
@@ -42,7 +42,7 @@ A brief example of the configuration of my machine
       "metrics-addr": "0.0.0.0:8967"
     }
 
-As you can see docker will store the metrics on port 8967 of localhost. When the backend container (server) on which the metrics are tracked will be started, then the metrics will be stored at <b>0.0.0.0:8967/metrics.</b>
+As you can see docker will store the metrics on port 8967 of localhost.
 
 ### Prometheus yaml
 
@@ -79,3 +79,9 @@ By default Prometheus is accessible on port 9090 of the container, so be sure th
           - backend
 
 The Prometheus UI will be available at localhost:9300
+
+
+
+### Real case scenario
+
+The Python script has to be adapted in order to serve the metrics on a port so that Prometheus can pull them as happens with the metrics pulled from Docker in this example.

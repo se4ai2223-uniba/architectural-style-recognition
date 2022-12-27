@@ -10,12 +10,35 @@ from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import start_http_server
+from wsgiref.simple_server import make_server
+from prometheus_fastapi_instrumentator import Instrumentator
 
-from prometheus_client import Counter, Gauge, Histogram, Summary, push_to_gateway, CollectorRegistry
+from prometheus_client import (
+    Counter,
+    Gauge,
+    Histogram,
+    Summary,
+    push_to_gateway,
+    CollectorRegistry,
+    generate_latest,
+)
 
-counter_predictions = Counter("counter_predictions", "Contatore utile ad osservare quante richieste di predizioni sono state eseguite")
-counter_labeled_images = Counter("counter_labeled_images", "Contatore utile ad osservare quante immagini sono state inviate al fine di estendere il dataset")
-counter_feedback= Counter("counter_feedback", "Contatore utile ad osservare quanti feedback sono stati inviati dagli esperti")
+
+REGISTRY = CollectorRegistry()
+
+counter_predictions = Counter(
+    "counter_predictions",
+    "Contatore utile ad osservare quante richieste di predizioni sono state eseguite",
+)
+counter_labeled_images = Counter(
+    "counter_labeled_images",
+    "Contatore utile ad osservare quante immagini sono state inviate al fine di estendere il dataset",
+)
+counter_feedback = Counter(
+    "counter_feedback",
+    "Contatore utile ad osservare quanti feedback sono stati inviati dagli esperti",
+)
 
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
@@ -37,6 +60,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+Instrumentator().instrument(app).expose(app)
 
 
 class ImageValidator(BaseModel):
@@ -71,6 +96,11 @@ class LabelValidator(BaseModel):
             raise ValueError(
                 "Id label error, the label must be a value between 0 and 9."
             )
+
+
+# @app.get("/metrics")
+# def get_metrics():
+#    return generate_latest(REGISTRY)
 
 
 @app.post("/extend_dataset/")
