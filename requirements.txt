@@ -26,5 +26,6 @@ great_expectations
 fastapi[all]
 uvicorn[standard]
 python-multipart
-
+starlette_prometheus
 prometheus_client
+prometheus_fastapi_instrumentator

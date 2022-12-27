@@ -3,8 +3,9 @@ global:
 
 # Scrape configs only contain one scrape target
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'fastapi'
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
     static_configs:
-      - targets: ['docker.for.mac.localhost:8967']
+      - targets: ['docker.for.mac.localhost:9100']
+
