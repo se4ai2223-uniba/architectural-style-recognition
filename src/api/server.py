@@ -25,19 +25,17 @@ from prometheus_client import (
 )
 
 
-REGISTRY = CollectorRegistry()
-
 counter_predictions = Counter(
     "counter_predictions",
-    "Contatore utile ad osservare quante richieste di predizioni sono state eseguite",
+    "Counter for predictions that have been made",
 )
 counter_labeled_images = Counter(
     "counter_labeled_images",
-    "Contatore utile ad osservare quante immagini sono state inviate al fine di estendere il dataset",
+    "Counter for images sent to extend the dataset",
 )
 counter_feedback = Counter(
     "counter_feedback",
-    "Contatore utile ad osservare quanti feedback sono stati inviati dagli esperti",
+    "Counter for feedbacks sent by the experts",
 )
 
 
@@ -60,8 +58,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-Instrumentator().instrument(app).expose(app)
 
 
 class ImageValidator(BaseModel):
@@ -101,6 +97,11 @@ class LabelValidator(BaseModel):
 # @app.get("/metrics")
 # def get_metrics():
 #    return generate_latest(REGISTRY)
+
+
+@app.on_event("startup")
+async def startup():
+    Instrumentator().instrument(app).expose(app)
 
 
 @app.post("/extend_dataset/")

@@ -37,8 +37,6 @@ RUN chmod 0744 /home/archinet/dvc-cron.sh
 # Apply cron job
 RUN crontab /etc/cron.d/dvc-cron
 
-RUN python3 -m pip install --no-cache-dir prometheus_fastapi_instrumentator
-
 WORKDIR /home/archinet
 EXPOSE 81
 CMD /usr/sbin/cron && uvicorn src.api.server:app --reload --host 0.0.0.0 --port 81
