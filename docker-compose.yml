@@ -1,10 +1,10 @@
 services:
   backend:
     container_name: backend_container
-    #image: roblor/se4ai:latest
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: roblor/se4ai:latest
+    #build:
+    #  context: ./
+    #  dockerfile: Dockerfile
     ports:
       - '9100:81'
     volumes:
