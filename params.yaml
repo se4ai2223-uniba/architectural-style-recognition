@@ -4,7 +4,7 @@ label_smoothing : 0.1
 dropout_rate : 0.7
 l2 : 0.05
 batch_size : 16
-epochs : 1
+epochs : 2
 algorithm: "Stochastic Gradient Descent"
 loss: "Categorical-Cross-Entropy"
 patience: 5
