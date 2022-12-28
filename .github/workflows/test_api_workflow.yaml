@@ -27,4 +27,4 @@ jobs:
           pylint --fail-under=7 src/api
       - name: Test the API with pytest
         run: |
-          pytest src/api/test_server.py
+          pytest src/tests/test_server.py
