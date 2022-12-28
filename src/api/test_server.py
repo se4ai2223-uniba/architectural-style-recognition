@@ -68,7 +68,7 @@ def test_upload_ok():
     remove_file(filename)
     delete_last_row_csv('dataset.csv')
     assert resp.status_code == HTTPStatus.OK
-    assert resp.json() == {"filename": original_filename, "id": id_img, "label": 4}
+    assert resp.json() == {"filename": original_filename, "id": id_img, "label": '4'}
 
 def test_upload_ko_image():
     '''Test that the ko is given when a file that is not an image is given in input'''
