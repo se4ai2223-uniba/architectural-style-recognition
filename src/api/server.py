@@ -50,15 +50,12 @@ path_saved_model = os.path.join("models", "saved-model-optimal")
 model = Model()
 model = model.loadModel(path_saved_model)
 
+origins = ["*"]
 
 middleware = [
     Middleware(
         CORSMiddleware,
-        allow_origins=[
-            "http://0.0.0.0:9200",
-            "http://localhost:9200",
-            "http://localhost:9200/",
-        ],
+        allow_origins=["*"],
         allow_methods=["GET", "PUT", "POST", "OPTIONS"],
         allow_headers=["*"],
         allow_credentials=True,
@@ -115,7 +112,6 @@ async def startup():
 
 
 @app.post("/extend_dataset/")
-@REQUEST_TIME.time()
 async def upload_file(imgfile: UploadFile, label: int):
     """Upload an image in order to expand the dataset"""
     try:
@@ -129,7 +125,6 @@ async def upload_file(imgfile: UploadFile, label: int):
 
 
 @app.post("/classify_image/")
-@REQUEST_TIME.time()
 async def predict(imgfile: UploadFile):
     """Use the ml model in order to classify an image"""
     try:
@@ -142,7 +137,6 @@ async def predict(imgfile: UploadFile):
 
 
 @app.put("/feedback_class/")
-@REQUEST_TIME.time()
 async def eval_class(id_img: int, new_class: int):
     """Allows experts to give the real label of an image already classified"""
     try:
