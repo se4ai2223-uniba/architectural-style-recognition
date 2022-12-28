@@ -87,13 +87,13 @@ async function uploadNewClass() {
 
 
   var settings = {
-    "url": "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
+    "url": "http://localhost:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
     "method": "PUT",
 
   };
 
   $.ajax({
-    url: "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
+    url: "http://localhost:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
     method: "PUT",
     headers: { 'Accept': 'application/json' }
   }
