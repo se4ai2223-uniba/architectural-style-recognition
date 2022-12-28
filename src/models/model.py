@@ -6,7 +6,6 @@ from keras.models import model_from_json
 from keras.callbacks import EarlyStopping
 import yaml
 
-
 class Params:
     def __init__(self, cur_path=None):
         self.cur_path = cur_path
