@@ -10,19 +10,11 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
-from fastapi.staticfiles import StaticFiles
-
-
-
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
-
 # from fastapi.middleware.cors import CORSMiddleware
-
 from fastapi.middleware.cors import CORSMiddleware
-from prometheus_client import start_http_server
-from wsgiref.simple_server import make_server
 from prometheus_fastapi_instrumentator import Instrumentator
 
 from prometheus_client import (
@@ -35,6 +27,7 @@ from prometheus_client import (
     generate_latest,
 )
 
+REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
 
 counter_predictions = Counter(
     "counter_predictions",
@@ -63,8 +56,8 @@ middleware = [
         CORSMiddleware,
         allow_origins=[
             "http://0.0.0.0:9200",
-            "http://archinet-se4ai.ddns.net:9200",
-            "http://archinet-se4ai.ddns.net:9200/",
+            "http://localhost:9200",
+            "http://localhost:9200/",
         ],
         allow_methods=["GET", "PUT", "POST", "OPTIONS"],
         allow_headers=["*"],
@@ -122,6 +115,7 @@ async def startup():
 
 
 @app.post("/extend_dataset/")
+@REQUEST_TIME.time()
 async def upload_file(imgfile: UploadFile, label: int):
     """Upload an image in order to expand the dataset"""
     try:
@@ -135,6 +129,7 @@ async def upload_file(imgfile: UploadFile, label: int):
 
 
 @app.post("/classify_image/")
+@REQUEST_TIME.time()
 async def predict(imgfile: UploadFile):
     """Use the ml model in order to classify an image"""
     try:
@@ -147,6 +142,7 @@ async def predict(imgfile: UploadFile):
 
 
 @app.put("/feedback_class/")
+@REQUEST_TIME.time()
 async def eval_class(id_img: int, new_class: int):
     """Allows experts to give the real label of an image already classified"""
     try:

@@ -43,7 +43,7 @@ const upload = (file) => {
   var paragraph = document.getElementById("prediction");
 
   var settings = {
-    "url": "http://archinet-se4ai.ddns.net:9100/classify_image/",
+    "url": "http://localhost:9100/classify_image/",
     "method": "POST",
     "timeout": 0,
     "processData": false,
