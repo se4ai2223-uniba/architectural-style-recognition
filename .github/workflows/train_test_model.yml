@@ -9,7 +9,7 @@ on:
 jobs:
   push_to_registry:
     name: Train and test the model, then call the build workflow
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
