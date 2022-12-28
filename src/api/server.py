@@ -10,9 +10,11 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
+
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
+
 # from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -27,7 +29,7 @@ from prometheus_client import (
     generate_latest,
 )
 
-REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
+REQUEST_TIME = Summary("request_processing_seconds", "Time spent processing request")
 
 counter_predictions = Counter(
     "counter_predictions",
@@ -43,19 +45,24 @@ counter_feedback = Counter(
 )
 
 
-
 path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
 model = Model()
 model = model.loadModel(path_saved_model)
 
-origins = ["*"]
 
 middleware = [
     Middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=[
+            "http://0.0.0.0:9200",
+            "http://0.0.0.0:9300",
+            "http://localhost:9200",
+            "http://localhost:9300",
+            "http://archinet-se4ai.ddns.net:9200",
+            "http://archinet-se4ai.ddns.net:9200/",
+        ],
         allow_methods=["GET", "PUT", "POST", "OPTIONS"],
         allow_headers=["*"],
         allow_credentials=True,
@@ -108,7 +115,6 @@ class LabelValidator(BaseModel):
 @app.on_event("startup")
 async def startup():
     Instrumentator().instrument(app).expose(app)
-
 
 
 @app.post("/extend_dataset/")
