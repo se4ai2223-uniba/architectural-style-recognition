@@ -64,6 +64,10 @@ REQUEST_TIME = Gauge(
     ["method", "endpoint"],
 )
 
+dummy_hist = Histogram("myhist", "desc_hist", buckets=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+dummy_summary = Summary("mySummary", "desc_shummary")
+
+
 counter_predictions = Counter(
     "counter_predictions",
     "Counter for predictions that have been made",
@@ -157,6 +161,8 @@ async def predict(imgfile: UploadFile):
 @app.put("/feedback_class/")
 async def eval_class(id_img: int, new_class: int):
     """Allows experts to give the real label of an image already classified"""
+    dummy_hist.observe(100)
+    dummy_summary.observe(512)
     try:
         LabelValidator(val=new_class)
         start = time()
