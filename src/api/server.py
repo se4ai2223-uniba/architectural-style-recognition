@@ -93,7 +93,9 @@ class ImageValidator(BaseModel):
         """Checks that the input file is actually an image"""
         img = image.file.read()
         try:
-            Image.open(io.BytesIO(img))
+            i = Image.open(io.BytesIO(img))
+            bytes = i.tobytes()
+            print(len(bytes)/10240)
             image.file.close()
         except PIL.UnidentifiedImageError as exc:
             raise ValueError(
@@ -146,7 +148,6 @@ async def upload_file(imgfile: UploadFile, label: int):
 async def predict(imgfile: UploadFile):
     """Use the ml model in order to classify an image"""
     try:
-
         ImageValidator(image=copy.deepcopy(imgfile))
         start = time()
         res = await do_predict(imgfile, model)
