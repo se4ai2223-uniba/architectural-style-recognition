@@ -6,5 +6,5 @@ class ClassifyLoadTest(HttpUser):
     @task
     def classify(self):
         test_file = os.path.join(external,"test_file", "pyramid.jpg")
-        self.client.post('/classify_image/',
+        self.client.post('classify_image/',
                         files={'imgfile': open(test_file, 'rb')})
