@@ -91,3 +91,22 @@ There are many use cases for summaries in Prometheus. Here are some examples of 
 3. Monitor the amount of memory used by applications: you can use a summary to monitor summary statistics of the memory usage of your applications, such as the average, median, maximum, and minimum.
 
 4. Monitor the execution time of database queries: you can use a summary to monitor summary statistics of the execution time of database queries, such as the average, median, maximum, and minimum.
+
+# Grafana Hands-on
+
+- Download docker image:
+
+        docker pull grafana/grafana-oss:latest
+
+- set up the docker-compose file:
+
+    - specify the port for grafana
+    - specify the network for grafana and prometheus
+
+- start all the containers through the docker-compose file
+
+- go to localhost:3000/login and log with username: admin and password: admin
+
+- go to right left of the page and click on ⚙️ ➡️ "Add datasource" ➡️ "prometheus datasource" and add as the URL requested: http://[prometheus container name]:9090
+
+If it is all okay you must see ✅
