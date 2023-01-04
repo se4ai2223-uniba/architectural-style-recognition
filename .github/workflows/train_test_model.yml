@@ -8,8 +8,8 @@ on:
 
 jobs:
   push_to_registry:
-    name: Execute tests od data, train and test the model
-    runs-on: ubuntu-latest
+    name: Train and test the model, then call the build workflow
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -35,3 +35,9 @@ jobs:
       - name: Model tests
         run: |
           pytest src/tests/test_performances.py
+      - name: Dvc push
+        run: |
+          dvc add models/saved-model/model.h5
+          dvc add models/saved-model/model.json
+          dvc commit
+          dvc push
