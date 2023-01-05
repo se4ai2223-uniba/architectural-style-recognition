@@ -85,23 +85,16 @@ async function uploadNewClass() {
   var value = newLabel.value;
   console.log("New class: " + value + " ID image: " + id_image)
 
-
-  var settings = {
-    "url": "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
-    "method": "PUT",
-
-  };
-
   $.ajax({
     url: "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
     method: "PUT",
-    headers: { 'Accept': 'application/json' }
-  }
+    headers: { 'Accept': 'application/json' },
+    success: function (data) {
+      $("#success").addClass("show");
+    },
+    error: function () { $("#fail").addClass("show"); }
+  },
   ).done(function (response) {
-    console.log(response);
-  });
-
-  $.ajax(settings).done(function (response) {
     console.log(response);
   });
 
