@@ -64,8 +64,11 @@ REQUEST_TIME = Gauge(
     ["method", "endpoint"],
 )
 
-dummy_hist = Histogram("myhist", "desc_hist", buckets=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
-dummy_summary = Summary("mySummary", "desc_shummary")
+hist_img = Histogram(
+    "img_size",
+    "Histogram for tracking the size of the images",
+    buckets=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+)
 
 
 counter_predictions = Counter(
@@ -95,7 +98,8 @@ class ImageValidator(BaseModel):
         try:
             i = Image.open(io.BytesIO(img))
             bytes = i.tobytes()
-            print(len(bytes)/10240)
+            print(len(bytes) / 10240)
+            hist_img.observe(len(bytes) / 10240)
             image.file.close()
         except PIL.UnidentifiedImageError as exc:
             raise ValueError(
@@ -162,8 +166,6 @@ async def predict(imgfile: UploadFile):
 @app.put("/feedback_class/")
 async def eval_class(id_img: int, new_class: int):
     """Allows experts to give the real label of an image already classified"""
-    dummy_hist.observe(100)
-    dummy_summary.observe(512)
     try:
         LabelValidator(val=new_class)
         start = time()
