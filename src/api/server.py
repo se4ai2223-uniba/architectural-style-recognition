@@ -67,7 +67,7 @@ REQUEST_TIME = Gauge(
 hist_img = Histogram(
     "img_size",
     "Histogram for tracking the size of the images",
-    buckets=[500,1500,2000,2500]
+    buckets=[100,200,300,400,500,600,700,800,900,1000]
 )
 
 
