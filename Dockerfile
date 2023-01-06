@@ -1,14 +1,13 @@
 FROM python:3.9-slim
 
-RUN  python3 -m pip install --upgrade pip 
-COPY requirements.txt /home/archinet/requirements.txt
-RUN python3 -m pip install --no-cache-dir -r /home/archinet/requirements.txt
-
 RUN apt-get update
 RUN apt-get -y install ffmpeg libsm6 libxext6 
 RUN apt-get -y install cron
 RUN apt-get -y install vim
 
+RUN  python3 -m pip install --upgrade pip 
+COPY requirements.txt /home/archinet/requirements.txt
+RUN python3 -m pip install --no-cache-dir -r /home/archinet/requirements.txt
 
 COPY src/models /home/archinet/src/models
 COPY src/data /home/archinet/src/data

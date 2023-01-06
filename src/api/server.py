@@ -10,14 +10,26 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification
-from fastapi.staticfiles import StaticFiles
-
 
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware import Middleware
 
 # from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
+from time import time
+
+
+from prometheus_client import (
+    Counter,
+    Gauge,
+    Histogram,
+    Summary,
+    push_to_gateway,
+    CollectorRegistry,
+    generate_latest,
+)
 
 
 path_saved_model = os.path.join("models", "saved-model-optimal")
@@ -32,6 +44,9 @@ middleware = [
         CORSMiddleware,
         allow_origins=[
             "http://0.0.0.0:9200",
+            "http://0.0.0.0:9300",
+            "http://localhost:9200",
+            "http://localhost:9300",
             "http://archinet-se4ai.ddns.net:9200",
             "http://archinet-se4ai.ddns.net:9200/",
         ],
@@ -40,9 +55,34 @@ middleware = [
         allow_credentials=True,
     )
 ]
-
-
 app = FastAPI(middleware=middleware)
+
+
+REQUEST_TIME = Gauge(
+    "request_processing_seconds",
+    "Time spent processing request",
+    ["method", "endpoint"],
+)
+
+hist_img = Histogram(
+    "img_size",
+    "Histogram for tracking the size of the images",
+    buckets=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+)
+
+
+counter_predictions = Counter(
+    "counter_predictions",
+    "Counter for predictions that have been made",
+)
+counter_labeled_images = Counter(
+    "counter_labeled_images",
+    "Counter for images sent to extend the dataset",
+)
+counter_feedback = Counter(
+    "counter_feedback",
+    "Counter for feedbacks sent by the experts",
+)
 
 
 class ImageValidator(BaseModel):
@@ -56,7 +96,10 @@ class ImageValidator(BaseModel):
         """Checks that the input file is actually an image"""
         img = image.file.read()
         try:
-            Image.open(io.BytesIO(img))
+            i = Image.open(io.BytesIO(img))
+            bytes = i.tobytes()
+            print(len(bytes) / 10240)
+            hist_img.observe(len(bytes) / 10240)
             image.file.close()
         except PIL.UnidentifiedImageError as exc:
             raise ValueError(
@@ -79,25 +122,14 @@ class LabelValidator(BaseModel):
             )
 
 
+# @app.get("/metrics")
+# def get_metrics():
+#    return generate_latest(REGISTRY)
 
-# app.add_middleware(
-#    CORSMiddleware,
-#    allow_origins=[
-#        "http://0.0.0.0:9200",
-#        "http://0.0.0.0:9200/",
-#        "http://0.0.0.0:9200/static/index.html",
-#        "http://0.0.0.0:9200/static/expert-add-script.js",
-#        "http://0.0.0.0:9200/static/expert-form-script.js",
-#        "http://archinet-se4ai.ddns.net:9200",
-#        "http://archinet-se4ai.ddns.net:9200/",
-#        "http://archinet-se4ai.ddns.net:9200/static/index.html",
-#        "http://archinet-se4ai.ddns.net:9200/static/expert-add-script.js",
-#        "http://archinet-se4ai.ddns.net:9200/static/expert-form-script.js",
-#    ],
-#    allow_methods=["*"],
-#    allow_headers=["*"],
-#    allow_credentials=True,
-# )
+
+@app.on_event("startup")
+async def startup():
+    Instrumentator().instrument(app).expose(app)
 
 
 @app.post("/extend_dataset/")
@@ -106,7 +138,11 @@ async def upload_file(imgfile: UploadFile, label: int):
     try:
         LabelValidator(val=label)
         ImageValidator(image=copy.deepcopy(imgfile))
+        start = time()
         res = await do_upload(imgfile, label)
+        end = time()
+        counter_labeled_images.inc()
+        REQUEST_TIME.labels("POST", "/extend_dataset").set(end - start)
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -117,7 +153,11 @@ async def predict(imgfile: UploadFile):
     """Use the ml model in order to classify an image"""
     try:
         ImageValidator(image=copy.deepcopy(imgfile))
+        start = time()
         res = await do_predict(imgfile, model)
+        end = time()
+        REQUEST_TIME.labels("POST", "/classify_image").set(end - start)
+        counter_predictions.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
@@ -128,7 +168,10 @@ async def eval_class(id_img: int, new_class: int):
     """Allows experts to give the real label of an image already classified"""
     try:
         LabelValidator(val=new_class)
+        start = time()
         res = evaluate_classification(id_img, new_class)
+        end = time()
+        REQUEST_TIME.labels("POST", "/feedback_class").set(end - start)
         if res == "ko404":
             raise HTTPException(
                 status_code=404, detail="There is no classified image with that id."
@@ -138,6 +181,7 @@ async def eval_class(id_img: int, new_class: int):
                 status_code=406,
                 detail="There is already a class specified for that that image id.",
             )
+        counter_feedback.inc()
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
