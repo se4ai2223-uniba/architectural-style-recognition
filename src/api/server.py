@@ -10,7 +10,7 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
 from src.api.services import do_predict, do_upload, evaluate_classification, is_drift
-from src.drift_detector.drift_detector import DriftDetector
+from src.api.drift_detector import DriftDetector
 
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
