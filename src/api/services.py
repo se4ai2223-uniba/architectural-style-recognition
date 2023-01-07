@@ -87,3 +87,13 @@ async def do_upload(file: UploadFile, label: int):
     increase_id()
 
     return {"filename": str(file.filename), "id": str(new_id), "label": str(label)}
+
+def is_drift(res, drift_model):
+    id_img=res['id']
+    original_filename = res['filename']
+    image_path = os.path.join("data", "external", "images", str(id_img) + "_" + original_filename)
+    r_drift = drift_model.is_drift(image_path)
+    if(r_drift[0]==1):
+        return r_drift[2]
+    else: 
+        return 0

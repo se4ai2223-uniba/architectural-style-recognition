@@ -9,7 +9,8 @@ from PIL import Image
 from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, ValidationError, validator
 from src.models.model import Model
-from src.api.services import do_predict, do_upload, evaluate_classification
+from src.api.services import do_predict, do_upload, evaluate_classification, is_drift
+from src.drift_detector.drift_detector import DriftDetector
 
 # from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
@@ -36,6 +37,7 @@ path_saved_model = os.path.join("models", "saved-model-optimal")
 
 ## remove the parameter cur_path if appears the error "No such file 'params.yaml'"
 model = Model()
+drift_detector = DriftDetector()
 model = model.loadModel(path_saved_model)
 
 
@@ -62,6 +64,11 @@ REQUEST_TIME = Gauge(
     "request_processing_seconds",
     "Time spent processing request",
     ["method", "endpoint"],
+)
+
+AVG_DDFC = Gauge(
+    "avg_ddfc",
+    "Average of last 5 'delay detection following change' of the drift detector."
 )
 
 hist_img = Histogram(
@@ -110,9 +117,7 @@ class ImageValidator(BaseModel):
 
 class LabelValidator(BaseModel):
     """Pydantic validator for class labels"""
-
     val: int
-
     @validator("val")
     def check_val(cls, value):
         """Checks that the provided label is between 0 and 9"""
@@ -156,12 +161,15 @@ async def predict(imgfile: UploadFile):
         start = time()
         res = await do_predict(imgfile, model)
         end = time()
+
+        avg_ddfc = is_drift(res,drift_detector)
+        AVG_DDFC.set(avg_ddfc)
+
         REQUEST_TIME.labels("POST", "/classify_image").set(end - start)
-        counter_predictions.inc()
+        counter_predictions.inc()        
         return res
     except ValidationError as exc:
         raise HTTPException(status_code=406, detail=str(exc.raw_errors[0].exc)) from exc
-
 
 @app.put("/feedback_class/")
 async def eval_class(id_img: int, new_class: int):
