@@ -18,7 +18,7 @@ class DriftDetector:
     ref_path = os.path.join('data','external','ref_data')
     encoder_path = os.path.join('models','autoencoder_drift_detector','encoder.pkl')
     self.n_average = 5
-    self.arr_ddfc = [0 for x in range(self.n_average)] # detection delay following change
+    self.arr_ddfc = [] # detection delay following change
     self.avg_index = 0
     self.avg = 0
 
@@ -64,7 +64,12 @@ class DriftDetector:
     self.drift = self.dd.predict(tensor)['data']['is_drift']
     self.t = self.t + 1
     if(self.drift):
-        self.arr_ddfc[self.avg_index]=self.t
+        
+        if(len(self.arr_ddfc)<self.n_average):
+          self.arr_ddfc.append(self.t)
+        else:
+          self.arr_ddfc[self.avg_index]=self.t
+
         self.avg = mean(self.arr_ddfc) 
         self.avg_index+=1
         self.avg_index = self.avg_index%self.n_average

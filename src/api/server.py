@@ -163,7 +163,9 @@ async def predict(imgfile: UploadFile):
         end = time()
 
         avg_ddfc = is_drift(res,drift_detector)
-        AVG_DDFC.set(avg_ddfc)
+        
+        if(avg_ddfc != 0):
+            AVG_DDFC.set(avg_ddfc)
 
         REQUEST_TIME.labels("POST", "/classify_image").set(end - start)
         counter_predictions.inc()        
