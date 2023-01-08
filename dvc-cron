@@ -1,0 +1,1 @@
+0 0 * * *  sh /home/archinet/dvc-cron.sh

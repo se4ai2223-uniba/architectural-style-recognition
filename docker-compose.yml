@@ -1,0 +1,55 @@
+services:
+
+  backend:
+    container_name: backend_container
+    #image: roblor/se4ai:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '9100:81'
+    volumes:
+      - type: volume
+        source: fastapi_volume
+        target: /home/archinet/data
+
+  frontend:
+    container_name: frontend_container
+    ports:
+      - '9200:82'
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+
+  prometheus:
+    container_name: prometheus_container
+    ports:
+      - '9300:9090'
+    build:
+      context: ./prom
+      dockerfile: Dockerfile
+    networks:
+      - prometheus_grafana
+    depends_on:
+      - backend
+
+  grafana:
+    container_name: grafana_container
+    image: grafana/grafana-oss
+    ports:
+      - '3000:3000'
+    networks:
+      - prometheus_grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  fastapi_volume:
+
+
+networks:
+  prometheus_grafana:
+
+

@@ -23,3 +23,6 @@ mlruns/
 
 .env
 
+venv/
+
+__pycache__/

@@ -1,2 +1,2 @@
 /results*.txt
-/predictions.txt
+__pycache__/predictions.txt

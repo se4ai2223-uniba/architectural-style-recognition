@@ -1,0 +1,8 @@
+[
+  {
+    "id": "redeploy",
+    "execute-command": "redeploy.sh",
+    "command-working-directory": "/Users/Roberto/projects/se4ai/architectural-style-recognition",
+    "response-message": "Redeploying API server."
+  }
+]

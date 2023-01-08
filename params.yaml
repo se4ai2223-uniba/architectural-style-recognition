@@ -1,0 +1,11 @@
+learning_rate : 0.05
+momentum : 0.9
+label_smoothing : 0.1
+dropout_rate : 0.7
+l2 : 0.05
+batch_size : 16
+epochs : 2
+algorithm: "Stochastic Gradient Descent"
+loss: "Categorical-Cross-Entropy"
+patience: 5
+early_stopping_metric: 'val_loss'
