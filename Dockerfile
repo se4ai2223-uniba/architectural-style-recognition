@@ -12,7 +12,9 @@ RUN python3 -m pip install --no-cache-dir -r /home/archinet/requirements.txt
 COPY src/models /home/archinet/src/models
 COPY src/data /home/archinet/src/data
 COPY src/api /home/archinet/src/api
+
 COPY models/saved-model-optimal /home/archinet/models/saved-model-optimal
+COPY models/autoencoder_drift_detector /home/archinet/models/autoencoder_drift_detector
 COPY params.yaml /home/archinet/params.yaml
 COPY data /home/archinet/data
 
