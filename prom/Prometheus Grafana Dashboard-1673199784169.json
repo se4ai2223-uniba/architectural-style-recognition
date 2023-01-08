@@ -550,9 +550,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 19,
-        "x": 2,
+        "h": 5,
+        "w": 24,
+        "x": 0,
         "y": 24
       },
       "id": 2,
@@ -647,10 +647,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 29
       },
       "id": 4,
       "options": {
@@ -740,10 +740,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 29
       },
       "id": 8,
       "options": {
@@ -794,11 +794,11 @@
               },
               {
                 "color": "#EAB839",
-                "value": 10000
+                "value": 1000000
               },
               {
                 "color": "red",
-                "value": 100000
+                "value": 10000000
               }
             ]
           },
@@ -807,10 +807,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 6,
-        "y": 38
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 35
       },
       "id": 15,
       "options": {
@@ -850,7 +850,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 40
       },
       "id": 23,
       "panels": [],
@@ -896,7 +896,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 41
       },
       "id": 21,
       "options": {
@@ -944,6 +944,6 @@
   "timezone": "",
   "title": "Prometheus Grafana Dashboard",
   "uid": "yuGTiMhVz",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }

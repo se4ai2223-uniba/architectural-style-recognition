@@ -43,7 +43,7 @@ const upload = (file) => {
   var paragraph = document.getElementById("prediction");
 
   var settings = {
-    "url": "http://localhost:9100/classify_image/",
+    "url": "http://archinet-se4ai.ddns.net:9100/classify_image/",
     "method": "POST",
     "timeout": 0,
     "processData": false,
@@ -86,7 +86,7 @@ async function uploadNewClass() {
   console.log("New class: " + value + " ID image: " + id_image)
 
   $.ajax({
-    url: "http://localhost:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
+    url: "http://archinet-se4ai.ddns.net:9100/feedback_class/?id_img=" + parseInt(id_image) + '&new_class=' + parseInt(value),
     method: "PUT",
     headers: { 'Accept': 'application/json' },
     success: function (data) {
