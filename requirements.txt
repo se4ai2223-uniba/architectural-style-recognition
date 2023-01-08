@@ -29,3 +29,6 @@ python-multipart
 starlette_prometheus
 prometheus_client
 prometheus_fastapi_instrumentator
+torch
+torchvision
+alibi_detect
