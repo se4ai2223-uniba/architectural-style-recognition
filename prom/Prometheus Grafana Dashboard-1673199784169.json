@@ -18,6 +18,12 @@
       "version": ""
     },
     {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
@@ -334,12 +340,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -548,9 +550,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 19,
-        "x": 2,
+        "h": 5,
+        "w": 24,
+        "x": 0,
         "y": 24
       },
       "id": 2,
@@ -645,10 +647,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 29
       },
       "id": 4,
       "options": {
@@ -738,10 +740,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 29
       },
       "id": 8,
       "options": {
@@ -792,11 +794,11 @@
               },
               {
                 "color": "#EAB839",
-                "value": 10000
+                "value": 1000000
               },
               {
                 "color": "red",
-                "value": 100000
+                "value": 10000000
               }
             ]
           },
@@ -805,10 +807,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 6,
-        "y": 38
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 35
       },
       "id": 15,
       "options": {
@@ -841,6 +843,90 @@
       ],
       "title": "Occupied memory ",
       "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Drift Detector",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 21,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.3.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "builder",
+          "expr": "avg_ddfc",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Average Detection Delay Following Change",
+      "type": "gauge"
     }
   ],
   "refresh": "10s",
@@ -858,6 +944,6 @@
   "timezone": "",
   "title": "Prometheus Grafana Dashboard",
   "uid": "yuGTiMhVz",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
